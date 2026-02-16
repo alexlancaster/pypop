@@ -1,0 +1,1237 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9172181d"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <link rel="icon" href="_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="#"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#_"><strong>_</strong></a>
+ | <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#X"><strong>X</strong></a>
+ 
+</div>
+<h2 id="_">_</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/command_line_interface/index.html#PyPop.command_line_interface.CitationAction.__call__">__call__() (CitationAction method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.__deepcopy__">__deepcopy__() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.Group.__getitem__">__getitem__() (Group method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.__getitem__">(StringMatrix method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.__getslice__">__getslice__() (StringMatrix method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.__len__">__len__() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.__repr__">__repr__() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.__setitem__">__setitem__() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.SubclassError.__str__">__str__() (SubclassError method)</a>
+</li>
+      <li><a href="api/index.html#PyPop.__version__">__version__ (in module PyPop)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.addAllele">addAllele() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.addAllele">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.addAllele">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AlleleCountAnthonyNolanFilter">AlleleCountAnthonyNolanFilter (class in PyPop.filters)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.AlleleCounts">AlleleCounts (class in PyPop.datatypes)</a>
+</li>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Emhaplofreq.allPairwise">allPairwise() (Emhaplofreq method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Haplostats.allPairwise">(Haplostats method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter">AnthonyNolanFilter (class in PyPop.filters)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.appendTo2dList">appendTo2dList() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinBatch">ArlequinBatch (class in PyPop.arlequin)</a>
+</li>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinExactHWTest">ArlequinExactHWTest (class in PyPop.arlequin)</a>
+</li>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinWrapper">ArlequinWrapper (class in PyPop.arlequin)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.BinningFilter">BinningFilter (class in PyPop.filters)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity.canGenerateExpectedStats">canGenerateExpectedStats() (Homozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.checkAlleleName">checkAlleleName() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.checkAlleleName">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.checkAlleleName">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.checkIfSequenceData">checkIfSequenceData() (in module PyPop.datatypes)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.checkXSLFile">checkXSLFile() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/citation/index.html#PyPop.citation.citation_output_formats">citation_output_formats (in module PyPop.citation)</a>
+</li>
+      <li><a href="api/PyPop/command_line_interface/index.html#PyPop.command_line_interface.CitationAction">CitationAction (class in PyPop.command_line_interface)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.cleanup">cleanup() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinWrapper.cleanup">(ArlequinWrapper method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.cleanup">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.cleanup">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.TextOutputStream.close">close() (TextOutputStream method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.XMLOutputStream.closetag">closetag() (XMLOutputStream method)</a>
+</li>
+      <li><a href="api/PyPop/citation/index.html#PyPop.citation.convert_citation_formats">convert_citation_formats() (in module PyPop.citation)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.convertLineEndings">convertLineEndings() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.convertToInts">convertToInts() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.copy">copy() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.copyCustomPlatform">copyCustomPlatform() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.copyfileCustomPlatform">copyfileCustomPlatform() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/index.html#PyPop.copyright_message">copyright_message (in module PyPop)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.countPairs">countPairs() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.critical_exit">critical_exit() (in module PyPop.utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.HomozygosityEWSlatkinExact.doCalcs">doCalcs() (HomozygosityEWSlatkinExact method)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.BinningFilter.doCustomBinning">doCustomBinning() (BinningFilter method)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.BinningFilter.doDigitBinning">doDigitBinning() (BinningFilter method)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.doFiltering">doFiltering() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.doFiltering">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.doFiltering">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.dump">dump() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinbergGuoThompson.dumpTable">dumpTable() (HardyWeinbergGuoThompson method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Emhaplofreq">Emhaplofreq (class in PyPop.haplo)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.XMLOutputStream.emptytag">emptytag() (XMLOutputStream method)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.endFiltering">endFiltering() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.endFiltering">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.endFiltering">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AlleleCountAnthonyNolanFilter.endFirstPass">endFirstPass() (AlleleCountAnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.endFirstPass">(AnthonyNolanFilter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.endFirstPass">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.endFirstPass">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Emhaplofreq.estHaplotypes">estHaplotypes() (Emhaplofreq method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Haplostats.estHaplotypes">(Haplostats method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Emhaplofreq.estLinkageDisequilibrium">estLinkageDisequilibrium() (Emhaplofreq method)</a>
+</li>
+      <li><a href="api/PyPop/xslt/index.html#PyPop.xslt.exponent_len">exponent_len() (in module PyPop.xslt)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter">Filter (class in PyPop.filters)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.filterAllele">filterAllele() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.filterAllele">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.filterAllele">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.filterOut">filterOut() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.fixForPlatform">fixForPlatform() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.flattenCols">flattenCols() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.TextOutputStream.flush">flush() (TextOutputStream method)</a>
+</li>
+      <li><a href="api/PyPop/xslt/index.html#PyPop.xslt.format_number_fixed_width">format_number_fixed_width() (in module PyPop.xslt)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinbergGuoThompson.generateFlattenedMatrix">generateFlattenedMatrix() (HardyWeinbergGuoThompson method)</a>
+</li>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.HaploArlequin.genHaplotypes">genHaplotypes() (HaploArlequin method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.GENOTYPE_SEPARATOR">GENOTYPE_SEPARATOR (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.GENOTYPE_TERMINATOR">GENOTYPE_TERMINATOR (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes">Genotypes (class in PyPop.datatypes)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseFile.genSampleOutput">genSampleOutput() (ParseFile method)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseAlleleCountFile.genValidKey">genValidKey() (ParseAlleleCountFile method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseGenotypeFile.genValidKey">(ParseGenotypeFile method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/command_line_interface/index.html#PyPop.command_line_interface.get_parent_cli">get_parent_cli() (in module PyPop.command_line_interface)</a>
+</li>
+      <li><a href="api/PyPop/command_line_interface/index.html#PyPop.command_line_interface.get_popmeta_cli">get_popmeta_cli() (in module PyPop.command_line_interface)</a>
+</li>
+      <li><a href="api/PyPop/command_line_interface/index.html#PyPop.command_line_interface.get_pypop_cli">get_pypop_cli() (in module PyPop.command_line_interface)</a>
+</li>
+      <li><a href="api/PyPop/popanalysis/index.html#PyPop.popanalysis.get_sequence_directory">get_sequence_directory() (in module PyPop.popanalysis)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.AlleleCounts.getAlleleCount">getAlleleCount() (AlleleCounts method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.getAlleleCount">(Genotypes method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.getAlleleCountAt">getAlleleCountAt() (Genotypes method)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseAlleleCountFile.getAlleleTable">getAlleleTable() (ParseAlleleCountFile method)</a>
+</li>
+      <li><a href="api/PyPop/popanalysis/index.html#PyPop.popanalysis.getConfigInstance">getConfigInstance() (in module PyPop.popanalysis)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity.getCount">getCount() (Homozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity.getExpectedHomozygosity">getExpectedHomozygosity() (Homozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseFile.getFileData">getFileData() (ParseFile method)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.HomozygosityEWSlatkinExact.getHomozygosity">getHomozygosity() (HomozygosityEWSlatkinExact method)</a>
+</li>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinExactHWTest.getHWExactTest">getHWExactTest() (ArlequinExactHWTest method)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.getIndividualsData">getIndividualsData() (Genotypes method)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.getLocusData">getLocusData() (Genotypes method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.getLocusDataAt">getLocusDataAt() (Genotypes method)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.getLocusList">getLocusList() (Genotypes method)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.AlleleCounts.getLocusName">getLocusName() (AlleleCounts method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseAlleleCountFile.getLocusName">(ParseAlleleCountFile method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.getLocusPairs">getLocusPairs() (in module PyPop.datatypes)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.getLumpedDataLevels">getLumpedDataLevels() (in module PyPop.datatypes)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseAlleleCountFile.getMatrix">getMatrix() (ParseAlleleCountFile method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseGenotypeFile.getMatrix">(ParseGenotypeFile method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.getMetaLocus">getMetaLocus() (in module PyPop.datatypes)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.getNewStringMatrix">getNewStringMatrix() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity.getNormDevHomozygosity">getNormDevHomozygosity() (Homozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity.getObservedHomozygosity">getObservedHomozygosity() (Homozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.getObservedHomozygosityFromAlleleData">getObservedHomozygosityFromAlleleData() (in module PyPop.homozygosity)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseFile.getPopData">getPopData() (ParseFile method)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity.getPValueRange">getPValueRange() (Homozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseFile.getSampleMap">getSampleMap() (ParseFile method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.getStreamType">getStreamType() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.getSuperType">getSuperType() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/popanalysis/index.html#PyPop.popanalysis.Main.getTxtOutPath">getTxtOutPath() (Main method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix.getUniqueAlleles">getUniqueAlleles() (StringMatrix method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.getUserFilenameInput">getUserFilenameInput() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity.getVarExpectedHomozygosity">getVarExpectedHomozygosity() (Homozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/popanalysis/index.html#PyPop.popanalysis.Main.getXmlOutPath">getXmlOutPath() (Main method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.glob_with_pathlib">glob_with_pathlib() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.Group">Group (class in PyPop.utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Haplo">Haplo (class in PyPop.haplo)</a>
+</li>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.HaploArlequin">HaploArlequin (class in PyPop.haplo)</a>
+</li>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Haplostats">Haplostats (class in PyPop.haplo)</a>
+</li>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinberg">HardyWeinberg (class in PyPop.hardyweinberg)</a>
+</li>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinbergEnumeration">HardyWeinbergEnumeration (class in PyPop.hardyweinberg)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinbergGuoThompson">HardyWeinbergGuoThompson (class in PyPop.hardyweinberg)</a>
+</li>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinbergGuoThompsonArlequin">HardyWeinbergGuoThompsonArlequin (class in PyPop.hardyweinberg)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity">Homozygosity (class in PyPop.homozygosity)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.HomozygosityEWSlatkinExact">HomozygosityEWSlatkinExact (class in PyPop.homozygosity)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.HomozygosityEWSlatkinExactPairwise">HomozygosityEWSlatkinExactPairwise (class in PyPop.homozygosity)</a>
+</li>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinExactHWTest.hwExactTest">hwExactTest (ArlequinExactHWTest attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/index.html#PyPop.logger">logger (in module PyPop)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.BinningFilter.lookupCustomBinning">lookupCustomBinning() (BinningFilter method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/popanalysis/index.html#PyPop.popanalysis.Main">Main (class in PyPop.popanalysis)</a>
+</li>
+      <li><a href="api/PyPop/popmeta/index.html#PyPop.popmeta.main">main() (in module PyPop.popmeta)</a>
+
+      <ul>
+        <li><a href="api/PyPop/pypop/index.html#PyPop.pypop.main">(in module PyPop.pypop)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/pypop/index.html#PyPop.pypop.main_interactive">main_interactive() (in module PyPop.pypop)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.makeSeqDictionaries">makeSeqDictionaries() (AnthonyNolanFilter method)</a>
+</li>
+      <li><a href="api/PyPop/popaggregate/index.html#PyPop.popaggregate.Meta">Meta (class in PyPop.popaggregate)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="api/index.html#module-PyPop">PyPop</a>
+</li>
+        <li><a href="api/PyPop/arlequin/index.html#module-PyPop.arlequin">PyPop.arlequin</a>
+</li>
+        <li><a href="api/PyPop/citation/index.html#module-PyPop.citation">PyPop.citation</a>
+</li>
+        <li><a href="api/PyPop/command_line_interface/index.html#module-PyPop.command_line_interface">PyPop.command_line_interface</a>
+</li>
+        <li><a href="api/PyPop/datatypes/index.html#module-PyPop.datatypes">PyPop.datatypes</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#module-PyPop.filters">PyPop.filters</a>
+</li>
+        <li><a href="api/PyPop/haplo/index.html#module-PyPop.haplo">PyPop.haplo</a>
+</li>
+        <li><a href="api/PyPop/hardyweinberg/index.html#module-PyPop.hardyweinberg">PyPop.hardyweinberg</a>
+</li>
+        <li><a href="api/PyPop/homozygosity/index.html#module-PyPop.homozygosity">PyPop.homozygosity</a>
+</li>
+        <li><a href="api/PyPop/parsers/index.html#module-PyPop.parsers">PyPop.parsers</a>
+</li>
+        <li><a href="api/PyPop/popaggregate/index.html#module-PyPop.popaggregate">PyPop.popaggregate</a>
+</li>
+        <li><a href="api/PyPop/popanalysis/index.html#module-PyPop.popanalysis">PyPop.popanalysis</a>
+</li>
+        <li><a href="api/PyPop/popmeta/index.html#module-PyPop.popmeta">PyPop.popmeta</a>
+</li>
+        <li><a href="api/PyPop/pypop/index.html#module-PyPop.pypop">PyPop.pypop</a>
+</li>
+        <li><a href="api/PyPop/randombinning/index.html#module-PyPop.randombinning">PyPop.randombinning</a>
+</li>
+        <li><a href="api/PyPop/utils/index.html#module-PyPop.utils">PyPop.utils</a>
+</li>
+        <li><a href="api/PyPop/xslt/index.html#module-PyPop.xslt">PyPop.xslt</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.natural_sort_key">natural_sort_key() (in module PyPop.utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/xslt/index.html#PyPop.xslt.ns">ns (in module PyPop.xslt)</a>
+</li>
+      <li><a href="api/PyPop/xslt/index.html#PyPop.xslt.num_zeros">num_zeros() (in module PyPop.xslt)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.XMLOutputStream.opentag">opentag() (XMLOutputStream method)</a>
+</li>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinBatch.outputArlequin">outputArlequin() (ArlequinBatch method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.HaploArlequin.outputArlequin">(HaploArlequin method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinWrapper.outputArpFile">outputArpFile() (ArlequinWrapper method)</a>
+</li>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinWrapper.outputArsFile">outputArsFile() (ArlequinWrapper method)</a>
+</li>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinBatch.outputRunFiles">outputRunFiles() (ArlequinBatch method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinWrapper.outputRunFiles">(ArlequinWrapper method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseAlleleCountFile">ParseAlleleCountFile (class in PyPop.parsers)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseFile">ParseFile (class in PyPop.parsers)</a>
+</li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseGenotypeFile">ParseGenotypeFile (class in PyPop.parsers)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter">PassThroughFilter (class in PyPop.filters)</a>
+</li>
+      <li><a href="api/index.html#PyPop.platform_info">platform_info (in module PyPop)</a>
+</li>
+      <li><a href="api/PyPop/xslt/index.html#PyPop.xslt.prefix">prefix (in module PyPop.xslt)</a>
+</li>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.pval">pval() (in module PyPop.hardyweinberg)</a>
+</li>
+      <li>
+    PyPop
+
+      <ul>
+        <li><a href="api/index.html#module-PyPop">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.arlequin
+
+      <ul>
+        <li><a href="api/PyPop/arlequin/index.html#module-PyPop.arlequin">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.citation
+
+      <ul>
+        <li><a href="api/PyPop/citation/index.html#module-PyPop.citation">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.command_line_interface
+
+      <ul>
+        <li><a href="api/PyPop/command_line_interface/index.html#module-PyPop.command_line_interface">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.datatypes
+
+      <ul>
+        <li><a href="api/PyPop/datatypes/index.html#module-PyPop.datatypes">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.filters
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#module-PyPop.filters">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.haplo
+
+      <ul>
+        <li><a href="api/PyPop/haplo/index.html#module-PyPop.haplo">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    PyPop.hardyweinberg
+
+      <ul>
+        <li><a href="api/PyPop/hardyweinberg/index.html#module-PyPop.hardyweinberg">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.homozygosity
+
+      <ul>
+        <li><a href="api/PyPop/homozygosity/index.html#module-PyPop.homozygosity">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.parsers
+
+      <ul>
+        <li><a href="api/PyPop/parsers/index.html#module-PyPop.parsers">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.popaggregate
+
+      <ul>
+        <li><a href="api/PyPop/popaggregate/index.html#module-PyPop.popaggregate">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.popanalysis
+
+      <ul>
+        <li><a href="api/PyPop/popanalysis/index.html#module-PyPop.popanalysis">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.popmeta
+
+      <ul>
+        <li><a href="api/PyPop/popmeta/index.html#module-PyPop.popmeta">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.pypop
+
+      <ul>
+        <li><a href="api/PyPop/pypop/index.html#module-PyPop.pypop">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.randombinning
+
+      <ul>
+        <li><a href="api/PyPop/randombinning/index.html#module-PyPop.randombinning">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.utils
+
+      <ul>
+        <li><a href="api/PyPop/utils/index.html#module-PyPop.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    PyPop.xslt
+
+      <ul>
+        <li><a href="api/PyPop/xslt/index.html#module-PyPop.xslt">module</a>
+</li>
+      </ul></li>
+      <li><a href="api/index.html#PyPop.PyPopModuleRenameDeprecationWarning">PyPopModuleRenameDeprecationWarning</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/randombinning/index.html#PyPop.randombinning.RandomBinsForHomozygosity">RandomBinsForHomozygosity (class in PyPop.randombinning)</a>
+</li>
+      <li><a href="api/PyPop/randombinning/index.html#PyPop.randombinning.RandomBinsForHomozygosity.randomMethod">randomMethod() (RandomBinsForHomozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.HomozygosityEWSlatkinExact.returnBulkHomozygosityStats">returnBulkHomozygosityStats() (HomozygosityEWSlatkinExact method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinBatch.runArlequin">runArlequin() (ArlequinBatch method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.ArlequinWrapper.runArlequin">(ArlequinWrapper method)</a>
+</li>
+        <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.HaploArlequin.runArlequin">(HaploArlequin method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/randombinning/index.html#PyPop.randombinning.RandomBinsForHomozygosity.sequenceMethod">sequenceMethod() (RandomBinsForHomozygosity method)</a>
+</li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.AlleleCounts.serializeAlleleCountDataAt">serializeAlleleCountDataAt() (AlleleCounts method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.serializeAlleleCountDataAt">(Genotypes method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.serializeAlleleCountDataTo">serializeAlleleCountDataTo() (Genotypes method)</a>
+</li>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Emhaplofreq.serializeEnd">serializeEnd() (Emhaplofreq method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Haplostats.serializeEnd">(Haplostats method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.Homozygosity.serializeHomozygosityTo">serializeHomozygosityTo() (Homozygosity method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.HomozygosityEWSlatkinExact.serializeHomozygosityTo">(HomozygosityEWSlatkinExact method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseFile.serializeMetadataTo">serializeMetadataTo() (ParseFile method)</a>
+</li>
+      <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Emhaplofreq.serializeStart">serializeStart() (Emhaplofreq method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/haplo/index.html#PyPop.haplo.Haplostats.serializeStart">(Haplostats method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.AlleleCounts.serializeSubclassMetadataTo">serializeSubclassMetadataTo() (AlleleCounts method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/datatypes/index.html#PyPop.datatypes.Genotypes.serializeSubclassMetadataTo">(Genotypes method)</a>
+</li>
+        <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseAlleleCountFile.serializeSubclassMetadataTo">(ParseAlleleCountFile method)</a>
+</li>
+        <li><a href="api/PyPop/parsers/index.html#PyPop.parsers.ParseGenotypeFile.serializeSubclassMetadataTo">(ParseGenotypeFile method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinberg.serializeTo">serializeTo() (HardyWeinberg method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinbergEnumeration.serializeTo">(HardyWeinbergEnumeration method)</a>
+</li>
+        <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinbergGuoThompsonArlequin.serializeTo">(HardyWeinbergGuoThompsonArlequin method)</a>
+</li>
+        <li><a href="api/PyPop/homozygosity/index.html#PyPop.homozygosity.HomozygosityEWSlatkinExactPairwise.serializeTo">(HomozygosityEWSlatkinExactPairwise method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.HardyWeinberg.serializeXMLTableTo">serializeXMLTableTo() (HardyWeinberg method)</a>
+</li>
+      <li><a href="api/index.html#PyPop.setup_logger">setup_logger() (in module PyPop)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.splitIntoNGroups">splitIntoNGroups() (in module PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.startFiltering">startFiltering() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.startFiltering">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.startFiltering">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.startFirstPass">startFirstPass() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.startFirstPass">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.startFirstPass">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.StringMatrix">StringMatrix (class in PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.SubclassError">SubclassError</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.XMLOutputStream.tagContents">tagContents() (XMLOutputStream method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.TextOutputStream">TextOutputStream (class in PyPop.utils)</a>
+</li>
+      <li><a href="api/PyPop/popaggregate/index.html#PyPop.popaggregate.translate_file_to_file">translate_file_to_file() (in module PyPop.popaggregate)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/popaggregate/index.html#PyPop.popaggregate.translate_file_to_stdout">translate_file_to_stdout() (in module PyPop.popaggregate)</a>
+</li>
+      <li><a href="api/PyPop/popaggregate/index.html#PyPop.popaggregate.translate_string_to_file">translate_string_to_file() (in module PyPop.popaggregate)</a>
+</li>
+      <li><a href="api/PyPop/popaggregate/index.html#PyPop.popaggregate.translate_string_to_stdout">translate_string_to_stdout() (in module PyPop.popaggregate)</a>
+</li>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.translateMatrix">translateMatrix() (AnthonyNolanFilter method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.unique_elements">unique_elements() (in module PyPop.utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/arlequin/index.html#PyPop.arlequin.usage_message">usage_message (in module PyPop.arlequin)</a>
+</li>
+      <li><a href="api/PyPop/hardyweinberg/index.html#PyPop.hardyweinberg.use_scipy">use_scipy (in module PyPop.hardyweinberg)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.TextOutputStream.write">write() (TextOutputStream method)</a>
+</li>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.TextOutputStream.writeln">writeln() (TextOutputStream method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/filters/index.html#PyPop.filters.AnthonyNolanFilter.writeToLog">writeToLog() (AnthonyNolanFilter method)</a>
+
+      <ul>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.Filter.writeToLog">(Filter method)</a>
+</li>
+        <li><a href="api/PyPop/filters/index.html#PyPop.filters.PassThroughFilter.writeToLog">(PassThroughFilter method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/PyPop/utils/index.html#PyPop.utils.XMLOutputStream">XMLOutputStream (class in PyPop.utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
