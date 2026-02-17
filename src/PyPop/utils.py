@@ -484,7 +484,7 @@ class StringMatrix(Sequence):
             for elem in self.extraList:
                 stream.write(elem + self.colSep)
 
-        locusList = locus if locus else ":".join(self.colList)
+        locusList = locus or ":".join(self.colList)
 
         # next write out the allele column headers
         for elem in locusList.split(":"):
