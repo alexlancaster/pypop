@@ -331,8 +331,9 @@ jobs:
 
           mkdir -p "$TARGET"
           echo "location to put .pyz file: $TARGET"
-          echo "check versions: $(ls virtualenv*.pyz)"
-          cp "${VIRTUALENV_CACHE_DIR}/virtualenv-*.pyz" "$TARGET/"
+          echo "check versions:"
+          ls ${VIRTUALENV_CACHE_DIR}
+          cp "${VIRTUALENV_CACHE_DIR}/*.pyz" "$TARGET/"
 
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v6
