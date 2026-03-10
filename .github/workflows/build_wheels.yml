@@ -254,6 +254,10 @@ jobs:
           mkdir -p "${VIRTUALENV_CACHE_DIR}"
 
           curl -L \
+            https://github.com/pypa/get-virtualenv/raw/20.21.1/public/virtualenv.pyz \
+            -o "${VIRTUALENV_CACHE_DIR}/virtualenv-20.21.1.pyz"
+
+          curl -L \
             https://github.com/pypa/get-virtualenv/raw/20.30.0/public/virtualenv.pyz \
             -o "${VIRTUALENV_CACHE_DIR}/virtualenv-20.30.0.pyz"
 
@@ -326,7 +330,9 @@ jobs:
           fi
 
           mkdir -p "$TARGET"
-          cp "${VIRTUALENV_CACHE_DIR}/virtualenv-20.21.1.pyz" "$TARGET/"
+          echo "location to put .pyz file: $TARGET"
+          echo "check versions: $(ls virtualenv*.pyz)"
+          cp "${VIRTUALENV_CACHE_DIR}/virtualenv-*.pyz" "$TARGET/"
 
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v6
