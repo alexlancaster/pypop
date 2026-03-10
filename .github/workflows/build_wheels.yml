@@ -304,6 +304,7 @@ jobs:
           echo "POOCH_CACHE=${POOCH_CACHE}" >> $GITHUB_ENV
 
       - name: Restore cibuildwheel virtualenv bootstrap cache
+        if: matrix.cibw_version == '2.23.3' && runner.os != 'Linux'
         uses: actions/cache/restore@v5
         with:
           path: ${{ env.VIRTUALENV_CACHE_DIR }}
@@ -313,16 +314,19 @@ jobs:
           enableCrossOsArchive: true
 
       - name: Install cibuildwheel virtualenv bootstrap
+        if: matrix.cibw_version == '2.23.3' && runner.os != 'Linux'
         shell: bash
         run: |
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             TARGET="$LOCALAPPDATA/pypa/cibuildwheel/Cache"
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            TARGET="$HOME/Library/Caches/cibuildwheel"
           else
             TARGET="$HOME/.cache/cibuildwheel"
           fi
 
           mkdir -p "$TARGET"
-          cp "${VIRTUALENV_CACHE_DIR}/virtualenv-20.30.0.pyz" "$TARGET/"
+          cp "${VIRTUALENV_CACHE_DIR}/virtualenv-20.21.1.pyz" "$TARGET/"
 
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v6
