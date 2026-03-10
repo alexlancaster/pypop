@@ -259,18 +259,6 @@ jobs:
 
           echo "virtualenv bootstrap cached successfully."
 
-      - name: Preload cibuildwheel virtualenv bootstrap into cache
-        if: ${{ steps.virtualenv_cache.outputs.cache-hit != 'true' }}
-        run: |
-          echo "Cache not found or outdated. Fetching virtualenv bootstrap..."
-          mkdir -p "${VIRTUALENV_CACHE_DIR}"
-
-          curl -L \
-            https://github.com/pypa/get-virtualenv/raw/20.30.0/public/virtualenv.pyz \
-            -o "${VIRTUALENV_CACHE_DIR}/virtualenv-20.30.0.pyz"
-
-          echo "virtualenv bootstrap cached successfully."
-
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
