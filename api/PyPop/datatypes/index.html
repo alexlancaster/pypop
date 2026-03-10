@@ -1,0 +1,868 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyPop.datatypes &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/PyPop/datatypes/index';</script>
+    <link rel="icon" href="../../../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PyPop.filters" href="../filters/index.html" />
+    <link rel="prev" title="PyPop.command_line_interface" href="../command_line_interface/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../citation/index.html">PyPop.citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line_interface/index.html">PyPop.command_line_interface</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PyPop.datatypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters/index.html">PyPop.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haplo/index.html">PyPop.haplo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardyweinberg/index.html">PyPop.hardyweinberg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homozygosity/index.html">PyPop.homozygosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/index.html">PyPop.parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popaggregate/index.html">PyPop.popaggregate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popanalysis/index.html">PyPop.popanalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popmeta/index.html">PyPop.popmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypop/index.html">PyPop.pypop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../randombinning/index.html">PyPop.randombinning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">PyPop.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xslt/index.html">PyPop.xslt</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arlequin/index.html">PyPop.arlequin - DEPRECATED</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes"><code class="docutils literal notranslate"><span class="pre">Genotypes</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.getLocusList"><code class="docutils literal notranslate"><span class="pre">Genotypes.getLocusList()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.getAlleleCount"><code class="docutils literal notranslate"><span class="pre">Genotypes.getAlleleCount()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.getAlleleCountAt"><code class="docutils literal notranslate"><span class="pre">Genotypes.getAlleleCountAt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.serializeSubclassMetadataTo"><code class="docutils literal notranslate"><span class="pre">Genotypes.serializeSubclassMetadataTo()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.serializeAlleleCountDataAt"><code class="docutils literal notranslate"><span class="pre">Genotypes.serializeAlleleCountDataAt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.serializeAlleleCountDataTo"><code class="docutils literal notranslate"><span class="pre">Genotypes.serializeAlleleCountDataTo()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.getLocusDataAt"><code class="docutils literal notranslate"><span class="pre">Genotypes.getLocusDataAt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.getLocusData"><code class="docutils literal notranslate"><span class="pre">Genotypes.getLocusData()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.Genotypes.getIndividualsData"><code class="docutils literal notranslate"><span class="pre">Genotypes.getIndividualsData()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.AlleleCounts"><code class="docutils literal notranslate"><span class="pre">AlleleCounts</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.AlleleCounts.serializeSubclassMetadataTo"><code class="docutils literal notranslate"><span class="pre">AlleleCounts.serializeSubclassMetadataTo()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.AlleleCounts.serializeAlleleCountDataAt"><code class="docutils literal notranslate"><span class="pre">AlleleCounts.serializeAlleleCountDataAt()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.AlleleCounts.getAlleleCount"><code class="docutils literal notranslate"><span class="pre">AlleleCounts.getAlleleCount()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.AlleleCounts.getLocusName"><code class="docutils literal notranslate"><span class="pre">AlleleCounts.getLocusName()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.checkIfSequenceData"><code class="docutils literal notranslate"><span class="pre">checkIfSequenceData()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.getMetaLocus"><code class="docutils literal notranslate"><span class="pre">getMetaLocus()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.getLocusPairs"><code class="docutils literal notranslate"><span class="pre">getLocusPairs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.datatypes.getLumpedDataLevels"><code class="docutils literal notranslate"><span class="pre">getLumpedDataLevels()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../../../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../../../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">API Reference (1.4.0)</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PyPop.datatypes</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-PyPop.datatypes">
+<span id="pypop-datatypes"></span><h1>PyPop.datatypes<a class="headerlink" href="#module-PyPop.datatypes" title="Link to this heading">#</a></h1>
+<p>Data structures storing genotype and allele count data.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.datatypes.Genotypes" title="PyPop.datatypes.Genotypes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Genotypes</span></code></a></p></td>
+<td><p>Stores genotypes and caches basic genotype statistics.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.datatypes.AlleleCounts" title="PyPop.datatypes.AlleleCounts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlleleCounts</span></code></a></p></td>
+<td><p>Deprecated class to store information in allele count form.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.datatypes.checkIfSequenceData" title="PyPop.datatypes.checkIfSequenceData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">checkIfSequenceData</span></code></a>(matrix)</p></td>
+<td><p>Heuristic check to determine whether we are analysing sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.datatypes.getMetaLocus" title="PyPop.datatypes.getMetaLocus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getMetaLocus</span></code></a>(locus, isSequenceData)</p></td>
+<td><p>Get the overall locus that this sequence belongs to.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.datatypes.getLocusPairs" title="PyPop.datatypes.getLocusPairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLocusPairs</span></code></a>(matrix, sequenceData)</p></td>
+<td><p>Get locus pairs for a given matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.datatypes.getLumpedDataLevels" title="PyPop.datatypes.getLumpedDataLevels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getLumpedDataLevels</span></code></a>(genotypeData, locus, lumpLevels)</p></td>
+<td><p>Get lumped data for a specific locus.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Genotypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">untypedAllele</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'****'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsequencedSite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowSemiTyped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes" title="Link to this definition">#</a></dt>
+<dd><p>Stores genotypes and caches basic genotype statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<a class="reference internal" href="../utils/index.html#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix"><em>StringMatrix</em></a>) – The <code class="docutils literal notranslate"><span class="pre">StringMatrix</span></code> to be converted into a <code class="docutils literal notranslate"><span class="pre">Genotype</span></code> instance</p></li>
+<li><p><strong>untypedAllele</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The placeholder for an untyped allele site</p></li>
+<li><p><strong>unsequencedSite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – The identifier used for an unsequenced site (only used for sequence data)</p></li>
+<li><p><strong>allowSemiTyped</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Whether or not to allow individuals that are typed at only one allele</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.getLocusList">
+<span class="sig-name descname"><span class="pre">getLocusList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.getLocusList" title="Link to this definition">#</a></dt>
+<dd><p>Get the list of loci.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The returned list filters out all loci that consist of
+individuals that are all untyped.  The order of returned
+list is now fixed for the lifetime of the object.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The list of loci.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.getAlleleCount">
+<span class="sig-name descname"><span class="pre">getAlleleCount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.getAlleleCount" title="Link to this definition">#</a></dt>
+<dd><p>Allele count statistics for all loci.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a map of tuples where the key is the locus name.  Each
+tuple is a triple, consisting of a map keyed by alleles
+containing counts, the total count at that locus and the
+number of untyped individuals.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.getAlleleCountAt">
+<span class="sig-name descname"><span class="pre">getAlleleCountAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lumpValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.getAlleleCountAt" title="Link to this definition">#</a></dt>
+<dd><p>Get allele count for given locus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>locus</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – locus</p></li>
+<li><p><strong>lumpValue</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the specified amount of lumping (Default: 0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a tuple consisting of a map keyed by alleles
+containing counts, the total count at that locus, and
+number of untyped individuals.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.serializeSubclassMetadataTo">
+<span class="sig-name descname"><span class="pre">serializeSubclassMetadataTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.serializeSubclassMetadataTo" title="Link to this definition">#</a></dt>
+<dd><p>Serialize subclass-specific metadata.</p>
+<p>Specifically, total number of individuals and loci and
+population name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="../utils/index.html#PyPop.utils.TextOutputStream" title="PyPop.utils.TextOutputStream"><em>TextOutputStream</em></a>) – the stream used for output.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.serializeAlleleCountDataAt">
+<span class="sig-name descname"><span class="pre">serializeAlleleCountDataAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locus</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.serializeAlleleCountDataAt" title="Link to this definition">#</a></dt>
+<dd><p>Serialize locus count data for a specific locus.</p>
+<p>Specifically, total number of individuals and loci and
+population name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<a class="reference internal" href="../utils/index.html#PyPop.utils.TextOutputStream" title="PyPop.utils.TextOutputStream"><em>TextOutputStream</em></a>) – the stream used for output</p></li>
+<li><p><strong>locus</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – locus</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.serializeAlleleCountDataTo">
+<span class="sig-name descname"><span class="pre">serializeAlleleCountDataTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.serializeAlleleCountDataTo" title="Link to this definition">#</a></dt>
+<dd><p>Serialize allele count data for a specific locus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="../utils/index.html#PyPop.utils.TextOutputStream" title="PyPop.utils.TextOutputStream"><em>TextOutputStream</em></a>) – the stream used for output</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>always returns <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.getLocusDataAt">
+<span class="sig-name descname"><span class="pre">getLocusDataAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lumpValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.getLocusDataAt" title="Link to this definition">#</a></dt>
+<dd><p>Get the genotyped data for specified locus.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The returned list has filtered out all individuals that
+are untyped at either chromosome. Data is sorted so that
+<code class="docutils literal notranslate"><span class="pre">allele1</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">allele2</span></code>, alphabetically</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>locus</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – locus to use</p></li>
+<li><p><strong>lumpValue</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the specified amount of lumping (Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list genotypes consisting of 2-tuples which
+contain each of the alleles for that individual in the
+list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.getLocusData">
+<span class="sig-name descname"><span class="pre">getLocusData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.getLocusData" title="Link to this definition">#</a></dt>
+<dd><p>Get the genotyped data for all loci.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>keyed by locus name of lists of 2-tuples as defined
+by <a class="reference internal" href="#PyPop.datatypes.Genotypes.getLocusDataAt" title="PyPop.datatypes.Genotypes.getLocusDataAt"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getLocusDataAt()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.Genotypes.getIndividualsData">
+<span class="sig-name descname"><span class="pre">getIndividualsData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.Genotypes.getIndividualsData" title="Link to this definition">#</a></dt>
+<dd><p>Get data for all individuals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">StringMatrix</span></code> for all individuals</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../utils/index.html#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix">StringMatrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.datatypes.AlleleCounts">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">AlleleCounts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alleleTable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locusName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.AlleleCounts" title="Link to this definition">#</a></dt>
+<dd><p>Deprecated class to store information in allele count form.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.6.0: </span>this class is now obsolete, the <a class="reference internal" href="#PyPop.datatypes.Genotypes" title="PyPop.datatypes.Genotypes"><code class="xref py py-class docutils literal notranslate"><span class="pre">Genotypes</span></code></a> class
+now holds allele count data as pseudo-genotype matrix.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.AlleleCounts.serializeSubclassMetadataTo">
+<span class="sig-name descname"><span class="pre">serializeSubclassMetadataTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.AlleleCounts.serializeSubclassMetadataTo" title="Link to this definition">#</a></dt>
+<dd><p>Serialize subclass-specific metadata.</p>
+<p>Specifically, total number of alleles and loci.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.AlleleCounts.serializeAlleleCountDataAt">
+<span class="sig-name descname"><span class="pre">serializeAlleleCountDataAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locus</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.AlleleCounts.serializeAlleleCountDataAt" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.AlleleCounts.getAlleleCount">
+<span class="sig-name descname"><span class="pre">getAlleleCount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.AlleleCounts.getAlleleCount" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.datatypes.AlleleCounts.getLocusName">
+<span class="sig-name descname"><span class="pre">getLocusName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.AlleleCounts.getLocusName" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.datatypes.checkIfSequenceData">
+<span class="sig-name descname"><span class="pre">checkIfSequenceData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.checkIfSequenceData" title="Link to this definition">#</a></dt>
+<dd><p>Heuristic check to determine whether we are analysing sequence.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The regex matches loci of the form <code class="docutils literal notranslate"><span class="pre">A_32</span></code> or <code class="docutils literal notranslate"><span class="pre">A_-32</span></code></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>matrix</strong> (<a class="reference internal" href="../utils/index.html#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix"><em>StringMatrix</em></a>) – matrix to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>if sequence, return <code class="docutils literal notranslate"><span class="pre">1</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.datatypes.getMetaLocus">
+<span class="sig-name descname"><span class="pre">getMetaLocus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isSequenceData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.getMetaLocus" title="Link to this definition">#</a></dt>
+<dd><p>Get the overall locus that this sequence belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>locus</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Locus of interest.</p></li>
+<li><p><strong>isSequenceData</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – whether this locus is sequence data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The locus name, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not sequence data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.datatypes.getLocusPairs">
+<span class="sig-name descname"><span class="pre">getLocusPairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequenceData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.getLocusPairs" title="Link to this definition">#</a></dt>
+<dd><p>Get locus pairs for a given matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<a class="reference internal" href="../utils/index.html#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix"><em>StringMatrix</em></a>) – matrix</p></li>
+<li><p><strong>sequenceData</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – is this sequence data?</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a list of all pairs of loci from a given <code class="docutils literal notranslate"><span class="pre">StringMatrix</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.datatypes.getLumpedDataLevels">
+<span class="sig-name descname"><span class="pre">getLumpedDataLevels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">genotypeData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lumpLevels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.datatypes.getLumpedDataLevels" title="Link to this definition">#</a></dt>
+<dd><p>Get lumped data for a specific locus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>genotypeData</strong> (<a class="reference internal" href="#PyPop.datatypes.Genotypes" title="PyPop.datatypes.Genotypes"><em>Genotypes</em></a>) – genotype data to query</p></li>
+<li><p><strong>locus</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – the locus</p></li>
+<li><p><strong>lumpLevels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – a list of integers representing lumping levels</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>a dictionary of tuples:</dt><dd><ul class="simple">
+<li><p>locusData: keyed by locus</p></li>
+<li><p>alleleCount:</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../command_line_interface/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyPop.command_line_interface</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../filters/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PyPop.filters</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

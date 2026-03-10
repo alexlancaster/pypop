@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyPop.xslt &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/PyPop/xslt/index';</script>
+    <link rel="icon" href="../../../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PyPop.arlequin" href="../arlequin/index.html" />
+    <link rel="prev" title="PyPop.utils" href="../utils/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../citation/index.html">PyPop.citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line_interface/index.html">PyPop.command_line_interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes/index.html">PyPop.datatypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters/index.html">PyPop.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haplo/index.html">PyPop.haplo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardyweinberg/index.html">PyPop.hardyweinberg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homozygosity/index.html">PyPop.homozygosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/index.html">PyPop.parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popaggregate/index.html">PyPop.popaggregate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popanalysis/index.html">PyPop.popanalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popmeta/index.html">PyPop.popmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypop/index.html">PyPop.pypop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../randombinning/index.html">PyPop.randombinning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">PyPop.utils</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PyPop.xslt</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arlequin/index.html">PyPop.arlequin - DEPRECATED</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-contents">Package Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.xslt.ns"><code class="docutils literal notranslate"><span class="pre">ns</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.xslt.prefix"><code class="docutils literal notranslate"><span class="pre">prefix</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.xslt.num_zeros"><code class="docutils literal notranslate"><span class="pre">num_zeros()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.xslt.exponent_len"><code class="docutils literal notranslate"><span class="pre">exponent_len()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.xslt.format_number_fixed_width"><code class="docutils literal notranslate"><span class="pre">format_number_fixed_width()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../../../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../../../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">API Reference (1.4.0)</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PyPop.xslt</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-PyPop.xslt">
+<span id="pypop-xslt"></span><h1>PyPop.xslt<a class="headerlink" href="#module-PyPop.xslt" title="Link to this heading">#</a></h1>
+<p>Python XSLT extensions for handling things outside the scope of XSLT 1.0.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.xslt.ns" title="PyPop.xslt.ns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ns</span></code></a></p></td>
+<td><p>Function namespace for custom PyPop XSLT extension functions.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.xslt.num_zeros" title="PyPop.xslt.num_zeros"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_zeros</span></code></a>(decimal)</p></td>
+<td><p>Count zeroes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.xslt.exponent_len" title="PyPop.xslt.exponent_len"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponent_len</span></code></a>(num)</p></td>
+<td><p>Calculate space taken for exponent.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.xslt.format_number_fixed_width" title="PyPop.xslt.format_number_fixed_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_number_fixed_width</span></code></a>(_context, *args)</p></td>
+<td><p>Format number to fixed width.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading">#</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.xslt.ns">
+<span class="sig-name descname"><span class="pre">ns</span></span><a class="headerlink" href="#PyPop.xslt.ns" title="Link to this definition">#</a></dt>
+<dd><p>Function namespace for custom PyPop XSLT extension functions.</p>
+<p>This namespace allows registering Python functions that can be called
+directly from XSLT stylesheets.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PyPop.xslt.prefix">
+<span class="sig-name descname"><span class="pre">prefix</span></span><a class="headerlink" href="#PyPop.xslt.prefix" title="Link to this definition">#</a></dt>
+<dd><p>The namespace prefix used in XSLT stylesheets.  Here
+it is set to <code class="docutils literal notranslate"><span class="pre">&quot;es&quot;</span></code>, so extension functions are invoked as
+<code class="docutils literal notranslate"><span class="pre">es:format_number_fixed_width(...)</span></code>. See example in
+<a class="reference internal" href="#PyPop.xslt.format_number_fixed_width" title="PyPop.xslt.format_number_fixed_width"><code class="xref py py-meth docutils literal notranslate"><span class="pre">format_number_fixed_width()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.xslt.num_zeros">
+<span class="sig-name descname"><span class="pre">num_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decimal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.xslt.num_zeros" title="Link to this definition">#</a></dt>
+<dd><p>Count zeroes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>decimal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – number to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of zeroes in floating point number, or <code class="docutils literal notranslate"><span class="pre">inf</span></code> if number is zero</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.xslt.exponent_len">
+<span class="sig-name descname"><span class="pre">exponent_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.xslt.exponent_len" title="Link to this definition">#</a></dt>
+<dd><p>Calculate space taken for exponent.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exponent_len</span><span class="p">(</span><span class="mf">1e-03</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exponent_len</span><span class="p">(</span><span class="mf">1e-10</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – input number</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>length of exponent</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.xslt.format_number_fixed_width">
+<span class="sig-name descname"><span class="pre">format_number_fixed_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.xslt.format_number_fixed_width" title="Link to this definition">#</a></dt>
+<dd><p>Format number to fixed width.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ns</span><span class="p">[</span><span class="s2">&quot;format_number_fixed_width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">format_number_fixed_width</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">XML</span><span class="p">(</span><span class="s2">&quot;&lt;a&gt;&lt;b&gt;0.0000043&lt;/b&gt;&lt;/a&gt;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xslt</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">XSLT</span><span class="p">(</span><span class="n">etree</span><span class="o">.</span><span class="n">XML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="gp">... </span><span class="s1">&lt;stylesheet version=&quot;1.0&quot; xmlns=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:es=&quot;http://pypop.org/lxml/functions&quot;&gt;</span>
+<span class="gp">... </span><span class="s1"> &lt;output method=&quot;text&quot; encoding=&quot;ASCII&quot;/&gt;</span>
+<span class="gp">... </span><span class="s1"> &lt;template match=&quot;/&quot;&gt;</span>
+<span class="gp">... </span><span class="s1">  &lt;text&gt;Yep [&lt;/text&gt;</span>
+<span class="gp">... </span><span class="s1">  &lt;value-of select=&quot;es:format_number_fixed_width(string(/a/b), 5)&quot;/&gt;</span>
+<span class="gp">... </span><span class="s1">  &lt;text&gt;]&lt;/text&gt;</span>
+<span class="gp">... </span><span class="s1"> &lt;/template&gt;</span>
+<span class="gp">... </span><span class="s1">&lt;/stylesheet&gt;</span>
+<span class="gp">... </span><span class="s1">&#39;&#39;&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">xslt</span><span class="p">(</span><span class="n">doc</span><span class="p">))</span>
+<span class="go">Yep [4.3e-6]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>arguments from XSLT file: <code class="docutils literal notranslate"><span class="pre">num</span></code> and <code class="docutils literal notranslate"><span class="pre">places</span></code> are encoded in
+<code class="docutils literal notranslate"><span class="pre">*args</span></code>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>_context</strong> (<em>obj</em>) – not used</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>formatted number to fixed width</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../utils/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyPop.utils</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../arlequin/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PyPop.arlequin</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

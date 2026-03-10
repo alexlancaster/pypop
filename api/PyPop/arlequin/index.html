@@ -1,0 +1,770 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyPop.arlequin &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/PyPop/arlequin/index';</script>
+    <link rel="icon" href="../../../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="PyPop.xslt" href="../xslt/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../citation/index.html">PyPop.citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line_interface/index.html">PyPop.command_line_interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes/index.html">PyPop.datatypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters/index.html">PyPop.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haplo/index.html">PyPop.haplo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardyweinberg/index.html">PyPop.hardyweinberg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homozygosity/index.html">PyPop.homozygosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/index.html">PyPop.parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popaggregate/index.html">PyPop.popaggregate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popanalysis/index.html">PyPop.popanalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popmeta/index.html">PyPop.popmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypop/index.html">PyPop.pypop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../randombinning/index.html">PyPop.randombinning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">PyPop.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xslt/index.html">PyPop.xslt</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PyPop.arlequin - DEPRECATED</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinWrapper"><code class="docutils literal notranslate"><span class="pre">ArlequinWrapper</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinWrapper.outputArpFile"><code class="docutils literal notranslate"><span class="pre">ArlequinWrapper.outputArpFile()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinWrapper.outputArsFile"><code class="docutils literal notranslate"><span class="pre">ArlequinWrapper.outputArsFile()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinWrapper.outputRunFiles"><code class="docutils literal notranslate"><span class="pre">ArlequinWrapper.outputRunFiles()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinWrapper.runArlequin"><code class="docutils literal notranslate"><span class="pre">ArlequinWrapper.runArlequin()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinWrapper.cleanup"><code class="docutils literal notranslate"><span class="pre">ArlequinWrapper.cleanup()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinExactHWTest"><code class="docutils literal notranslate"><span class="pre">ArlequinExactHWTest</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinExactHWTest.hwExactTest"><code class="docutils literal notranslate"><span class="pre">ArlequinExactHWTest.hwExactTest</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinExactHWTest.getHWExactTest"><code class="docutils literal notranslate"><span class="pre">ArlequinExactHWTest.getHWExactTest()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinBatch"><code class="docutils literal notranslate"><span class="pre">ArlequinBatch</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinBatch.outputArlequin"><code class="docutils literal notranslate"><span class="pre">ArlequinBatch.outputArlequin()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinBatch.outputRunFiles"><code class="docutils literal notranslate"><span class="pre">ArlequinBatch.outputRunFiles()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.ArlequinBatch.runArlequin"><code class="docutils literal notranslate"><span class="pre">ArlequinBatch.runArlequin()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.arlequin.usage_message"><code class="docutils literal notranslate"><span class="pre">usage_message</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../../../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../../../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">API Reference (1.4.0)</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PyPop.arlequin</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-PyPop.arlequin">
+<span id="pypop-arlequin"></span><h1>PyPop.arlequin<a class="headerlink" href="#module-PyPop.arlequin" title="Link to this heading">#</a></h1>
+<p>Provides Arlequin functionality in Python.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.0.0: </span>Only works for an obsolete version of Arlequin.</p>
+</div>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.arlequin.usage_message" title="PyPop.arlequin.usage_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">usage_message</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.arlequin.ArlequinWrapper" title="PyPop.arlequin.ArlequinWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArlequinWrapper</span></code></a></p></td>
+<td><p>Wraps the functionality of the <a class="reference external" href="http://lgb.unige.ch/arlequin/">Arlequin</a> program.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.arlequin.ArlequinExactHWTest" title="PyPop.arlequin.ArlequinExactHWTest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArlequinExactHWTest</span></code></a></p></td>
+<td><p>Wraps the Arlequin Hardy-Weinberg exact functionality.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.arlequin.ArlequinBatch" title="PyPop.arlequin.ArlequinBatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArlequinBatch</span></code></a></p></td>
+<td><p>A wrapper for running Arlequin from the command-line.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinWrapper">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ArlequinWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arlequinPrefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arl_run'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arlequinExec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arlecore.exe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">untypedAllele</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'****'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arpFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output.arp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arsFilename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arl_run.ars'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinWrapper" title="Link to this definition">#</a></dt>
+<dd><p>Wraps the functionality of the <a class="reference external" href="http://lgb.unige.ch/arlequin/">Arlequin</a> program.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<a class="reference internal" href="../utils/index.html#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix"><em>StringMatrix</em></a>) – matrix</p></li>
+<li><p><strong>arlequinPrefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – directory prefix (default <code class="docutils literal notranslate"><span class="pre">arl_run</span></code>)</p></li>
+<li><p><strong>arlequinExec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – executable program (default <code class="docutils literal notranslate"><span class="pre">arlecore.exe</span></code>)</p></li>
+<li><p><strong>untypedAllele</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – untyped allele designator (default <code class="docutils literal notranslate"><span class="pre">****</span></code>)</p></li>
+<li><p><strong>arpFilename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – default output file name (default <code class="docutils literal notranslate"><span class="pre">output.arp</span></code>)</p></li>
+<li><p><strong>arsFilename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – default run file name (default <code class="docutils literal notranslate"><span class="pre">arl_run.ars</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinWrapper.outputArpFile">
+<span class="sig-name descname"><span class="pre">outputArpFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinWrapper.outputArpFile" title="Link to this definition">#</a></dt>
+<dd><p>Output the <code class="docutils literal notranslate"><span class="pre">.arp</span></code> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>group</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – list of loci to pass to Arlequin</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinWrapper.outputArsFile">
+<span class="sig-name descname"><span class="pre">outputArsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arsFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arsContents</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinWrapper.outputArsFile" title="Link to this definition">#</a></dt>
+<dd><p>Outputs the run-time Arlequin program file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arsFilename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – name of file</p></li>
+<li><p><strong>arsContents</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – contents of file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinWrapper.outputRunFiles">
+<span class="sig-name descname"><span class="pre">outputRunFiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinWrapper.outputRunFiles" title="Link to this definition">#</a></dt>
+<dd><p>Generates the expected ‘.txt’ set-up files for Arlequin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinWrapper.runArlequin">
+<span class="sig-name descname"><span class="pre">runArlequin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinWrapper.runArlequin" title="Link to this definition">#</a></dt>
+<dd><p>Run the Arlequin haplotyping program.</p>
+<p>Forks a copy of <code class="docutils literal notranslate"><span class="pre">arlecore.exe</span></code>, which must be on <code class="docutils literal notranslate"><span class="pre">PATH</span></code> to
+actually generate the desired statistics estimates from the
+generated <code class="docutils literal notranslate"><span class="pre">.arp</span></code> file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinWrapper.cleanup">
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinWrapper.cleanup" title="Link to this definition">#</a></dt>
+<dd><p>Remove the working Arlequin subdirectory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinExactHWTest">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ArlequinExactHWTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lociList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markovChainStepsHW</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markovChainDememorisationStepsHW</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinExactHWTest" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyPop.arlequin.ArlequinWrapper" title="PyPop.arlequin.ArlequinWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArlequinWrapper</span></code></a></p>
+<div class="graphviz"><img src="../../../_images/inheritance-e02be612559f8a65a55581e4f71f7a23326e73b9.png" alt="Inheritance diagram of PyPop.arlequin.ArlequinExactHWTest" usemap="#inheritance3bca399374" class="inheritance graphviz" /></div>
+<map id="inheritance3bca399374" name="inheritance3bca399374">
+<area shape="rect" id="node1" href="#PyPop.arlequin.ArlequinExactHWTest" target="_top" title="Wraps the Arlequin Hardy&#45;Weinberg exact functionality." alt="" coords="155,5,316,31"/>
+<area shape="rect" id="node2" href="#PyPop.arlequin.ArlequinWrapper" target="_top" title="Wraps the functionality of the `Arlequin &lt;http://lgb.unige.ch/arlequin/&gt;`_ program." alt="" coords="5,5,136,31"/>
+</map><p>Wraps the Arlequin Hardy-Weinberg exact functionality.</p>
+<p>Run Hardy-Weinberg exact test on list specified in <code class="docutils literal notranslate"><span class="pre">lociList</span></code>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinExactHWTest.hwExactTest">
+<span class="sig-name descname"><span class="pre">hwExactTest</span></span><a class="headerlink" href="#PyPop.arlequin.ArlequinExactHWTest.hwExactTest" title="Link to this definition">#</a></dt>
+<dd><p>standard config options for Arlequin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<a class="reference internal" href="../utils/index.html#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix"><em>StringMatrix</em></a>) – StringMatrix for testing</p></li>
+<li><p><strong>lociList</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – list of loci</p></li>
+<li><p><strong>markovChainStepsHW</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of steps to use in Markov chain
+(default: <code class="docutils literal notranslate"><span class="pre">100000</span></code>)</p></li>
+<li><p><strong>markovChainDememorisationStepsHW</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – “Burn-in” time for Markov
+chain (default: <code class="docutils literal notranslate"><span class="pre">1000</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinExactHWTest.getHWExactTest">
+<span class="sig-name descname"><span class="pre">getHWExactTest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinExactHWTest.getHWExactTest" title="Link to this definition">#</a></dt>
+<dd><p>Returns a dictionary of loci.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>Each dictionary element contains a tuple of the results from
+the Arlequin implementation of the Hardy-Weinberg exact test,
+namely:</p>
+<ul class="simple">
+<li><p>number of genotypes,</p></li>
+<li><p>observed heterozygosity,</p></li>
+<li><p>expected heterozygosity,</p></li>
+<li><p>the p-value,</p></li>
+<li><p>the standard deviation,</p></li>
+<li><p>number of steps,</p></li>
+</ul>
+<p>If locus is monomorphic, the HW exact test can’t be run, and
+the contents of the dictionary element simply contains the
+string <code class="docutils literal notranslate"><span class="pre">monomorphic</span></code>, rather than the tuple of values.</p>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinBatch">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ArlequinBatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arpFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arsFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefixCols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffixCols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">untypedAllele</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arlequinPrefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arl_run'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinBatch" title="Link to this definition">#</a></dt>
+<dd><p>A wrapper for running Arlequin from the command-line.</p>
+<p>Given a delimited text file of multi-locus genotype data: provides
+methods to output Arlequin format data files and runtime info and
+execution of Arlequin itself. Used to provide a “batch”
+(i.e. command line) mode for generating appropriate Arlequin input
+files and for forking Arlequin itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arpFilename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Arlequin filename (must have <code class="docutils literal notranslate"><span class="pre">.arp</span></code> file
+extension)</p></li>
+<li><p><strong>arsFilename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Arlequin settings filename (must have
+<code class="docutils literal notranslate"><span class="pre">.ars</span></code> file extension)</p></li>
+<li><p><strong>idCol</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – column in input file that contains the individual
+id.</p></li>
+<li><p><strong>prefixCols</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – number of columns to ignore before allele
+data starts</p></li>
+<li><p><strong>suffixCols</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – number of columns to ignore after allele data
+stops</p></li>
+<li><p><strong>windowSize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – size of sliding window</p></li>
+<li><p><strong>mapOrder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><em>optional</em>) – list order of columns if different to column
+order in file (defaults to order in file)</p></li>
+<li><p><strong>untypedAllele</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – (defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>)</p></li>
+<li><p><strong>arlequinPrefix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – prefix for all Arlequin run-time files
+(defaults to <code class="docutils literal notranslate"><span class="pre">arl_run</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinBatch.outputArlequin">
+<span class="sig-name descname"><span class="pre">outputArlequin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinBatch.outputArlequin" title="Link to this definition">#</a></dt>
+<dd><p>Outputs the specified .arp sample file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – list of lines of data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinBatch.outputRunFiles">
+<span class="sig-name descname"><span class="pre">outputRunFiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinBatch.outputRunFiles" title="Link to this definition">#</a></dt>
+<dd><p>Generates the expected set-up files for Arlequin.</p>
+<p>Includes <code class="docutils literal notranslate"><span class="pre">.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">.ars</span></code> file names.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.arlequin.ArlequinBatch.runArlequin">
+<span class="sig-name descname"><span class="pre">runArlequin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.arlequin.ArlequinBatch.runArlequin" title="Link to this definition">#</a></dt>
+<dd><p>Run the Arlequin haplotyping program.</p>
+<p>Forks a copy of <code class="docutils literal notranslate"><span class="pre">arlecore.exe</span></code>, which must be on <code class="docutils literal notranslate"><span class="pre">PATH</span></code> to
+actually generate the desired statistics estimates from the
+generated <code class="docutils literal notranslate"><span class="pre">.arp</span></code> file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.arlequin.usage_message">
+<span class="sig-name descname"><span class="pre">usage_message</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Multiline-String</span></span><a class="headerlink" href="#PyPop.arlequin.usage_message" title="Link to this definition">#</a></dt>
+<dd><details><summary>Show Value</summary><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Usage: Arlequin.py [OPTION] INPUTFILE ARPFILE ARSFILE</span>
+<span class="sd">Process a tab-delimited INPUTFILE of alleles to produce an data files</span>
+<span class="sd">(including ARPFILE), using parameters from ARSFILE for the Arlequin population</span>
+<span class="sd">genetics program.</span>
+
+<span class="sd"> -i, --idcol=NUM       column number of identifier (first column is zero)</span>
+<span class="sd"> -l, --ignorelines=NUM number of header lines to ignore in in file</span>
+<span class="sd"> -c, --cols=POS1,POS2  number of leading columns (POS1) before start and</span>
+<span class="sd">                        number of trailing columns before the end (POS2) of</span>
+<span class="sd">                        allele data (including IDCOL)</span>
+<span class="sd"> -k, --sort=POS1,..    specify order of loci if different from column order</span>
+<span class="sd">                        in file (must not repeat a locus)</span>
+<span class="sd"> -w, --windowsize=NUM  number of loci involved in window size</span>
+<span class="sd">                        (note that this is half the number of allele columns)</span>
+<span class="sd"> -u, --untyped=STR     the string that represents `untyped&#39; alleles</span>
+<span class="sd">                        (defaults to &#39;****&#39;)</span>
+<span class="sd"> -x, --execute         execute the Arlequin program</span>
+<span class="sd"> -h, --help            this message</span>
+<span class="sd"> -d, --debug           switch on debugging</span>
+
+<span class="sd">  INPUTFILE   input text file</span>
+<span class="sd">  ARPFILE     output Arlequin &#39;.arp&#39; project file</span>
+<span class="sd">  ARSFILE     input Arlequin &#39;.ars&#39; settings file&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</details></dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../xslt/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyPop.xslt</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

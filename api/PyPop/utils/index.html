@@ -1,0 +1,1463 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyPop.utils &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/PyPop/utils/index';</script>
+    <link rel="icon" href="../../../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PyPop.xslt" href="../xslt/index.html" />
+    <link rel="prev" title="PyPop.randombinning" href="../randombinning/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../citation/index.html">PyPop.citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_line_interface/index.html">PyPop.command_line_interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes/index.html">PyPop.datatypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters/index.html">PyPop.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../haplo/index.html">PyPop.haplo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardyweinberg/index.html">PyPop.hardyweinberg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homozygosity/index.html">PyPop.homozygosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsers/index.html">PyPop.parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popaggregate/index.html">PyPop.popaggregate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popanalysis/index.html">PyPop.popanalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popmeta/index.html">PyPop.popmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypop/index.html">PyPop.pypop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../randombinning/index.html">PyPop.randombinning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PyPop.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xslt/index.html">PyPop.xslt</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arlequin/index.html">PyPop.arlequin - DEPRECATED</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.GENOTYPE_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">GENOTYPE_SEPARATOR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.GENOTYPE_TERMINATOR"><code class="docutils literal notranslate"><span class="pre">GENOTYPE_TERMINATOR</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.TextOutputStream"><code class="docutils literal notranslate"><span class="pre">TextOutputStream</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.TextOutputStream.write"><code class="docutils literal notranslate"><span class="pre">TextOutputStream.write()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.TextOutputStream.writeln"><code class="docutils literal notranslate"><span class="pre">TextOutputStream.writeln()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.TextOutputStream.close"><code class="docutils literal notranslate"><span class="pre">TextOutputStream.close()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.TextOutputStream.flush"><code class="docutils literal notranslate"><span class="pre">TextOutputStream.flush()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.XMLOutputStream"><code class="docutils literal notranslate"><span class="pre">XMLOutputStream</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.XMLOutputStream.opentag"><code class="docutils literal notranslate"><span class="pre">XMLOutputStream.opentag()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.XMLOutputStream.emptytag"><code class="docutils literal notranslate"><span class="pre">XMLOutputStream.emptytag()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.XMLOutputStream.closetag"><code class="docutils literal notranslate"><span class="pre">XMLOutputStream.closetag()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.XMLOutputStream.tagContents"><code class="docutils literal notranslate"><span class="pre">XMLOutputStream.tagContents()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix"><code class="docutils literal notranslate"><span class="pre">StringMatrix</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.__repr__"><code class="docutils literal notranslate"><span class="pre">StringMatrix.__repr__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.__len__"><code class="docutils literal notranslate"><span class="pre">StringMatrix.__len__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.__deepcopy__"><code class="docutils literal notranslate"><span class="pre">StringMatrix.__deepcopy__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.__getslice__"><code class="docutils literal notranslate"><span class="pre">StringMatrix.__getslice__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.__getitem__"><code class="docutils literal notranslate"><span class="pre">StringMatrix.__getitem__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.__setitem__"><code class="docutils literal notranslate"><span class="pre">StringMatrix.__setitem__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.dump"><code class="docutils literal notranslate"><span class="pre">StringMatrix.dump()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.copy"><code class="docutils literal notranslate"><span class="pre">StringMatrix.copy()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.getNewStringMatrix"><code class="docutils literal notranslate"><span class="pre">StringMatrix.getNewStringMatrix()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.getUniqueAlleles"><code class="docutils literal notranslate"><span class="pre">StringMatrix.getUniqueAlleles()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.convertToInts"><code class="docutils literal notranslate"><span class="pre">StringMatrix.convertToInts()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.countPairs"><code class="docutils literal notranslate"><span class="pre">StringMatrix.countPairs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.flattenCols"><code class="docutils literal notranslate"><span class="pre">StringMatrix.flattenCols()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.filterOut"><code class="docutils literal notranslate"><span class="pre">StringMatrix.filterOut()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.StringMatrix.getSuperType"><code class="docutils literal notranslate"><span class="pre">StringMatrix.getSuperType()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.Group.__getitem__"><code class="docutils literal notranslate"><span class="pre">Group.__getitem__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.critical_exit"><code class="docutils literal notranslate"><span class="pre">critical_exit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.getStreamType"><code class="docutils literal notranslate"><span class="pre">getStreamType()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.glob_with_pathlib"><code class="docutils literal notranslate"><span class="pre">glob_with_pathlib()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.natural_sort_key"><code class="docutils literal notranslate"><span class="pre">natural_sort_key()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.unique_elements"><code class="docutils literal notranslate"><span class="pre">unique_elements()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.appendTo2dList"><code class="docutils literal notranslate"><span class="pre">appendTo2dList()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.convertLineEndings"><code class="docutils literal notranslate"><span class="pre">convertLineEndings()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.fixForPlatform"><code class="docutils literal notranslate"><span class="pre">fixForPlatform()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.copyfileCustomPlatform"><code class="docutils literal notranslate"><span class="pre">copyfileCustomPlatform()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.copyCustomPlatform"><code class="docutils literal notranslate"><span class="pre">copyCustomPlatform()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.checkXSLFile"><code class="docutils literal notranslate"><span class="pre">checkXSLFile()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.getUserFilenameInput"><code class="docutils literal notranslate"><span class="pre">getUserFilenameInput()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.utils.splitIntoNGroups"><code class="docutils literal notranslate"><span class="pre">splitIntoNGroups()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../../../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../../../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">API Reference (1.4.0)</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PyPop.utils</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-PyPop.utils">
+<span id="pypop-utils"></span><h1>PyPop.utils<a class="headerlink" href="#module-PyPop.utils" title="Link to this heading">#</a></h1>
+<p>Module for common utility classes and functions.</p>
+<p>Contains convenience classes for output of text and XML
+files.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.GENOTYPE_SEPARATOR" title="PyPop.utils.GENOTYPE_SEPARATOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GENOTYPE_SEPARATOR</span></code></a></p></td>
+<td><p>Separator between genotypes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.GENOTYPE_TERMINATOR" title="PyPop.utils.GENOTYPE_TERMINATOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GENOTYPE_TERMINATOR</span></code></a></p></td>
+<td><p>Terminator of genotypes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.TextOutputStream" title="PyPop.utils.TextOutputStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TextOutputStream</span></code></a></p></td>
+<td><p>Output stream for writing text files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.XMLOutputStream" title="PyPop.utils.XMLOutputStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">XMLOutputStream</span></code></a></p></td>
+<td><p>Output stream for writing XML files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StringMatrix</span></code></a></p></td>
+<td><p>Matrix of strings and other metadata from input file to PyPop.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.Group" title="PyPop.utils.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Group</span></code></a></p></td>
+<td><p>Group list or sequence into non-overlapping chunks.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.critical_exit" title="PyPop.utils.critical_exit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_exit</span></code></a>(message, *args)</p></td>
+<td><p>Log a CRITICAL message and exit with status 1.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.getStreamType" title="PyPop.utils.getStreamType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getStreamType</span></code></a>(stream)</p></td>
+<td><p>Get the type of stream.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.glob_with_pathlib" title="PyPop.utils.glob_with_pathlib"><code class="xref py py-obj docutils literal notranslate"><span class="pre">glob_with_pathlib</span></code></a>(pattern)</p></td>
+<td><p>Use globbing with <code class="docutils literal notranslate"><span class="pre">pathlib</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.natural_sort_key" title="PyPop.utils.natural_sort_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">natural_sort_key</span></code></a>(s[, _nsre])</p></td>
+<td><p>Generate a key for natural (human-friendly) sorting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.unique_elements" title="PyPop.utils.unique_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique_elements</span></code></a>(li)</p></td>
+<td><p>Gets the unique elements in a list.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.appendTo2dList" title="PyPop.utils.appendTo2dList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">appendTo2dList</span></code></a>(aList[, appendStr])</p></td>
+<td><p>Append a string to each element in a list.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.convertLineEndings" title="PyPop.utils.convertLineEndings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convertLineEndings</span></code></a>(file, mode)</p></td>
+<td><p>Convert line endings based on platform.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.fixForPlatform" title="PyPop.utils.fixForPlatform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fixForPlatform</span></code></a>(filename[, txt_ext])</p></td>
+<td><p>Fix for some Windws/MS-DOS platforms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.copyfileCustomPlatform" title="PyPop.utils.copyfileCustomPlatform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copyfileCustomPlatform</span></code></a>(src, dest[, txt_ext])</p></td>
+<td><p>Copy file to file with fixes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.copyCustomPlatform" title="PyPop.utils.copyCustomPlatform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copyCustomPlatform</span></code></a>(file, dist_dir[, txt_ext])</p></td>
+<td><p>Copy file to directory with fixes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.checkXSLFile" title="PyPop.utils.checkXSLFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">checkXSLFile</span></code></a>(xslFilename[, path, subdir, abort, msg])</p></td>
+<td><p>Check XSL filename and return full path.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.utils.getUserFilenameInput" title="PyPop.utils.getUserFilenameInput"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getUserFilenameInput</span></code></a>(prompt, filename)</p></td>
+<td><p>Get user filename input.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.utils.splitIntoNGroups" title="PyPop.utils.splitIntoNGroups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">splitIntoNGroups</span></code></a>(alist[, n])</p></td>
+<td><p>Divides a list up into n parcels (plus whatever is left over).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.utils.GENOTYPE_SEPARATOR">
+<span class="sig-name descname"><span class="pre">GENOTYPE_SEPARATOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'~'</span></span><a class="headerlink" href="#PyPop.utils.GENOTYPE_SEPARATOR" title="Link to this definition">#</a></dt>
+<dd><p>Separator between genotypes</p>
+<p class="rubric">Example</p>
+<p>In a haplotype
+<code class="docutils literal notranslate"><span class="pre">01:01~13:01~04:02</span></code></p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.utils.GENOTYPE_TERMINATOR">
+<span class="sig-name descname"><span class="pre">GENOTYPE_TERMINATOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'~'</span></span><a class="headerlink" href="#PyPop.utils.GENOTYPE_TERMINATOR" title="Link to this definition">#</a></dt>
+<dd><p>Terminator of genotypes</p>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`02:01:01:01~</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.utils.TextOutputStream">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">TextOutputStream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.TextOutputStream" title="Link to this definition">#</a></dt>
+<dd><p>Output stream for writing text files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>file</em>) – file handle</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.TextOutputStream.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.TextOutputStream.write" title="Link to this definition">#</a></dt>
+<dd><p>Write to stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – string to write</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.TextOutputStream.writeln">
+<span class="sig-name descname"><span class="pre">writeln</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\n'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.TextOutputStream.writeln" title="Link to this definition">#</a></dt>
+<dd><p>Write a newline to stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – defaults to newline</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.TextOutputStream.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.TextOutputStream.close" title="Link to this definition">#</a></dt>
+<dd><p>Close stream.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.TextOutputStream.flush">
+<span class="sig-name descname"><span class="pre">flush</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.TextOutputStream.flush" title="Link to this definition">#</a></dt>
+<dd><p>Flush to disk.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.utils.XMLOutputStream">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">XMLOutputStream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.XMLOutputStream" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyPop.utils.TextOutputStream" title="PyPop.utils.TextOutputStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TextOutputStream</span></code></a></p>
+<div class="graphviz"><img src="../../../_images/inheritance-048a74919ea747509c628bf986924f64581e5c4e.png" alt="Inheritance diagram of PyPop.utils.XMLOutputStream" usemap="#inheritance032e7d4c22" class="inheritance graphviz" /></div>
+<map id="inheritance032e7d4c22" name="inheritance032e7d4c22">
+<area shape="rect" id="node1" href="#PyPop.utils.TextOutputStream" target="_top" title="Output stream for writing text files." alt="" coords="5,5,145,31"/>
+<area shape="rect" id="node2" href="#PyPop.utils.XMLOutputStream" target="_top" title="Output stream for writing XML files." alt="" coords="164,5,305,31"/>
+</map><p>Output stream for writing XML files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.XMLOutputStream.opentag">
+<span class="sig-name descname"><span class="pre">opentag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tagname</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.XMLOutputStream.opentag" title="Link to this definition">#</a></dt>
+<dd><p>Write an open XML tag to stream.</p>
+<p>Tag attributes passed as optional named keyword arguments.</p>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">opentag('tagname',</span> <span class="pre">role=something,</span> <span class="pre">id=else)</span></code></p>
+<p>produces the result:</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;tagname</span> <span class="pre">role=&quot;something&quot;</span> <span class="pre">id=&quot;else&quot;&gt;</span></code></p>
+<p>Attribute and values are optional:</p>
+<p><code class="docutils literal notranslate"><span class="pre">opentag('tagname')</span></code></p>
+<p>Produces:</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;tagname&gt;</span></code></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Must be be followed by a <a class="reference internal" href="#PyPop.utils.XMLOutputStream.closetag" title="PyPop.utils.XMLOutputStream.closetag"><code class="xref py py-meth docutils literal notranslate"><span class="pre">closetag()</span></code></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tagname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – name of XML tag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.XMLOutputStream.emptytag">
+<span class="sig-name descname"><span class="pre">emptytag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tagname</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.XMLOutputStream.emptytag" title="Link to this definition">#</a></dt>
+<dd><p>Write an empty XML tag to stream.</p>
+<p>This follows the same syntax as <a class="reference internal" href="#PyPop.utils.XMLOutputStream.opentag" title="PyPop.utils.XMLOutputStream.opentag"><code class="xref py py-meth docutils literal notranslate"><span class="pre">opentag()</span></code></a> but without
+XML content (but can contain attributes).</p>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`emptytag('tagname',</span> <span class="pre">attr='val')</span></code></p>
+<p>produces:</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;tagname</span> <span class="pre">attr=&quot;val&quot;/&gt;</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tagname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – name of XML tag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.XMLOutputStream.closetag">
+<span class="sig-name descname"><span class="pre">closetag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tagname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.XMLOutputStream.closetag" title="Link to this definition">#</a></dt>
+<dd><p>Write a closing XML tag to stream.</p>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">closetag('tagname')</span></code></p>
+<p>Generate a tag in the form:</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;/tagname&gt;</span></code></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Must be be preceded by a <a class="reference internal" href="#PyPop.utils.XMLOutputStream.opentag" title="PyPop.utils.XMLOutputStream.opentag"><code class="xref py py-meth docutils literal notranslate"><span class="pre">opentag()</span></code></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tagname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – name of XML tag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.XMLOutputStream.tagContents">
+<span class="sig-name descname"><span class="pre">tagContents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tagname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.XMLOutputStream.tagContents" title="Link to this definition">#</a></dt>
+<dd><p>Write XML tags around contents to a stream.</p>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">tagContents('tagname',</span> <span class="pre">'foo</span> <span class="pre">bar')</span></code></p>
+<p>produces:</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;tagname&gt;foo</span> <span class="pre">bar&lt;/tagname&gt;`</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tagname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – name of XML tag</p></li>
+<li><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – must only be a string. <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&gt;</span></code> are converted into valid XML equivalents.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">StringMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rowCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extraList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colSep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headerLines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collections.abc.Sequence</span></code></a></p>
+<div class="graphviz"><img src="../../../_images/inheritance-1892ea00d807e6aee4f0d9810d874dcd1c2f1af2.png" alt="Inheritance diagram of PyPop.utils.StringMatrix" usemap="#inheritanced624e3b556" class="inheritance graphviz" /></div>
+<map id="inheritanced624e3b556" name="inheritanced624e3b556">
+<area shape="rect" id="node7" href="#PyPop.utils.StringMatrix" target="_top" title="Matrix of strings and other metadata from input file to PyPop." alt="" coords="323,80,425,105"/>
+</map><p>Matrix of strings and other metadata from input file to PyPop.</p>
+<p><code class="docutils literal notranslate"><span class="pre">StringMatrix</span></code> is a subclass of
+<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Sequence</span></code></a> and represents genotype or
+locus-based data in a row-oriented matrix structure with
+NumPy-style indexing and sequence semantics. Rows correspond to
+individuals, and columns correspond to loci.</p>
+<p>The object supports indexing, assignment, copying, and printing
+using standard Python and NumPy idioms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rowCount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – number of rows in matrix</p></li>
+<li><p><strong>colList</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – list of locus keys in a specified order</p></li>
+<li><p><strong>extraList</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – other non-matrix metadata</p></li>
+<li><p><strong>colSep</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – column separator</p></li>
+<li><p><strong>headerLines</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – list of lines in the header of original file</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">len(matrix)</span></code> returns the number of rows.</p></li>
+<li><p>Indexing retrieves data by locus or locus combinations.</p></li>
+<li><p>Assignment updates genotype or metadata values in place.</p></li>
+<li><p>Slicing over rows (e.g., <code class="docutils literal notranslate"><span class="pre">matrix[i:j]</span></code>) is not currently supported.</p></li>
+<li><p>Deep copying produces a fully independent matrix.</p></li>
+</ul>
+</div>
+<p class="rubric">Examples</p>
+<p>Create a matrix of two individuals with two loci and assign genotype data:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span> <span class="o">=</span> <span class="n">StringMatrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;A0_1&quot;</span><span class="p">,</span> <span class="s2">&quot;A0_2&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;A1_1&quot;</span><span class="p">,</span> <span class="s2">&quot;A1_2&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;B0_1&quot;</span><span class="p">,</span> <span class="s2">&quot;B0_2&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;B1_1&quot;</span><span class="p">,</span> <span class="s2">&quot;B1_2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Length of matrix is defined as the number of individuals in the
+matrix:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>Retrieve data for a single locus:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
+<span class="go">[[&#39;A0_1&#39;, &#39;A0_2&#39;], [&#39;A1_1&#39;, &#39;A1_2&#39;]]</span>
+</pre></div>
+</div>
+<p>String representation:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="go">StringMatrix([[&#39;A0_1&#39;, &#39;A0_2&#39;, &#39;B0_1&#39;, &#39;B0_2&#39;],</span>
+<span class="go">       [&#39;A1_1&#39;, &#39;A1_2&#39;, &#39;B1_1&#39;, &#39;B1_2&#39;]], dtype=object)</span>
+</pre></div>
+</div>
+<p>Copying the matrix:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m2</span> <span class="ow">is</span> <span class="n">matrix</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.__repr__" title="Link to this definition">#</a></dt>
+<dd><p>Override default representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>new string representation</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.__len__" title="Link to this definition">#</a></dt>
+<dd><p>Get number of rows (individuals) in the matrix.</p>
+<p>This allows <code class="docutils literal notranslate"><span class="pre">StringMatrix</span></code> instances to be used with
+<cite>len()</cite>, iteration, and other Python sequence protocols.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>number of rows in the matrix</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.__deepcopy__">
+<span class="sig-name descname"><span class="pre">__deepcopy__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.__deepcopy__" title="Link to this definition">#</a></dt>
+<dd><p>Create a deepcopy for <code class="docutils literal notranslate"><span class="pre">copy.deepcopy</span></code>.</p>
+<p>This simply calls <code class="docutils literal notranslate"><span class="pre">self.copy()</span></code> to allow
+<code class="docutils literal notranslate"><span class="pre">copy.deepcopy(matrixInstance)</span></code> to work out of the box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>memo</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – opaque object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>copy of the matrix</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix">StringMatrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.__getslice__">
+<span class="sig-name descname"><span class="pre">__getslice__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.__getslice__" title="Link to this definition">#</a></dt>
+<dd><p>Get slice (overrides built-in).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Currently not supported for <a class="reference internal" href="#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringMatrix</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.__getitem__" title="Link to this definition">#</a></dt>
+<dd><p>Get the item at given key (overrides built-in numpy).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – locus key</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list (a single column vector if only one position
+specified), or list of lists: (a set of column vectors if
+several positions specified) of tuples for <code class="docutils literal notranslate"><span class="pre">key</span></code></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.14)"><strong>KeyError</strong></a> – if key is not found, or of wrong type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.__setitem__" title="Link to this definition">#</a></dt>
+<dd><p>Set the value at an index (override built in).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – index into matrix</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – can set using a tuple of strings, or a
+single string (for metadata)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.14)"><strong>IndexError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">index</span></code> is not a tuple</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">value</span></code> is not a tuple or string</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.14)"><strong>KeyError</strong></a> – if the <code class="docutils literal notranslate"><span class="pre">index</span></code> can’t be found</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">sys.stdout</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.dump" title="Link to this definition">#</a></dt>
+<dd><p>Write file to a stream in original format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>locus</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – write just specified locus, if
+omitted, default to all loci</p></li>
+<li><p><strong>stream</strong> (<a class="reference internal" href="#PyPop.utils.TextOutputStream" title="PyPop.utils.TextOutputStream"><em>TextOutputStream</em></a><em>|</em><a class="reference internal" href="#PyPop.utils.XMLOutputStream" title="PyPop.utils.XMLOutputStream"><em>XMLOutputStream</em></a><em>|</em><em>stdout</em>) – output stream</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.copy" title="Link to this definition">#</a></dt>
+<dd><p>Make a (deep) copy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a deep copy of the current object</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix">StringMatrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.getNewStringMatrix">
+<span class="sig-name descname"><span class="pre">getNewStringMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.getNewStringMatrix" title="Link to this definition">#</a></dt>
+<dd><p>Create new StringMatrix containing specified loci.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The format of the keys is identical to <a class="reference internal" href="#PyPop.utils.StringMatrix.__getitem__" title="PyPop.utils.StringMatrix.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a>
+except that it returns a full <code class="docutils literal notranslate"><span class="pre">StringMatrix</span></code> instance
+which includes all metadata</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – a string representing the loci, using the
+<code class="docutils literal notranslate"><span class="pre">locus1:locus2</span></code> format</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>full instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix">StringMatrix</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.14)"><strong>KeyError</strong></a> – if locus can not be found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.getUniqueAlleles">
+<span class="sig-name descname"><span class="pre">getUniqueAlleles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.getUniqueAlleles" title="Link to this definition">#</a></dt>
+<dd><p>Get naturally sorted list of unique alleles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – loci to get</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of unique integers sorted by allele name using
+natural sort</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.convertToInts">
+<span class="sig-name descname"><span class="pre">convertToInts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.convertToInts" title="Link to this definition">#</a></dt>
+<dd><p>Convert the matrix to integers.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is used by the <a class="reference internal" href="../haplo/index.html#PyPop.haplo.Haplostats" title="PyPop.haplo.Haplostats"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyPop.haplo.Haplostats</span></code></a>
+class.  Note that integers start at 1 for compatibility with
+haplo-stats module</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>matrix where the original allele names are now
+represented by integers</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix">StringMatrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.countPairs">
+<span class="sig-name descname"><span class="pre">countPairs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.countPairs" title="Link to this definition">#</a></dt>
+<dd><p>Count all possible pairs of haplotypes for each matrix row.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This does <em>not</em> do any involved handling of missing data as
+per <code class="docutils literal notranslate"><span class="pre">geno.count.pairs</span></code> from R <code class="docutils literal notranslate"><span class="pre">haplo.stats</span></code> module.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>each element is the number of pairs in row order</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.flattenCols">
+<span class="sig-name descname"><span class="pre">flattenCols</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.flattenCols" title="Link to this definition">#</a></dt>
+<dd><p>Flatten columns into a single list.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Currently assumes entries are integers.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>all alleles, the two genotype columns concatenated
+for each locus</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.filterOut">
+<span class="sig-name descname"><span class="pre">filterOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blankDesignator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.filterOut" title="Link to this definition">#</a></dt>
+<dd><p>Get matrix rows filtered by a designator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – locus to filter</p></li>
+<li><p><strong>blankDesignator</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – string to exclude</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the rows of the matrix that <em>do not</em> contain
+<code class="docutils literal notranslate"><span class="pre">blankDesignator</span></code> at any rows</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.StringMatrix.getSuperType">
+<span class="sig-name descname"><span class="pre">getSuperType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.StringMatrix.getSuperType" title="Link to this definition">#</a></dt>
+<dd><p>Get a matrix grouped by specified key.</p>
+<p class="rubric">Example</p>
+<p>Return a new matrix with the column vector with the alleles
+for each genotype concatenated like so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span> <span class="o">=</span> <span class="n">StringMatrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;A01&quot;</span><span class="p">,</span> <span class="s2">&quot;A02&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;A11&quot;</span><span class="p">,</span> <span class="s2">&quot;A12&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;B01&quot;</span><span class="p">,</span> <span class="s2">&quot;B02&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;B11&quot;</span><span class="p">,</span> <span class="s2">&quot;B12&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="go">StringMatrix([[&#39;A01&#39;, &#39;A02&#39;, &#39;B01&#39;, &#39;B02&#39;],</span>
+<span class="go">       [&#39;A11&#39;, &#39;A12&#39;, &#39;B11&#39;, &#39;B12&#39;]], dtype=object)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matrix</span><span class="o">.</span><span class="n">getSuperType</span><span class="p">(</span><span class="s2">&quot;A:B&quot;</span><span class="p">)</span>
+<span class="go">StringMatrix([[&#39;A01:B01&#39;, &#39;A02:B02&#39;],</span>
+<span class="go">       [&#39;A11:B11&#39;, &#39;A12:B12&#39;]], dtype=object)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – loci to group</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a new matrix with the columns concatenated</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#PyPop.utils.StringMatrix" title="PyPop.utils.StringMatrix">StringMatrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.utils.Group">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">li</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.Group" title="Link to this definition">#</a></dt>
+<dd><p>Group list or sequence into non-overlapping chunks.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">Group</span><span class="p">(</span><span class="s1">&#39;aabbccddee&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">aa</span>
+<span class="go">bb</span>
+<span class="go">cc</span>
+<span class="go">dd</span>
+<span class="go">ee</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Group</span><span class="p">(</span><span class="s1">&#39;aabbccddee&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&#39;aa&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">&#39;dd&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>li</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>|</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – string or list</p></li>
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – size of grouping</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.utils.Group.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.Group.__getitem__" title="Link to this definition">#</a></dt>
+<dd><p>Get the item by position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>group</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – get the item by position</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the value at that position</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>|<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.14)"><strong>IndexError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">group</span></code> is out of bounds</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.critical_exit">
+<span class="sig-name descname"><span class="pre">critical_exit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.critical_exit" title="Link to this definition">#</a></dt>
+<dd><p>Log a CRITICAL message and exit with status 1.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Logging format string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.getStreamType">
+<span class="sig-name descname"><span class="pre">getStreamType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.getStreamType" title="Link to this definition">#</a></dt>
+<dd><p>Get the type of stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stream</strong> (<a class="reference internal" href="#PyPop.utils.TextOutputStream" title="PyPop.utils.TextOutputStream"><em>TextOutputStream</em></a><em>|</em><a class="reference internal" href="#PyPop.utils.XMLOutputStream" title="PyPop.utils.XMLOutputStream"><em>XMLOutputStream</em></a>) – stream to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>either <code class="docutils literal notranslate"><span class="pre">xml</span></code> or <code class="docutils literal notranslate"><span class="pre">text</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.glob_with_pathlib">
+<span class="sig-name descname"><span class="pre">glob_with_pathlib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.glob_with_pathlib" title="Link to this definition">#</a></dt>
+<dd><p>Use globbing with <code class="docutils literal notranslate"><span class="pre">pathlib</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – globbing pattern</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>of pathlib globs</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.natural_sort_key">
+<span class="sig-name descname"><span class="pre">natural_sort_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_nsre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">re.compile('([0-9]+)')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.natural_sort_key" title="Link to this definition">#</a></dt>
+<dd><p>Generate a key for natural (human-friendly) sorting.</p>
+<p>This function splits a string into text and number components so that
+numbers are compared by value instead of lexicographically. It is
+intended for use as the <code class="docutils literal notranslate"><span class="pre">key</span></code> function in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list.sort" title="(in Python v3.14)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">list.sort()</span></code></a> or
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#sorted" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted()</span></code></a>.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;item2&quot;</span><span class="p">,</span> <span class="s2">&quot;item10&quot;</span><span class="p">,</span> <span class="s2">&quot;item1&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">natural_sort_key</span><span class="p">)</span>
+<span class="go">[&#39;item1&#39;, &#39;item2&#39;, &#39;item10&#39;]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The string to split into text and number components.</p></li>
+<li><p><strong>_nsre</strong> (<em>Pattern</em>) – Precompiled regular expression used internally
+to split the string into digit and non-digit chunks. This is
+not intended to be overridden in normal use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of strings and integers to be used as a sort key.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.unique_elements">
+<span class="sig-name descname"><span class="pre">unique_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">li</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.unique_elements" title="Link to this definition">#</a></dt>
+<dd><p>Gets the unique elements in a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>li</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – a list</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>unique elements</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.appendTo2dList">
+<span class="sig-name descname"><span class="pre">appendTo2dList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">appendStr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">':'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.appendTo2dList" title="Link to this definition">#</a></dt>
+<dd><p>Append a string to each element in a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aList</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – list to append to</p></li>
+<li><p><strong>appendStr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – string to append</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list with string appended to each element</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.convertLineEndings">
+<span class="sig-name descname"><span class="pre">convertLineEndings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.convertLineEndings" title="Link to this definition">#</a></dt>
+<dd><p>Convert line endings based on platform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – file name to convert</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – <p>Conversion mode, one of</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> Unix to Mac</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> Unix to DOS</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.fixForPlatform">
+<span class="sig-name descname"><span class="pre">fixForPlatform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.fixForPlatform" title="Link to this definition">#</a></dt>
+<dd><p>Fix for some Windws/MS-DOS platforms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – path to file</p></li>
+<li><p><strong>txt_ext</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – if enabled (<code class="docutils literal notranslate"><span class="pre">1</span></code>) add a <code class="docutils literal notranslate"><span class="pre">.txt</span></code> extension</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.copyfileCustomPlatform">
+<span class="sig-name descname"><span class="pre">copyfileCustomPlatform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.copyfileCustomPlatform" title="Link to this definition">#</a></dt>
+<dd><p>Copy file to file with fixes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – source file</p></li>
+<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – source file</p></li>
+<li><p><strong>txt_ext</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – if enabled (<code class="docutils literal notranslate"><span class="pre">1</span></code>) add a <code class="docutils literal notranslate"><span class="pre">.txt</span></code> extension</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.copyCustomPlatform">
+<span class="sig-name descname"><span class="pre">copyCustomPlatform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.copyCustomPlatform" title="Link to this definition">#</a></dt>
+<dd><p>Copy file to directory with fixes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – source file</p></li>
+<li><p><strong>dist_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – source directory</p></li>
+<li><p><strong>txt_ext</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – if enabled (<code class="docutils literal notranslate"><span class="pre">1</span></code>) add a <code class="docutils literal notranslate"><span class="pre">.txt</span></code> extension</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.checkXSLFile">
+<span class="sig-name descname"><span class="pre">checkXSLFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xslFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.checkXSLFile" title="Link to this definition">#</a></dt>
+<dd><p>Check XSL filename and return full path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xslFilename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – name of the XSL file</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – root path to check</p></li>
+<li><p><strong>subdir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – subdirectory under <code class="docutils literal notranslate"><span class="pre">path</span></code> to check</p></li>
+<li><p><strong>abort</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if enabled (<code class="docutils literal notranslate"><span class="pre">True</span></code>) file isn’t found, exit with
+an error.  Default is <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – output message on abort</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>checked and validaated path</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.getUserFilenameInput">
+<span class="sig-name descname"><span class="pre">getUserFilenameInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.getUserFilenameInput" title="Link to this definition">#</a></dt>
+<dd><p>Get user filename input.</p>
+<p>Read user input for a filename, check its existence, continue
+requesting input until a valid filename is entered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prompt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – description of file</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – default filename</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>name of file eventually selected</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.utils.splitIntoNGroups">
+<span class="sig-name descname"><span class="pre">splitIntoNGroups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.utils.splitIntoNGroups" title="Link to this definition">#</a></dt>
+<dd><p>Divides a list up into n parcels (plus whatever is left over).</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">splitIntoNGroups</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">[[&#39;A&#39;, &#39;B&#39;], [&#39;C&#39;, &#39;D&#39;], [&#39;E&#39;]]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – list to divide up</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – parcel size</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of lists</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../randombinning/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyPop.randombinning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../xslt/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PyPop.xslt</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Tunisian_2004.pop	DQA1	200	190	lit	Tunisian_2004		02-NAF	Tunisia	3	randomly selected from throughout the country	34N	9E	0.95	1			Ayed	2004	HLA class-I and HLA class-II phenotypic, gene and haplotypic frequencies in Tunisians by using molecular typing data	Tissue Antigens	64	520-532																			ODS
+DQA1	count
+0201	34
+0501	34
+0505	29
+0102	24
+0301	21
+0101	19
+0103	9
+0105	7
+0303	4
+0104	3
+0401	3
+0302	2
+0601	1
