@@ -333,6 +333,7 @@ jobs:
           echo "location to put .pyz file: $TARGET"
           echo "check versions:"
           ls ${VIRTUALENV_CACHE_DIR}
+          # copy both versions of the cache
           cp "${VIRTUALENV_CACHE_DIR}"/*.pyz "$TARGET/"
 
       - name: Install a recent stable Python to handle Python deps
