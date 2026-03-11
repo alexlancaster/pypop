@@ -35,6 +35,7 @@ env:
   # set MSF version and cache directory name globally
   MSF_VERSION: 3.59.0-alpha
   MSF_CACHE_DIR: msf-files-3.59.0-alpha
+  VIRTUALENV_CACHE_DIR: cibw-bootstrap
 
 jobs:
   skip_publish_zenodo:
@@ -235,6 +236,33 @@ jobs:
           key: pooch-cache-${{ env.MSF_CACHE_DIR }}
           enableCrossOsArchive: true
 
+      - name: Set up cache for cibuildwheel virtualenv bootstrap
+        id: virtualenv_cache
+        uses: actions/cache@v5
+        with:
+          path: ${{ env.VIRTUALENV_CACHE_DIR }}
+          key: cibw-virtualenv-${{ env.VIRTUALENV_CACHE_DIR }}
+          restore-keys: |
+            cibw-virtualenv-${{ env.VIRTUALENV_CACHE_DIR }}
+            enableCrossOsArchive: true
+            fail-on-cache-miss: false
+
+      - name: Preload cibuildwheel virtualenv bootstrap into cache
+        if: ${{ steps.virtualenv_cache.outputs.cache-hit != 'true' }}
+        run: |
+          echo "Cache not found or outdated. Fetching virtualenv bootstrap..."
+          mkdir -p "${VIRTUALENV_CACHE_DIR}"
+
+          curl -L \
+            https://github.com/pypa/get-virtualenv/raw/20.21.1/public/virtualenv.pyz \
+            -o "${VIRTUALENV_CACHE_DIR}/virtualenv-20.21.1.pyz"
+
+          curl -L \
+            https://github.com/pypa/get-virtualenv/raw/20.30.0/public/virtualenv.pyz \
+            -o "${VIRTUALENV_CACHE_DIR}/virtualenv-20.30.0.pyz"
+
+          echo "virtualenv bootstrap cached successfully."
+
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
@@ -278,6 +306,35 @@ jobs:
           fi
           echo "POOCH_CACHE=${POOCH_CACHE}"
           echo "POOCH_CACHE=${POOCH_CACHE}" >> $GITHUB_ENV
+
+      - name: Restore cibuildwheel virtualenv bootstrap cache
+        if: matrix.cibw_version == '2.23.3' && runner.os != 'Linux'
+        uses: actions/cache/restore@v5
+        with:
+          path: ${{ env.VIRTUALENV_CACHE_DIR }}
+          key: cibw-virtualenv-${{ env.VIRTUALENV_CACHE_DIR }}
+          restore-keys: |
+            cibw-virtualenv-${{ env.VIRTUALENV_CACHE_DIR }}
+          enableCrossOsArchive: true
+
+      - name: Install cibuildwheel virtualenv bootstrap
+        if: matrix.cibw_version == '2.23.3' && runner.os != 'Linux'
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            TARGET="$LOCALAPPDATA/pypa/cibuildwheel/Cache"
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            TARGET="$HOME/Library/Caches/cibuildwheel"
+          else
+            TARGET="$HOME/.cache/cibuildwheel"
+          fi
+
+          mkdir -p "$TARGET"
+          echo "location to put .pyz file: $TARGET"
+          echo "check versions:"
+          ls ${VIRTUALENV_CACHE_DIR}
+          # copy both versions of the cache
+          cp "${VIRTUALENV_CACHE_DIR}"/*.pyz "$TARGET/"
 
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v6
@@ -328,7 +385,7 @@ jobs:
           POOCH_CACHE: ${{ env.POOCH_CACHE }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE PYTEST_OPTIONS
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: wheels-${{ matrix.only }}
           path: ./wheelhouse/*.whl
@@ -347,7 +404,7 @@ jobs:
           fetch-depth: 0
       - name: Build sdist
         run: pipx run build --sdist
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: sdist
           path: dist/*.tar.gz
@@ -359,7 +416,7 @@ jobs:
     # alternatively, to publish when a GitHub Release is created, use the following rule:
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           # unpacks default artifact into dist/
           path: dist
@@ -379,7 +436,7 @@ jobs:
     # drop requirement of 'main', release to test_pypi to test releases
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           # unpacks default artifact into dist/
           path: dist
@@ -397,7 +454,7 @@ jobs:
       id-token: write
     if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && always()  && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           # unpacks default artifact into dist/
           path: dist
