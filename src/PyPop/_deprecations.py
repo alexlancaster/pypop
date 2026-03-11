@@ -64,10 +64,8 @@ import warnings
 
 deprecated_modules = {
     "PyPop.datatypes.AlleleCounts": {
-        "new": "",
         "reason": "The :class:`~PyPop.datatypes.Genotypes` class now holds allele count data as pseudo-genotype matrix.",
-        "deprecated": "0.6.0",
-        "removal": "1.4.2",
+        "removed": "1.4.2",
     },
     "PyPop.Arlequin": {
         "new": "PyPop.arlequin",
