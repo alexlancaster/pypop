@@ -5,7 +5,7 @@ tag-template: 'v$RESOLVED_VERSION'
 prerelease: false
 #prerelease-identifier: 'rc'
 include-pre-releases: false
-version-template: '$COMPLETE'
+#version-template: '$COMPLETE'
 commitish: 'main'   # codespell:ignore commitish
 categories:
   - title: 'Features'
