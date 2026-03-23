@@ -24,6 +24,8 @@ authors:
     orcid: https://orcid.org/0000-0002-0002-9263
     affiliation:
       - Amber Biology LLC
+      - name: RIIS 2.0
+        ror: https://ror.org/000xkb537
       - name: Institute for Globally Distributed Open Research and Education
         ror: https://ror.org/01643wd06
   - family-names: Nelson
@@ -56,8 +58,6 @@ authors:
     given-names: Gordon
     affiliation:
       - name: Amber Biology LLC
-      - name: Ronin Institute
-        ror: https://ror.org/04awze035
     orcid: https://orcid.org/0009-0009-2862-0467
   - family-names: Mariani
     given-names: Michael P.
