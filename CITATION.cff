@@ -24,6 +24,8 @@ authors:
     orcid: https://orcid.org/0000-0002-0002-9263
     affiliation:
       - Amber Biology LLC
+      - name: RIIS 2.0
+        ror: https://ror.org/000xkb537
       - name: Institute for Globally Distributed Open Research and Education
         ror: https://ror.org/01643wd06
   - family-names: Nelson
@@ -56,8 +58,6 @@ authors:
     given-names: Gordon
     affiliation:
       - name: Amber Biology LLC
-      - name: Ronin Institute
-        ror: https://ror.org/04awze035
     orcid: https://orcid.org/0009-0009-2862-0467
   - family-names: Mariani
     given-names: Michael P.
@@ -98,7 +98,7 @@ title: 'PyPop: Python for Population Genomics'
 repository-artifact: https://pypi.org/project/pypop-genomics/
 repository-code: https://github.com/alexlancaster/pypop/
 license: GPL-2.0-or-later
-version: v1.4.0
+version: v1.4.1
 type: software
 url: http://pypop.org/
 identifiers:
@@ -120,11 +120,11 @@ identifiers:
     relation: Continues
   - description: GitHub tag for repository
     type: url
-    value: https://github.com/alexlancaster/pypop/tree/v1.4.0
+    value: https://github.com/alexlancaster/pypop/tree/v1.4.1
     relation: IsSupplementTo
   - description: PyPI package
     type: url
-    value: https://pypi.org/project/pypop-genomics/1.4.0
+    value: https://pypi.org/project/pypop-genomics/1.4.1
     relation: IsSourceOf
   - description: DOI concept identifier for all versions of PyPop
     type: doi
@@ -140,4 +140,4 @@ keywords:
   - Major histocompatibility complex
   - HLA
   - MHC
-doi: 10.5281/zenodo.18307000
+doi: 10.5281/zenodo.19170148
