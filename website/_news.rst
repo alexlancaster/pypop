@@ -1,7 +1,7 @@
 * 2026-03-22: `PyPop 1.4.1
   <https://github.com/alexlancaster/pypop/releases/tag/v1.4.1>`__ is
   released. Updates ``numpy`` and ``pooch`` versions, schedule removal
-  of :class:`datatypes.AlleleCounts` for 1.4.2. Experimental support
+  of :class:`~PyPop.datatypes.AlleleCounts` for 1.4.2. Experimental support
   for wheels built for Windows ARM64 is also available in the `Test
   PyPI <https://test.pypi.org/project/pypop-genomics/>`__ repo, to
   test, run:
@@ -20,14 +20,6 @@
   documentation <api/index>` with API coverage. Also deprecated code,
   updates dependencies, and modernizes CI tooling for smoother builds.
 
-* 2025-10-10: Add initial version of :doc:`api/index` automatically
-  generated from code to document code for developers and users (see
-  :ref:`guide-usage-examples-api`).
-
-* 2025-10-07: `PyPop 1.3.1
-  <https://github.com/alexlancaster/pypop/releases/tag/v1.3.1>`__
-  bumps ``numpy`` and ``lxml`` dependencies.
-
 * 2024-04-01: PyPop paper `published
   <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
   in *Frontiers in Immunology*, :ref:`see citing PyPop <Citing PyPop>`
@@ -36,6 +28,14 @@
 * More details, including recent previous releases:
 
 .. toggle::
+
+ - 2025-10-10: Add initial version of :doc:`api/index` automatically
+   generated from code to document code for developers and users (see
+   :ref:`guide-usage-examples-api`).
+
+ - 2025-10-07: `PyPop 1.3.1
+   <https://github.com/alexlancaster/pypop/releases/tag/v1.3.1>`__
+   bumps ``numpy`` and ``lxml`` dependencies.
 
  - 2025-09-08: `PyPop 1.3.0
    <https://github.com/alexlancaster/pypop/releases/tag/v1.3.0>`__ is
