@@ -1,15 +1,10 @@
-* 2026-01-19: `PyPop 1.4.0
-  <https://github.com/alexlancaster/pypop/releases/tag/v1.4.0>`__ is
-  released. This release updates module names for PEP8 compliance,
-  unifies logging, and revamps the *PyPop User Guide* and
-  :doc:`generated documentation <api/index>` with API coverage and
-  optional no-text output mode. It also fixes deprecated code, updates
-  dependencies, and modernizes CI tooling for smoother builds.
-
-  Experimental support for wheels built for Windows ARM64 is also
-  available in the `Test PyPI
-  <https://test.pypi.org/project/pypop-genomics/>`__ repo, to test,
-  run:
+* 2026-03-22: `PyPop 1.4.1
+  <https://github.com/alexlancaster/pypop/releases/tag/v1.4.1>`__ is
+  released. Updates ``numpy`` and ``pooch`` versions, schedule removal
+  of :class:`datatypes.AlleleCounts` for 1.4.2. Experimental support
+  for wheels built for Windows ARM64 is also available in the `Test
+  PyPI <https://test.pypi.org/project/pypop-genomics/>`__ repo, to
+  test, run:
 
   .. code-block:: shell
 
@@ -17,6 +12,13 @@
 
   Please test and report issues `via the bug tracker
   <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__.
+
+* 2026-01-19: `PyPop 1.4.0
+  <https://github.com/alexlancaster/pypop/releases/tag/v1.4.0>`__ is
+  released and updates module names for PEP8 compliance, unifies
+  logging, and revamps the *PyPop User Guide* and :doc:`generated
+  documentation <api/index>` with API coverage. Also deprecated code,
+  updates dependencies, and modernizes CI tooling for smoother builds.
 
 * 2025-10-10: Add initial version of :doc:`api/index` automatically
   generated from code to document code for developers and users (see

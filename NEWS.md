@@ -7,6 +7,26 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.4.1] - 2026-03-22
+
+### Internal
+
+- Bump release-drafter/release-drafter from 6 to 7 in the actions group ([#389](https://github.com/alexlancaster/pypop/pull/389))
+- Bump the actions group with 2 updates ([#381](https://github.com/alexlancaster/pypop/pull/381))
+- Update numpy requirement from \<=2.4.2 to \<=2.4.3 ([#383](https://github.com/alexlancaster/pypop/pull/383))
+- python(CI deps): bump cibuildwheel from 3.3.1 to 3.4.0 in /.github in the build-wheel-deps group ([#386](https://github.com/alexlancaster/pypop/pull/386))
+- Cache the `virtualenv` during the build for `cp36` and `cp37` ([#387](https://github.com/alexlancaster/pypop/pull/387))
+- Bump rst2pdf from 0.104 to 0.105 ([#385](https://github.com/alexlancaster/pypop/pull/385))
+- Bump sphinx-autoapi from 3.7.0 to 3.8.0 ([#384](https://github.com/alexlancaster/pypop/pull/384))
+- Bump sphinx-autoapi from 3.6.1 to 3.7.0 ([#378](https://github.com/alexlancaster/pypop/pull/378))
+- Update pooch requirement from \<=v1.8.2 to \<=1.9.0 ([#375](https://github.com/alexlancaster/pypop/pull/375))
+- Update numpy requirement from \<=2.4.1 to \<=2.4.2 ([#374](https://github.com/alexlancaster/pypop/pull/374))
+
+### Documentation
+
+- Improve documentation of `ParseAlleleCountFile` and add unit test from User Guide ([#372](https://github.com/alexlancaster/pypop/pull/372))
+- Update deprecation: schedule removal of `datatypes.AlleleCounts` ([#371](https://github.com/alexlancaster/pypop/pull/371))
+
 ## [1.4.0] - 2026-01-19
 
 ### Features
@@ -632,3 +652,4 @@ Single, Owen Solberg and Steve Mack.
 [1.3.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.3.0
 [1.3.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.3.1
 [1.4.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.4.0
+[1.4.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.4.1
