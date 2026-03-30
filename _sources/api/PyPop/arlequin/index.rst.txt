@@ -1,0 +1,251 @@
+PyPop.arlequin
+==============
+
+.. py:module:: PyPop.arlequin
+
+.. autoapi-nested-parse::
+
+   Provides Arlequin functionality in Python.
+
+   .. deprecated:: 1.0.0
+
+      Only works for an obsolete version of Arlequin.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.arlequin.usage_message
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.arlequin.ArlequinWrapper
+   PyPop.arlequin.ArlequinExactHWTest
+   PyPop.arlequin.ArlequinBatch
+
+
+Module Contents
+---------------
+
+.. py:class:: ArlequinWrapper(matrix=None, arlequinPrefix='arl_run', arlequinExec='arlecore.exe', untypedAllele='****', arpFilename='output.arp', arsFilename='arl_run.ars')
+
+   Wraps the functionality of the `Arlequin <http://lgb.unige.ch/arlequin/>`_ program.
+
+   :param matrix: matrix
+   :type matrix: StringMatrix
+   :param arlequinPrefix: directory prefix (default ``arl_run``)
+   :type arlequinPrefix: str, optional
+   :param arlequinExec: executable program (default ``arlecore.exe``)
+   :type arlequinExec: str, optional
+   :param untypedAllele: untyped allele designator (default ``****``)
+   :type untypedAllele: str, optional
+   :param arpFilename: default output file name (default ``output.arp``)
+   :type arpFilename: str, optional
+   :param arsFilename: default run file name (default ``arl_run.ars``)
+   :type arsFilename: str, optional
+
+
+   .. py:method:: outputArpFile(group)
+
+      Output the ``.arp`` file.
+
+      :param group: list of loci to pass to Arlequin
+      :type group: list
+
+
+
+   .. py:method:: outputArsFile(arsFilename, arsContents)
+
+      Outputs the run-time Arlequin program file.
+
+      :param arsFilename: name of file
+      :type arsFilename: str
+      :param arsContents: contents of file
+      :type arsContents: str
+
+
+
+   .. py:method:: outputRunFiles()
+
+      Generates the expected '.txt' set-up files for Arlequin.
+
+
+
+   .. py:method:: runArlequin()
+
+      Run the Arlequin haplotyping program.
+
+      Forks a copy of ``arlecore.exe``, which must be on ``PATH`` to
+      actually generate the desired statistics estimates from the
+      generated ``.arp`` file.
+
+
+
+   .. py:method:: cleanup()
+
+      Remove the working Arlequin subdirectory.
+
+
+
+.. py:class:: ArlequinExactHWTest(matrix=None, lociList=None, markovChainStepsHW=100000, markovChainDememorisationStepsHW=1000, **kw)
+
+   Bases: :py:obj:`ArlequinWrapper`
+
+   .. autoapi-inheritance-diagram:: PyPop.arlequin.ArlequinExactHWTest
+      :parts: 1
+
+
+   Wraps the Arlequin Hardy-Weinberg exact functionality.
+
+   Run Hardy-Weinberg exact test on list specified in ``lociList``.
+
+   .. attribute:: hwExactTest
+
+      standard config options for Arlequin
+
+      :type: str
+
+   :param matrix: StringMatrix for testing
+   :type matrix: StringMatrix
+   :param lociList: list of loci
+   :type lociList: list
+   :param markovChainStepsHW: Number of steps to use in Markov chain
+                              (default: ``100000``)
+   :type markovChainStepsHW: int, optional
+   :param markovChainDememorisationStepsHW: "Burn-in" time for Markov
+                                            chain (default: ``1000``).
+   :type markovChainDememorisationStepsHW: int, optional
+
+
+   .. py:method:: getHWExactTest()
+
+      Returns a dictionary of loci.
+
+      :returns: Each dictionary element contains a tuple of the results from
+                the Arlequin implementation of the Hardy-Weinberg exact test,
+                namely:
+
+                - number of genotypes,
+                - observed heterozygosity,
+                - expected heterozygosity,
+                - the p-value,
+                - the standard deviation,
+                - number of steps,
+
+                If locus is monomorphic, the HW exact test can't be run, and
+                the contents of the dictionary element simply contains the
+                string ``monomorphic``, rather than the tuple of values.
+      :rtype: dict
+
+
+
+.. py:class:: ArlequinBatch(arpFilename, arsFilename, idCol, prefixCols, suffixCols, windowSize, mapOrder=None, untypedAllele='0', arlequinPrefix='arl_run')
+
+   A wrapper for running Arlequin from the command-line.
+
+   Given a delimited text file of multi-locus genotype data: provides
+   methods to output Arlequin format data files and runtime info and
+   execution of Arlequin itself. Used to provide a "batch"
+   (i.e. command line) mode for generating appropriate Arlequin input
+   files and for forking Arlequin itself.
+
+   :param arpFilename: Arlequin filename (must have ``.arp`` file
+                       extension)
+   :type arpFilename: str
+   :param arsFilename: Arlequin settings filename (must have
+                       ``.ars`` file extension)
+   :type arsFilename: str
+   :param idCol: column in input file that contains the individual
+                 id.
+   :type idCol: str
+   :param prefixCols: number of columns to ignore before allele
+                      data starts
+   :type prefixCols: int
+   :param suffixCols: number of columns to ignore after allele data
+                      stops
+   :type suffixCols: int
+   :param windowSize: size of sliding window
+   :type windowSize: int
+   :param mapOrder: list order of columns if different to column
+                    order in file (defaults to order in file)
+   :type mapOrder: list, optional
+   :param untypedAllele: (defaults to ``0``)
+   :type untypedAllele: str, optional
+   :param arlequinPrefix: prefix for all Arlequin run-time files
+                          (defaults to ``arl_run``).
+   :type arlequinPrefix: str, optional
+
+
+   .. py:method:: outputArlequin(data)
+
+      Outputs the specified .arp sample file.
+
+      :param data: list of lines of data.
+      :type data: list
+
+
+
+   .. py:method:: outputRunFiles()
+
+      Generates the expected set-up files for Arlequin.
+
+      Includes ``.txt`` and ``.ars`` file names.
+
+
+
+   .. py:method:: runArlequin()
+
+      Run the Arlequin haplotyping program.
+
+      Forks a copy of ``arlecore.exe``, which must be on ``PATH`` to
+      actually generate the desired statistics estimates from the
+      generated ``.arp`` file.
+
+
+
+.. py:data:: usage_message
+   :value: Multiline-String
+
+   .. raw:: html
+
+      <details><summary>Show Value</summary>
+
+   .. code-block:: python
+
+      """Usage: Arlequin.py [OPTION] INPUTFILE ARPFILE ARSFILE
+      Process a tab-delimited INPUTFILE of alleles to produce an data files
+      (including ARPFILE), using parameters from ARSFILE for the Arlequin population
+      genetics program.
+      
+       -i, --idcol=NUM       column number of identifier (first column is zero)
+       -l, --ignorelines=NUM number of header lines to ignore in in file
+       -c, --cols=POS1,POS2  number of leading columns (POS1) before start and
+                              number of trailing columns before the end (POS2) of
+                              allele data (including IDCOL)
+       -k, --sort=POS1,..    specify order of loci if different from column order
+                              in file (must not repeat a locus)
+       -w, --windowsize=NUM  number of loci involved in window size
+                              (note that this is half the number of allele columns)
+       -u, --untyped=STR     the string that represents `untyped' alleles
+                              (defaults to '****')
+       -x, --execute         execute the Arlequin program
+       -h, --help            this message
+       -d, --debug           switch on debugging
+      
+        INPUTFILE   input text file
+        ARPFILE     output Arlequin '.arp' project file
+        ARSFILE     input Arlequin '.ars' settings file"""
+
+   .. raw:: html
+
+      </details>
+
+
+
