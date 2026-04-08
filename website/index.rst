@@ -20,12 +20,27 @@ PyPop: Python for Population Genomics
       **PyPop (Python for Population Genomics)** is an environment for
       doing large-scale population genetic analyses including:
 
-      - conformity to Hardy-Weinberg expectations
+.. grid:: 12
 
-      -  tests for balancing or directional selection
+   .. grid-item::
+      :columns: 12 10 8 8
+      :margin: auto
 
-      - estimates of haplotype frequencies and measures and tests of
-        significance for linkage disequilibrium (LD).
+      .. grid:: 1 1 2 3
+         :gutter: 2
+
+         .. grid-item-card:: :fa:`balance-scale`
+
+            * conformity to Hardy-Weinberg expectations
+
+         .. grid-item-card:: :fa:`chart-line`
+
+            * tests for balancing or directional selection
+
+         .. grid-item-card:: :fa:`project-diagram`
+
+            * estimates of haplotype frequencies and measures and
+              tests of significance for linkage disequilibrium (LD).
 
 .. _guide-preface-1-end:
 
@@ -92,14 +107,21 @@ Citing PyPop
 
 .. include:: ../README.rst
    :start-after: guide-include-pypop-cite-start:
-   :end-before: guide-include-pypop-zenodo-start:
+   :end-before: guide-include-pypop-cite-end:
 
-.. admonition:: Click for Zenodo details
-   :class: dropdown
+.. grid:: 2
 
-   .. include:: ../README.rst
-      :start-after: guide-include-pypop-zenodo-start:
-      :end-before: guide-include-pypop-zenodo-end:
+    .. grid-item-card::  *Frontiers in Immunology*
+
+       .. include:: ../README.rst
+          :start-after: guide-include-pypop-frontiers-start:
+          :end-before: guide-include-pypop-frontiers-end:
+
+    .. grid-item-card:: Zenodo record
+
+       .. include:: ../README.rst
+          :start-after: guide-include-pypop-zenodo-start:
+          :end-before: guide-include-pypop-zenodo-end:
 
 .. _guide-preface-3-start:
 
