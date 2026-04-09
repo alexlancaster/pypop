@@ -109,7 +109,7 @@ Citing PyPop
    :start-after: guide-include-pypop-cite-start:
    :end-before: guide-include-pypop-cite-end:
 
-.. grid:: 2
+.. grid:: 1 1 2 2
 
     .. grid-item-card::  *Frontiers in Immunology*
 
