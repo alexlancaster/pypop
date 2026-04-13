@@ -421,7 +421,7 @@ jobs:
           # unpacks default artifact into dist/
           path: dist
           merge-multiple: true
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         name: Uploading binaries to release page
         with:
           files: dist/*
