@@ -152,7 +152,7 @@ except metadata_lib.PackageNotFoundError:
 
 
 copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
-Copyright (C) 2007-2025 PyPop team.
+Copyright (C) 2007-2026 PyPop team.
 This is free software.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 """
