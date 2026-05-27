@@ -497,8 +497,7 @@ class ParseGenotypeFile(ParseFile):
             col1, col2 = self.alleleMap[locus]
 
             # re-initialise the row count on each iteration of the locus
-            rowCount = 0
-            for line in sampleDataLines:
+            for rowCount, line in enumerate(sampleDataLines):
                 fields = line.split(self.separator)
 
                 # create data structures
@@ -516,9 +515,6 @@ class ParseGenotypeFile(ParseFile):
                 self.matrix[rowCount, locus] = (allele1, allele2)
 
                 logger.debug("%d %s", rowCount, self.matrix[rowCount, locus])
-
-                # increment row count
-                rowCount += 1
 
     def genValidKey(self, field, fieldList):
         """Check and validate key.
