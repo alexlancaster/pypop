@@ -1,0 +1,253 @@
+PyPop.datatypes
+===============
+
+.. py:module:: PyPop.datatypes
+
+.. autoapi-nested-parse::
+
+   Data structures storing genotype and allele count data.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.datatypes.Genotypes
+   PyPop.datatypes.AlleleCounts
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.datatypes.checkIfSequenceData
+   PyPop.datatypes.getMetaLocus
+   PyPop.datatypes.getLocusPairs
+   PyPop.datatypes.getLumpedDataLevels
+
+
+Module Contents
+---------------
+
+.. py:class:: Genotypes(matrix=None, untypedAllele='****', unsequencedSite=None, allowSemiTyped=0)
+
+   Stores genotypes and caches basic genotype statistics.
+
+   :param matrix: The ``StringMatrix`` to be converted into a ``Genotype`` instance
+   :type matrix: StringMatrix
+   :param untypedAllele: The placeholder for an untyped allele site
+   :type untypedAllele: str
+   :param unsequencedSite: The identifier used for an unsequenced site (only used for sequence data)
+   :type unsequencedSite: bool
+   :param allowSemiTyped: Whether or not to allow individuals that are typed at only one allele
+   :type allowSemiTyped: int
+
+
+   .. py:method:: getLocusList()
+
+      Get the list of loci.
+
+      .. note::
+
+         The returned list filters out all loci that consist of
+         individuals that are all untyped.  The order of returned
+         list is now fixed for the lifetime of the object.
+
+      :returns: The list of loci.
+      :rtype: list
+
+
+
+   .. py:method:: getAlleleCount()
+
+      Allele count statistics for all loci.
+
+      :returns: a map of tuples where the key is the locus name.  Each
+                tuple is a triple, consisting of a map keyed by alleles
+                containing counts, the total count at that locus and the
+                number of untyped individuals.
+      :rtype: dict
+
+
+
+   .. py:method:: getAlleleCountAt(locus, lumpValue=0)
+
+      Get allele count for given locus.
+
+      :param locus: locus
+      :type locus: str
+      :param lumpValue: the specified amount of lumping (Default: 0)
+      :type lumpValue: int
+
+      :returns: a tuple consisting of a map keyed by alleles
+                containing counts, the total count at that locus, and
+                number of untyped individuals.
+      :rtype: tuple
+
+
+
+   .. py:method:: serializeSubclassMetadataTo(stream)
+
+      Serialize subclass-specific metadata.
+
+      Specifically, total number of individuals and loci and
+      population name.
+
+      :param stream: the stream used for output.
+      :type stream: TextOutputStream
+
+
+
+   .. py:method:: serializeAlleleCountDataAt(stream, locus)
+
+      Serialize locus count data for a specific locus.
+
+      Specifically, total number of individuals and loci and
+      population name.
+
+      :param stream: the stream used for output
+      :type stream: TextOutputStream
+      :param locus: locus
+      :type locus: str
+
+
+
+   .. py:method:: serializeAlleleCountDataTo(stream)
+
+      Serialize allele count data for a specific locus.
+
+      :param stream: the stream used for output
+      :type stream: TextOutputStream
+
+      :returns: always returns ``1``
+      :rtype: int
+
+
+
+   .. py:method:: getLocusDataAt(locus, lumpValue=0)
+
+      Get the genotyped data for specified locus.
+
+      .. note::
+
+         The returned list has filtered out all individuals that
+         are untyped at either chromosome. Data is sorted so that
+         ``allele1`` < ``allele2``, alphabetically
+
+      :param locus: locus to use
+      :type locus: str
+      :param lumpValue: the specified amount of lumping (Default: ``0``).
+      :type lumpValue: int
+
+      :returns: a list genotypes consisting of 2-tuples which
+                contain each of the alleles for that individual in the
+                list.
+      :rtype: list
+
+
+
+   .. py:method:: getLocusData()
+
+      Get the genotyped data for all loci.
+
+      :returns: keyed by locus name of lists of 2-tuples as defined
+                by :meth:`getLocusDataAt()`
+      :rtype: dict
+
+
+
+   .. py:method:: getIndividualsData()
+
+      Get data for all individuals.
+
+      :returns: ``StringMatrix`` for all individuals
+      :rtype: StringMatrix
+
+
+
+.. py:class:: AlleleCounts(alleleTable=None, locusName=None)
+
+   Deprecated class to store information in allele count form.
+
+   .. deprecated:: 0.6.0
+        this class is now obsolete, the :class:`Genotypes` class
+        now holds allele count data as pseudo-genotype matrix.
+
+
+   .. py:method:: serializeSubclassMetadataTo(stream)
+
+      Serialize subclass-specific metadata.
+
+      Specifically, total number of alleles and loci.
+
+
+
+   .. py:method:: serializeAlleleCountDataAt(stream, locus)
+
+
+   .. py:method:: getAlleleCount()
+
+
+   .. py:method:: getLocusName()
+
+
+.. py:function:: checkIfSequenceData(matrix)
+
+   Heuristic check to determine whether we are analysing sequence.
+
+   .. note:: The regex matches loci of the form ``A_32`` or ``A_-32``
+
+   :param matrix: matrix to check
+   :type matrix: StringMatrix
+
+   :returns: if sequence, return ``1``, otherwise ``0``
+   :rtype: int
+
+
+.. py:function:: getMetaLocus(locus, isSequenceData)
+
+   Get the overall locus that this sequence belongs to.
+
+   :param locus: Locus of interest.
+   :type locus: str
+   :param isSequenceData: whether this locus is sequence data
+   :type isSequenceData: bool
+
+   :returns: The locus name, or ``None`` if not sequence data.
+   :rtype: str
+
+
+.. py:function:: getLocusPairs(matrix, sequenceData)
+
+   Get locus pairs for a given matrix.
+
+   :param matrix: matrix
+   :type matrix: StringMatrix
+   :param sequenceData: is this sequence data?
+   :type sequenceData: bool
+   :return: Returns a list of all pairs of loci from a given ``StringMatrix``.
+   :rtype: list
+
+
+.. py:function:: getLumpedDataLevels(genotypeData, locus, lumpLevels)
+
+   Get lumped data for a specific locus.
+
+   :param genotypeData: genotype data to query
+   :type genotypeData: Genotypes
+   :param locus: the locus
+   :type locus: str
+   :param lumpLevels: a list of integers representing lumping levels
+   :type lumpLevels: list
+
+   :returns:
+
+             a dictionary of tuples:
+               - locusData: keyed by locus
+               - alleleCount:
+   :rtype: dict
+
+

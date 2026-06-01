@@ -1,0 +1,15 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_CEPH_1992.pop	DQB1	265	265	lit	CEPH_1992	Caucasian	03-EUR	Collected from CEPH families in Paris, France	3	39 CEPH families from Paris, France. DNA available from both parents, at least six offspring and in most instances, some of the grandparents. 26 families are Mormon, 10 are French, 2 are Venezuelan, and 1 is Amish.	48.87N	2.33E	1	0.962	PCR-SSO		Begovich	1992	Polymorphism, recombination, and linkage disequilibrium within the HLA class II region	Journal of Immunology	148	249-258	ann.begovich@roche.com	salamon	FR	Begovich	1301073	11	1	Bugawan et al. 1991	N		Y	Y	N		Infer Haplotypes, LD, homozygosity, global LD(W)	Salamon et al. 1999: F-A, Fnd-A		ceph	JGG
+DQB1	count
+0201	45
+0301	53
+0302	39
+0303	15
+04	10
+0501	24
+0502	4
+0503	12
+0601	2
+0602	42
+0603	10
+0604	9
