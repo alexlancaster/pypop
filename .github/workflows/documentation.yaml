@@ -137,7 +137,7 @@ jobs:
           sphinx-build website _build
 
       - name: Deploy to beta site
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v4.1.0
         # only update beta site if base and head branches match, not for forks
         # forks cannot access secrets to deploy, see: https://github.com/orgs/community/discussions/26829
         # also dependabot jobs won't work either
