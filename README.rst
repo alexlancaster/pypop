@@ -26,27 +26,27 @@ If you write a paper that uses PyPop in your analysis, please cite
 
 .. _guide-include-pypop-frontiers-start:
 
-* Our `2024 article
-  <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
-  in *Frontiers in Immunology*:
+Our `2024 article
+<https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
+in *Frontiers in Immunology*:
 
-      Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
-      GD. (2024) "PyPop: A mature open-source software pipeline for
-      population genomics."  *Front. Immunol.* **15**:1378512 doi:
-      `10.3389/fimmu.2024.1378512
-      <https://doi.org/10.3389/fimmu.2024.1378512>`__
+    Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
+    GD. (2024) "PyPop: A mature open-source software pipeline for
+    population genomics."  *Front. Immunol.* **15**:1378512 doi:
+    `10.3389/fimmu.2024.1378512
+    <https://doi.org/10.3389/fimmu.2024.1378512>`__
 
 .. _guide-include-pypop-frontiers-end:
 
 .. _guide-include-pypop-zenodo-start:
 
-* The `Zenodo record <https://zenodo.org/records/10080667>`__ which
-  includes a DOI for the version of the software you used in your
-  analyses. Citing this record and DOI supports reproducibility by
-  allowing researchers to to determine the exact version of PyPop used
-  in any particular analysis. In addition, it allows retrieval of
-  long-term software source-code archives, independent of the original
-  developers.
+The `Zenodo record <https://zenodo.org/records/10080667>`__ which
+includes a DOI for the version of the software you used in your
+analyses. Citing this record and DOI supports reproducibility by
+allowing researchers to to determine the exact version of PyPop used
+in any particular analysis. In addition, it allows retrieval of
+long-term software source-code archives, independent of the original
+developers.
 
 .. admonition:: Here's how to cite the correct Zenodo version
    :class: dropdown

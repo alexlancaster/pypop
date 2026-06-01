@@ -25,31 +25,33 @@ PyPop: Python for Population Genomics
    .. grid-item::
       :columns: 12 10 8 8
       :margin: auto
+      :class: sd-fs-5
 
       .. grid:: 1 1 2 3
          :gutter: 2
 
-         .. grid-item-card:: :fa:`balance-scale`
+         .. grid-item-card:: :fa:`balance-scale;sd-text-success fa-xl`
 
             * conformity to Hardy-Weinberg expectations
 
-         .. grid-item-card:: :fa:`chart-line`
+         .. grid-item-card:: :fa:`chart-line;sd-text-success fa-xl`
 
             * tests for balancing or directional selection
 
-         .. grid-item-card:: :fa:`project-diagram`
+         .. grid-item-card:: :fa:`project-diagram;sd-text-success fa-xl`
 
-            * estimates of haplotype frequencies and measures and
-              tests of significance for linkage disequilibrium (LD).
+            * estimates of haplotype frequencies and linkage disequilibrium (LD).
 
 .. _guide-preface-1-end:
 
-.. _news:
+.. container:: homepage-news
 
-.. admonition:: PyPop News
-   :class: dropdown, toggle-shown
+   .. _news:
 
-   .. include:: _news.rst
+   .. admonition:: PyPop News
+      :class: dropdown, toggle-shown
+
+      .. include:: _news.rst
 
 .. _guide-preface-2-start:
 
