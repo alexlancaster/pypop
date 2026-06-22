@@ -30,7 +30,7 @@ updates:
   directory: "/.github"
   schedule:
     interval: "weekly"
-  versioning-strategy: increase
+#  versioning-strategy: increase
   commit-message:
     prefix: "python(CI deps)"
     # include: "scope"  # optional
