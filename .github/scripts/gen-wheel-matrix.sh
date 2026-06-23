@@ -10,8 +10,8 @@ if [[ "$MODE" == "legacy" ]]; then
     GREP_FLAGS=""
     GREP_PATTERN="cp36|cp37"
 elif [[ "$MODE" == "modern" ]]; then
-    # Extract version from .github/requirements-ci.txt
-    CIBW_VERSION=$(grep '^cibuildwheel==' .github/requirements-ci.txt | cut -d= -f3)
+    # Extract version from requirements-ci.txt
+    CIBW_VERSION=$(grep '^cibuildwheel==' requirements-ci.txt | cut -d= -f3)
     echo $CIBW_VERSION
     if [[ -z "$CIBW_VERSION" ]]; then
         echo "Failed to extract cibuildwheel version from requirements-ci.txt"
