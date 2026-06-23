@@ -9,33 +9,22 @@ updates:
     actions:
       patterns:
         - "*"
-
-# for pinned Python packages
+# main project
 - package-ecosystem: "pip"
   directory: "/"
   schedule:
     interval: "weekly"
-  ignore:
-      - dependency-name: "swig"
-        versions: [">4.2.1.post0"]
-  # group by dependency type
-  groups:
-    documentation-deps:
-      patterns:
-        - "*"
 
+# CI tools (explicit file lives in root)
 - package-ecosystem: "pip"
-  # Specify the directory for the requirements-*.txt files used by CI
-  # (wheels and docs)
-  directory: "/.github"
+  directory: "/"
   schedule:
     interval: "weekly"
-#  versioning-strategy: increase
-  commit-message:
-    prefix: "python(CI deps)"
-    # include: "scope"  # optional
-  # group by dependency type
-  groups:
-    build-wheel-deps:
-      patterns:
-        - "cibuildwheel"
+  allow:
+    - dependency-name: "cibuildwheel"
+
+# docs
+- package-ecosystem: "pip"
+  directory: "/website"
+  schedule:
+    interval: "weekly"
