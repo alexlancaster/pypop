@@ -9,22 +9,22 @@ updates:
     actions:
       patterns:
         - "*"
-# main project
+
 - package-ecosystem: "pip"
   directory: "/"
   schedule:
     interval: "weekly"
 
-# CI tools (explicit file lives in root)
-- package-ecosystem: "pip"
-  directory: "/"
-  schedule:
-    interval: "weekly"
-  allow:
-    - dependency-name: "cibuildwheel"
+  ignore:
+    - dependency-name: "swig"
+      versions: [">4.2.1.post0"]
 
-# docs
-- package-ecosystem: "pip"
-  directory: "/website"
-  schedule:
-    interval: "weekly"
+  groups:
+    # handle cibuildwheel differently
+    cibuildwheel-deps:
+      patterns:
+        - "cibuildwheel"
+    # group all other updates
+    all-python-deps:
+      patterns:
+        - "*"
