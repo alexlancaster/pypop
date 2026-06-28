@@ -186,7 +186,7 @@ jobs:
 
       - name: Set up cache for MSF files
         id: msf_cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ env.MSF_CACHE_DIR }}
           key: pooch-cache-${{ env.MSF_CACHE_DIR }}
@@ -230,7 +230,7 @@ jobs:
           "
       - name: Save the cache for MSF files
         if: ${{ steps.msf_cache.outputs.cache-hit != 'true' }}
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: ${{ env.MSF_CACHE_DIR }}
           key: pooch-cache-${{ env.MSF_CACHE_DIR }}
@@ -238,7 +238,7 @@ jobs:
 
       - name: Set up cache for cibuildwheel virtualenv bootstrap
         id: virtualenv_cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ env.VIRTUALENV_CACHE_DIR }}
           key: cibw-virtualenv-${{ env.VIRTUALENV_CACHE_DIR }}
@@ -285,7 +285,7 @@ jobs:
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
       - name: Restore cache for MSF files
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         with:
           # restore to the workspace, not home directory
           path: ${{ env.MSF_CACHE_DIR }}
@@ -309,7 +309,7 @@ jobs:
 
       - name: Restore cibuildwheel virtualenv bootstrap cache
         if: matrix.cibw_version == '2.23.3' && runner.os != 'Linux'
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         with:
           path: ${{ env.VIRTUALENV_CACHE_DIR }}
           key: cibw-virtualenv-${{ env.VIRTUALENV_CACHE_DIR }}
