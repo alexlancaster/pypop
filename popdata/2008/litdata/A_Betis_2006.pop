@@ -1,0 +1,30 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_Betis_2006.pop	A	348	350	lit	Betis_2006	African	01-SSA	Cameroon	2	Center South and East Provinces of Cameroon are found the Betis	3.16667N	13.61667E	1.006	1			Torimiro	2006	HLA class I diversity among rural rainforest inhabitants in Cameroon: identification of A*2612-B*4407 haplotype	Tissue Antigens	67	30-37																			ODS
+A	count
+2301/2307N	47
+0201	39
+3002	33
+0301	30
+7401/7402	29
+2902	22
+0202	21
+6601	16
+3001	14
+3601	13
+3402	11
+6801	11
+6802	11
+3303	8
+2601	7
+2612	7
+3201	7
+0101	4
+0205	4
+3101	4
+3004	3
+6602	3
+8001	2
+0102	1
+2402/2409N	1
+2501	1
+3301	1

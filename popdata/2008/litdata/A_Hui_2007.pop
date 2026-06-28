@@ -1,0 +1,32 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_Hui_2007.pop	A	220	220	lit	Hui_2007	Asian	08-NEA	China	2	very compact communities of Mongolian subjects living in Inner Mongolia Hui subjects inhabiting the Hualong and Minhe counties in Qinghai Province of Northern China	41.48N	92.33E	1	1			Hong	2007	HLA class I Polymorphism in Mongolian and Hui Ethnic Groups from Northern China	Human Immunology	68	439-448																			ODS
+A	count
+02G1	38
+24G1	36
+110101/1121N	35
+010101/0104N	12
+330301	12
+020601	11
+2601/2624	10
+310102	10
+030101G1	9
+0207/0215N	8
+300101/300102	6
+020301	5
+0202	3
+0210	3
+0205	2
+1102	2
+1110	2
+2301/2307N	2
+3201	2
+3301	2
+680102/6811N	2
+0222	1
+0237	1
+0258	1
+1113	1
+2420	1
+250101	1
+290201	1
+3206	1

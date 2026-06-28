@@ -1,0 +1,5 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Yucpa_2001.pop	DPB1	146	146	lit	Yucpa_2001	Amerindian	10-SAM	limits between Colombia and Venezuela	1	full-blooded individuals from Aroy, Marewa, and Peraya villages	4.00N	72.00W	1	1	PCR-SSOP	{LGD+01}	Layrisse	2001	Extended HLA Haplotypes in a Carib Amerindian Population: The Yucpa of the Perija Range	Tissue Antigens	62	992-1000	zlayriss@medicina.ivic.ve		CO	Layrisse	1301263	53	1	12th IHW	N		Y	N	N		LD			12th? - No, 12VENLAY-Yukpa.pop contains only DRB1, DQA1, DQB1	YT
+DPB1	count
+0402	115
+1401	31

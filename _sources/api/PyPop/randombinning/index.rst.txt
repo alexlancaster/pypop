@@ -1,0 +1,72 @@
+PyPop.randombinning
+===================
+
+.. py:module:: PyPop.randombinning
+
+.. autoapi-nested-parse::
+
+   Generating randomized sets allele counts for statistical analyses.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.randombinning.RandomBinsForHomozygosity
+
+
+Module Contents
+---------------
+
+.. py:class:: RandomBinsForHomozygosity(logFile=None, untypedAllele='****', filename=None, numReplicates=10000, binningReplicates=100, locus=None, xmlfile=None, randomResultsFileName=None)
+
+   Generate randomized sets of bins for homozygosity analysis.
+
+   :param logFile: output log file
+   :type logFile: str
+   :param untypedAllele: untyped allele (default ``****``)
+   :type untypedAllele: str, optional
+   :param filename: input filename
+   :type filename: str
+   :param numReplicates: replicates (default ``10000``)
+   :type numReplicates: int, optional
+   :param binningReplicates: replicates for binning (default ``100``)
+   :type binningReplicates: int, optional
+   :param locus: locus name
+   :type locus: str
+   :param xmlfile: output stream
+   :type xmlfile: XMLOutputStream, optional
+   :param randomResultsFileName: output file for the randomized results
+   :type randomResultsFileName: str
+
+
+   .. py:method:: randomMethod(alleleCountsBefore=None, alleleCountsAfter=None)
+
+      Do binning replicates with random-based method.
+
+      :param alleleCountsBefore: allele counts before binning
+      :type alleleCountsBefore: list
+      :param alleleCountsAfter: allele counts after binning
+      :type alleleCountsAfter: list
+
+
+
+   .. py:method:: sequenceMethod(alleleCountsBefore=None, alleleCountsAfter=None, polyseq=None, polyseqpos=None)
+
+      Do binning replicates with sequence-based method.
+
+      :param alleleCountsBefore: allele counts before binning
+      :type alleleCountsBefore: list
+      :param alleleCountsAfter: allele counts after binning
+      :type alleleCountsAfter: list
+      :param polyseq: Keyed on ``locus*allele`` of all allele
+                      sequences, containing **ONLY** the polymorphic positions.
+      :type polyseq: dict
+      :param polyseqpos: Keyed on ``locus`` of the positions of
+                         the polymorphic residues which you find in ``polyseq``.
+      :type polyseqpos: dict
+
+
+

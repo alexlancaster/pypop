@@ -1,0 +1,20 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Korean_2005.pop	DQA1	934	932	lit	Korean_2007	Asian	08-NEA	Korea	3	467 unrelated healthy individuals same as Lee 2005 population	38.34N	127.13E	0.998	1			Lee	2007	Diversity of HLA-DQA1 gene in the Korean population	Tissue Antigens	69	82-84																			ODS
+DQA1	count
+010101	68
+010201	149
+010202	6
+0103	99
+010401	61
+0105	15
+0201	68
+030101	88
+0302	97
+0303	117
+040101	15
+050101	28
+0503	11
+0505	56
+0507	6
+0508	7
+060101	41

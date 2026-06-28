@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Japanese_1995.pop	DQA1	100	100	lit	Japanese_1995	Asian	08-NEA	inexact	3	very little information on the Japanses sample	36N	138E	1	1	PCR-SSOP	{GIT+95}	Geng	1995	Determination of HLA class II alleles by genotyping in a Manchu population in the northern part of China and its relationship with Han and Japanese populations	Tissue Antigens	46	111-116	hinoko@is.icc.u-tokai.ac.jp		JP	Hidetoshi Inoko	1301112	34	1	11th IHW, Imanishi et al 1992	N		N	N	N		Phylogenetic trees				JGG
+DQA1	count
+0101	14
+0102	12
+0103	22
+03	39
+0401	2
+0501	8
+0601	3

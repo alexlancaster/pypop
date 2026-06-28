@@ -1,0 +1,15 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DRB1_BrazilKaingang.pop	DRB1	470	450	mid	BrazilKaingang	Amerindian	10-SAM	BRAZIL	2	..	24.5S	51.7W	0.957	1	SSOP		Tsuneto LT, Probst CM, Hutz MH, Salzano FM, Rodriguez-Delfin LA, Z   ago MA, Hill K, Hurtado AM, Ribeiro-dos-Santos AKC, Petzl-Erler ML	2000	HLA class II diversity in seven Amerindian populations.Clues ab   out the origins of the Ache tribeTISSUE ANTIGENS 2003:62, 512-526				perler@ufpr.br		235	Not Known	ANTHROPOLOGY STUDY	DM
+DRB1	count
+0102	4
+0401	4
+0404	120
+0411	3
+0701	1
+0802	233
+090102	2
+1001	9
+1101	7
+1301	1
+1402	7
+1602	59
