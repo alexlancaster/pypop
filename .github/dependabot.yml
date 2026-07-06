@@ -28,3 +28,14 @@ updates:
     all-python-deps:
       patterns:
         - "*"
+
+- package-ecosystem: "pip"
+  directory: "/website"
+  schedule:
+    interval: "weekly"
+
+  groups:
+    # group all other updates
+    all-docs-deps:
+      patterns:
+        - "*"
