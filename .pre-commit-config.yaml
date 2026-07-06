@@ -55,7 +55,7 @@ repos:
         exclude: '^src/(pval|haplo-stats)/.*'
 
   - repo: https://github.com/jsh9/pydoclint
-    rev: 0.9.0
+    rev: 0.9.1
     hooks:
       - id: pydoclint
 
