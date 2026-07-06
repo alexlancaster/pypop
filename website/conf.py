@@ -76,6 +76,7 @@ extensions = [
     "autoapi.extension",
     "sphinx.ext.napoleon",
     "sphinx.ext.intersphinx",
+    "sphinx_design",
 ]
 
 # override user-agent so that linkcheck works

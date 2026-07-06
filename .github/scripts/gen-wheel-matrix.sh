@@ -8,17 +8,17 @@ MODE="$1"
 if [[ "$MODE" == "legacy" ]]; then
     CIBW_VERSION="2.23.3"
     GREP_FLAGS=""
-    GREP_PATTERN="cp36|cp37"
+    GREP_PATTERN="cp36|cp37|cp38|pp38"
 elif [[ "$MODE" == "modern" ]]; then
-    # Extract version from .github/requirements-ci.txt
-    CIBW_VERSION=$(grep '^cibuildwheel==' .github/requirements-ci.txt | cut -d= -f3)
+    # Extract version from requirements-ci.txt
+    CIBW_VERSION=$(grep '^cibuildwheel==' requirements-ci.txt | cut -d= -f3)
     echo $CIBW_VERSION
     if [[ -z "$CIBW_VERSION" ]]; then
         echo "Failed to extract cibuildwheel version from requirements-ci.txt"
         exit 1
     fi
     GREP_FLAGS="-v"
-    GREP_PATTERN="cp36|cp37"
+    GREP_PATTERN="cp36|cp37|cp38|pp38"
     export CIBW_ENABLE="pypy-eol"
 else
     echo "Unsupported mode: $MODE (expected 'legacy' or 'modern')"
