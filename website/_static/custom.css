@@ -71,6 +71,7 @@ img.no-background {
 
 .text-cell {
     flex: 1 0 75%;
+    font-size: 1.3rem;
 }
 
 /* Mobile stacking */
@@ -87,6 +88,25 @@ img.no-background {
       text-align: left;       /* optional: center content */
   }
 
+}
+
+/* same for news box */
+@media (min-width: 993px) {
+  .homepage-news {
+    float: right;
+    width: 32% !important;
+    margin-left: 2rem !important;
+    margin-bottom: 1rem;
+    margin-top: -1.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .homepage-news {
+    float: none;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }
 
 /* Make AutoAPI summary tables scroll horizontally on small screens */

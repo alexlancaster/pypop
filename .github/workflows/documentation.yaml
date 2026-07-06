@@ -36,7 +36,7 @@ jobs:
       docs_rebuild: ${{ steps.changes.outputs.docs_rebuild }}
     steps:
       - name: Checkout full repo history
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0  # fetch full history so we can diff branches
       - name: Detect changed files
@@ -61,7 +61,7 @@ jobs:
     needs: docs_check
     if: needs.docs_check.outputs.docs_rebuild == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Check GitHub Action permissions
@@ -137,7 +137,7 @@ jobs:
           sphinx-build website _build
 
       - name: Deploy to beta site
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v4.1.0
         # only update beta site if base and head branches match, not for forks
         # forks cannot access secrets to deploy, see: https://github.com/orgs/community/discussions/26829
         # also dependabot jobs won't work either
