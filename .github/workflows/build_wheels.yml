@@ -337,7 +337,7 @@ jobs:
           cp "${VIRTUALENV_CACHE_DIR}"/*.pyz "$TARGET/"
 
       - name: Install a recent stable Python to handle Python deps
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: 3.12
 
