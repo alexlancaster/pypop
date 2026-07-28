@@ -615,11 +615,8 @@ class ArlequinBatch:
             )
 
             sampleLines.append("\n")
-
             # output previously-stored samples to stream only after
             # calculation of number of samples is made
-            # for line in samples:
-            #    sampleLines.append(line)
             sampleLines.extend(samples)
             sampleLines.append("}")
             validSample = 1
