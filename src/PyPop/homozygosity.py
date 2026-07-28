@@ -442,7 +442,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
                     self.getObservedHomozygosity() - self.EW.get_mean_homozygosity()
                 ) / sqrtVar
                 normDevStr = f"{normDevHomozygosity:.4f}"
-            except Exception:
+            except Exception:  # noqa: BLE001
                 normDevStr = "****"
             stream.tagContents("normDevHomozygosity", normDevStr)
 
