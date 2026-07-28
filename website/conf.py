@@ -291,7 +291,7 @@ bibtex_bibfiles = ["pypop.bib"]
 ## remove space between citation and post-text, so that it supports
 ## output like: "Author (2024a, 2024b)"
 
-from bibtex_styles import AlphaInitialsStyle, MyReferenceStyle  # noqa: E402, F401
+from bibtex_styles import AlphaInitialsStyle, MyReferenceStyle  # noqa: F401
 
 bibtex_reference_style = "author_year_round"
 bibtex_default_style = "alpha-initials"
