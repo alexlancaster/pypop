@@ -10,9 +10,9 @@ n150000_k041 = [130187, 25233, 46039, 2275, 891, 2781, 1107, 1325, 16419, 11603,
 
 n150000_k101 = [124117, 23927, 15590, 1151, 327, 44063, 1441, 412, 562, 8400, 6660, 11157, 184, 171, 3373, 689, 4625, 357, 258, 2151, 239, 2461, 5493, 3957, 3001, 185, 183, 1032, 1978, 197, 1441, 388, 836, 969, 2598, 147, 538, 736, 251, 761, 866, 952, 226, 184, 1183, 1796, 1316, 1629, 394, 532, 472, 501, 619, 114, 350, 244, 208, 312, 134, 202, 294, 262, 256, 228, 624, 471, 128, 680, 475, 423, 195, 425, 136, 746, 132, 162, 124, 198, 180, 261, 186, 181, 267, 338, 190, 147, 337, 342, 155, 276, 211, 175, 304, 225, 140, 128, 152, 198, 143, 137, 128]
 
-n300_k041 = [262, 34, 96, 4, 5, 4, 4, 51, 8, 11, 18, 3, 4, 2, 8, 5, 7, 21, 2, 11, 1, 2, 5, 6, 3, 1, 2, 3, 5, 1, 2, 1, 1, 2, 2, 3]
+n300_k036 = [262, 34, 96, 4, 5, 4, 4, 51, 8, 11, 18, 3, 4, 2, 8, 5, 7, 21, 2, 11, 1, 2, 5, 6, 3, 1, 2, 3, 5, 1, 2, 1, 1, 2, 2, 3]
 
-n300_k101 = [250, 37, 36, 96, 2, 4, 1, 3, 6, 8, 25, 14, 2, 2, 3, 2, 5, 2, 12, 3, 1, 8, 1, 4, 1, 14, 4, 1, 2, 1, 5, 5, 1, 1, 1, 2, 1, 3, 1, 2, 2, 1, 2, 2, 3, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1]
+n300_k060 = [250, 37, 36, 96, 2, 4, 1, 3, 6, 8, 25, 14, 2, 2, 3, 2, 5, 2, 12, 3, 1, 8, 1, 4, 1, 14, 4, 1, 2, 1, 5, 5, 1, 1, 1, 2, 1, 3, 1, 2, 2, 1, 2, 2, 3, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1]
 
 n50000_k041 = [43494, 15261, 5508, 770, 1234, 909, 468, 8330, 2962, 1927, 3829, 194, 531, 326, 831, 210, 1546, 1066, 2378, 1375, 263, 335, 421, 378, 592, 265, 259, 554, 352, 505, 234, 232, 306, 192, 219, 194, 268, 309, 644, 145, 184]
 
@@ -25,29 +25,29 @@ n5000_k101 = [4189, 742, 36, 73, 49, 22, 106, 491, 26, 70, 230, 1462, 359, 9, 38
 # fmt: on
 
 
+def _case(name, expected_to_calculate):
+    return pytest.param(
+        name,
+        expected_to_calculate,
+        id=name.replace("_", "-"),
+    )
+
+
+# expected to calculate based on KLIMIT of 100
 @pytest.mark.parametrize(
-    "name",
+    ("name", "expected_to_calculate"),
     [
-        pytest.param(
-            name,
-            marks=pytest.mark.xfail(strict=False)
-            if name.startswith("n150000_")
-            else (),
-            id=name.replace("_", "-"),
-        )
-        for name in (
-            "n300_k041",
-            "n300_k101",
-            "n5000_k041",
-            "n5000_k101",
-            "n50000_k041",
-            "n50000_k101",
-            "n150000_k041",
-            "n150000_k101",
-        )
+        _case("n300_k036", True),
+        _case("n300_k060", True),
+        _case("n5000_k041", True),
+        _case("n5000_k101", False),
+        _case("n50000_k041", True),
+        _case("n50000_k101", False),
+        _case("n150000_k041", True),
+        _case("n150000_k101", False),
     ],
 )
-def test_homozygosity_bounds_with_many_alleles(name):
+def test_homozygosity_bounds_with_many_alleles(name, expected_to_calculate):
     """Test homozygosity statistics with many distinct alleles."""
     allele_data = globals()[name]
 
@@ -56,7 +56,11 @@ def test_homozygosity_bounds_with_many_alleles(name):
         numReplicates=10000,
     )
     homozygosity.doCalcs(allele_data)
-    print("Expected F: ", homozygosity.mean_homozygosity)
+    # print("Expected F: ", homozygosity.mean_homozygosity)
 
-    assert 0.0 < homozygosity.mean_homozygosity <= 1.0
-    # assert -1.0 <= homozygosity.getNormDevHomozygosity() <= 1.0
+    if expected_to_calculate:
+        assert not homozygosity.alleleLimitExceeded
+        assert 0.0 < homozygosity.mean_homozygosity <= 1.0
+    else:
+        assert homozygosity.alleleLimitExceeded
+        assert homozygosity.mean_homozygosity is None
