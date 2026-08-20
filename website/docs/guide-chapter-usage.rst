@@ -755,9 +755,10 @@ test.
 
 .. warning::
 
-   Note that this module has a hardcoded limit on the number of
-   distinct alleles ``k`` for which it can compute homozygosity
-   statistics.  At the time of writing it is ``100``.
+   This module has a hardcoded limit on the number of distinct alleles
+   ``k`` for which it can compute homozygosity statistics.  At the
+   time of writing it is ``100``. If an analysis at runtime exceeds
+   this limit, it will be skipped in the output with a warning.
 
 .. _guide-usage-config-emhaplofreq:
 
