@@ -1,0 +1,37 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+B_Bulgarians_2002.pop	B	110	110	lit	Bulgarians_2002	Caucasian	03-EUR	Bulgaria	3	healthy, unrelated, randomly selected from different regions of the country	43.00N	25.00E	1	1	PCR-SBT	{IRT+02}	Ivanova	2002	HLA polymorphism in Bulgarians defined by high-resolution typing methods in comparison with other populations	Tissue Antigens	60	496-504	immun@medun.acad.bg		BG	Naumova	1301039	11	1	Applied Biosystems	N		Y	N	N		HW			13th? - No, BGRNAU-Gipsy.pop consists of 12 Gypsies	YT
+B	count
+07021	4
+0705/0706	1
+0801	2
+1302	3
+1402	1
+15011	2
+1517	2
+1801	10
+1803	1
+2702	5
+27052	2
+2707	1
+3501	5
+3502	2
+3503	4
+3508	3
+3701	1
+3801	4
+4001	1
+4002	4
+4101	3
+4402	3
+44031	1
+4405	4
+4406	1
+4701	1
+4901	2
+5001	3
+51011	23
+52011	4
+5501	2
+5701	2
+5801	2
+7301	1

@@ -1,0 +1,16 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Caucasian_1994.pop	DQB1	480	478	lit	Caucasian_1994	Caucasian	03-EUR		3	random	50N	15E	0.996	0.975	PCR-SSOP	{BKM+94}	Begovich	1994	Genes within the HLA class II region confer both predisposition and resistance to primary biliary cirrhosis	Tissue Antigens	43	71-77				Begovich		11	1	Begovitch et al. 1992, Erlich et al. 1991, Moonsamy et al 1992	N		Y	N	Y	primary biliary cirrhosis					YT
+DQB1	count
+0201	93
+0301	86
+0302	50
+0303	28
+0401/0402	12
+0501	66
+0502	9
+0503	16
+0601	3
+0602	58
+0603	37
+0604	16
+0605	4

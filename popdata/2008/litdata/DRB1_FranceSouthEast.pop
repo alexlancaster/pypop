@@ -1,0 +1,36 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DRB1_FranceSouthEast.pop	DRB1	260	249	mid	FranceSouthEast	Caucasoid	03-EUR	FRANCE	3	some of the typings have been verified in 2000, 2001 or 2002	46N	5E	0.958	1	SSP		Dubois ValerieGebuhrer Lucette	1996	not published				valerie.dubois@efs.sante.fr		130	Parents live at same location	ANTHROPOLOGY STUDY	DM
+DRB1	count
+0101	23
+0102	4
+0103	1
+0301	22
+030101	3
+0401	15
+0402	2
+0403	5
+0404	8
+0405	5
+0408	1
+0701	20
+0801	5
+0803	2
+0806	1
+0810	1
+090102	2
+1001	2
+1101	22
+1102	3
+1103	1
+1104	11
+1201	4
+1301	17
+1302	15
+1303	5
+1305	2
+1401	11
+1404	1
+1406	1
+1501	21
+1502	4
+1601	9

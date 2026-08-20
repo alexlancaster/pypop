@@ -1,0 +1,4 @@
+<map id="inheritance4d43241d41" name="inheritance4d43241d41">
+<area shape="rect" id="node1" href="#PyPop.homozygosity.Homozygosity" target="_top" title="Calculate homozygosity statistics." alt="" coords="5,5,121,31"/>
+<area shape="rect" id="node2" href="#PyPop.homozygosity.HomozygosityEWSlatkinExact" target="_top" title="Compute homozygosity using the Ewens&#45;Watterson&#45;Slatkin &quot;exact test&quot;." alt="" coords="140,5,359,31"/>
+</map>

@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Nganasan_2004.pop	DQA1	48	48	lit	Nganasan_2004	Siberian	08-NEA	Nganasan	1		65.8N	88E	1	1	PCR-SSCP	{UTD+04}	Uinuk-ool	2004	Variation of HLA class II genes in the Nganasan and ket, two aboriginal Siberian Populations	European Journal of Immunogenetics	31	43-51	tanya@tuebinen.mpg.de		RU	Sukernik		38s	1		N		Y	N	N						KD
+DQA1	count
+0101/0104/0105	3
+0102	1
+0103	2
+0201	5
+0301/0302/0303	19
+0401	1
+0501/0503/0505	17

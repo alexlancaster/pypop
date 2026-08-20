@@ -1,0 +1,26 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Austria_1993.pop	DPB1	980	980	lit	Austria_1993	Caucasian	03-EUR	Austria	3	subset of a group of blood donors of the Red Cross, blood bank of the Vienna General Hospital, mothers and putative fathers in cases of disputed paternity	47.20N	13.20E	1	1	PCR-SSO	{PFF93}	Pickl	1993	Detection of Established and Novel Alleles of the HLA-DPB1 Locus by PCR-SSO	Vox Sang	65	316-319			AT	Fischer	1301014	11	3	11th IHW	N		N	N	N		HW, LD	Fischer et al. 1992: serological typing			YT
+DPB1	count
+0101	32
+0201	151
+0202	3
+0301	101
+0401	434
+0402	115
+0501	20
+0601	16
+0901	11
+1001	8
+1101	9
+1301	16
+1401	24
+1501	5
+1601	4
+1701	17
+1901	2
+2001	6
+2301	2
+0101n	1
+0202n	1
+0402n	1
+1001n	1

@@ -1,0 +1,13 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Macedonian_1995.pop	DQB1	206	205	lit	Macedonian_1995	Caucasian	03-EUR	inexact	3	Slavic Macedonians from the Former Yugoslav Republic of Macedonia	41.50N	22.00E	0.995	1	PCR-SSO	{KBB+95}	Kocova	1995	HLA class II molecular typing in an European Slavic population with a low incidence of insulin-independent diabetes mellitus	Tissue Antigens	45	216-219	mnt+@pit.edu		MK	Massimo Trucco		11	1	Tong et al. 1993	N		N	N	Y	IDDM					JGG
+DQB1	count
+0201	14
+0302	15
+0502	36
+0501	27
+0301	72
+0602	23
+0603	7
+0303	2
+0503	8
+0604	1

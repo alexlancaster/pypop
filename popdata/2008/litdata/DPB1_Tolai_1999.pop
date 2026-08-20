@@ -1,0 +1,8 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Tolai_1999.pop	DPB1	96	96	lit	Tolai_1999	South Pacific Islanders	06-OCE	Rabaul, New Britain	2	northernmost New Britain, have moiety system in which everyone belongs to one of two matrilinear halves of the community which are mutually exogamous	004.20S	152.18E	1	1	PCR-SSO	{ZSK+99}	Zimdahl	1999	Towards understanding the origin and dispersal of Austronesians in the Solomon Sea: HLA class II polymorphism in eight distinct populations of Asia-Oceania	European Journal of Immunogenetics	26	405-416	marion.nagy@charite.de		PG	Nagy		38	1	12th IHW (Kimura and Sasazuki, 1992). Used reverse dot-blot, PCR-SSP, SBT to confirm typing results	N		Y	Y	N		HW, LD, Nei's genetic distance, phylogenetic trees				YT
+DPB1	count
+0101	1
+0201	53
+0202	1
+0401	15
+0501	26

@@ -1,0 +1,6 @@
+<map id="inheritance3c0d6a0aa6" name="inheritance3c0d6a0aa6">
+<area shape="rect" id="node1" href="https://docs.python.org/3/library/abc.html#abc.ABC" target="_top" title="Helper class that provides a standard way to create an ABC using" alt="" coords="5,5,77,31"/>
+<area shape="rect" id="node4" href="#PyPop.filters.Filter" target="_top" title="Abstract base class for all Filters." alt="" coords="96,5,168,31"/>
+<area shape="rect" id="node2" href="#PyPop.filters.AlleleCountAnthonyNolanFilter" target="_top" title="Filters data with an allelecount less than a threshold." alt="" coords="352,5,575,31"/>
+<area shape="rect" id="node3" href="#PyPop.filters.AnthonyNolanFilter" target="_top" title="Filters data via Anthony Nolan&#39;s allele call data." alt="" coords="187,5,333,31"/>
+</map>

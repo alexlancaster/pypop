@@ -1,0 +1,39 @@
+PyPop.pypop
+===========
+
+.. py:module:: PyPop.pypop
+
+.. autoapi-nested-parse::
+
+   Command-line interface for ``pypop``.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.pypop.main
+   PyPop.pypop.main_interactive
+
+
+Module Contents
+---------------
+
+.. py:function:: main(argv=sys.argv)
+
+   Entry point for ``pypop`` script.
+
+   :param argv: list of command-line options (default is ``sys.argv``)
+   :type argv: list
+
+
+.. py:function:: main_interactive(argv=sys.argv)
+
+   Entry point for interactive mode script ``pypop-interactive``.
+
+   :param argv: list of command-line options (default is ``sys.argv``)
+   :type argv: list
+
+

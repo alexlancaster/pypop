@@ -1,0 +1,6 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Bari_1995.pop	DQA1	116	116	lit	Bari_1995	Amerindian	10-SAM	long/lat is correct, pick Venezula as the country since the mountains are on the border	1	living at the Perija Range between Columbia and Venezuela, samples collected from two villages: Campo Rosario and Saimadoyi; number 2000 individuals	10.17N	73.17W	1	1	PCR-SSO	{LGD+95}	Layrisse	1995	Extended HLA Haplotypes Among the Bari Amerindians of the Perija Range: Relationship to Other Tribes Based on Four-loci Haplotype Frequencies	Human Immunology	44	228-235			VE	Layrisse	1301022	53	1	11th IHW, Kimura 1992	N		Y	N	N		genetic distance, LD, H			13th? - No, VENLAY-Bari.pop contains only A, B, C	YT
+DQA1	count
+03	67
+0401	1
+0501	48

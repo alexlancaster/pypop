@@ -1,0 +1,28 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+Cw_Tunisian_2004.pop	Cw	200	193	lit	Tunisian_2004		02-NAF	Tunisia	3	randomly selected from throughout the country	34N	9E	0.965	0.984			Ayed	2004	HLA class-I and HLA class-II phenotypic, gene and haplotypic frequencies in Tunisians by using molecular typing data	Tissue Antigens	64	520-532																			ODS
+C	count
+0602	33
+0701	25
+0401	23
+1601	15
+1203	12
+0501	10
+0202	10
+1502	9
+0802	7
+0702	7
+1701	7
+1602	6
+0304	5
+1202	4
+020202	3
+1505	3
+1402	3
+0704	2
+0302	2
+0101/0103	2
+0801/0803	1
+0303	1
+020202/020203	1
+0101	1
+1604	1
