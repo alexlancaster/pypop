@@ -1,4 +1,4 @@
-* 2026-03-22: `PyPop 1.4.2
+* 2026-08-20: `PyPop 1.4.2
   <https://github.com/alexlancaster/pypop/releases/tag/v1.4.2>`__ is
   released. Fixed numerical bug in Ewens-Watterson test homozygosity
   calculations (`#444
