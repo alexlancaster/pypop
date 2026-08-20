@@ -163,7 +163,7 @@ def update_news(session):
     if not drafts:
         session.error("No draft releases found.")
 
-    latest_draft = sorted(drafts, key=lambda r: r["created_at"], reverse=True)[0]
+    latest_draft = max(drafts, key=lambda r: r["created_at"])
     tag_name = latest_draft["tag_name"]
     body = latest_draft.get("body", "")
     session.log(f"Found draft release: {tag_name}")
@@ -251,7 +251,7 @@ def bump_release_date(session):
     if not drafts:
         session.error("No draft releases found.")
 
-    latest_draft = sorted(drafts, key=lambda r: r["created_at"], reverse=True)[0]
+    latest_draft = max(drafts, key=lambda r: r["created_at"])
     release_id = latest_draft["id"]
     tag_name = latest_draft["tag_name"]
     original_body = latest_draft.get("body", "")
