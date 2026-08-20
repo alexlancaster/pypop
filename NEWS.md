@@ -7,6 +7,56 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.4.2] - 2026-08-20
+
+### Features
+
+- Update homepage using `sphinx-design` for nicer layout ([#412](https://github.com/alexlancaster/pypop/pull/412))
+- Remove deprecated `datatypes.AlleleCounts` class ([#373](https://github.com/alexlancaster/pypop/pull/373))
+
+### Bug Fixes
+
+- safely handle large samples and allele counts in Ewens-Watterson homozygosity calculations ([#445](https://github.com/alexlancaster/pypop/pull/445))
+- cleanup exception handling + update pre-commit hooks ([#438](https://github.com/alexlancaster/pypop/pull/438))
+
+### Internal
+
+- Update numpy requirement from \<=2.5.1 to \<=2.5.2 in the all-python-deps group ([#442](https://github.com/alexlancaster/pypop/pull/442))
+- Bump cibuildwheel from 4.1.1 to 4.2.0 in the cibuildwheel-deps group ([#440](https://github.com/alexlancaster/pypop/pull/440))
+- cleanup exception handling + update pre-commit hooks ([#438](https://github.com/alexlancaster/pypop/pull/438))
+- Bump actions/setup-python from 6 to 7 in the actions group across 1 directory ([#436](https://github.com/alexlancaster/pypop/pull/436))
+- Bump setuptools-scm from 10.2.0 to 10.2.1 in /website in the all-docs-deps group across 1 directory ([#435](https://github.com/alexlancaster/pypop/pull/435))
+- Bump cibuildwheel from 4.1.0 to 4.1.1 in the cibuildwheel-deps group ([#434](https://github.com/alexlancaster/pypop/pull/434))
+- Bump pydata-sphinx-theme from 0.19.0 to 0.20.0 in /website in the all-docs-deps group ([#430](https://github.com/alexlancaster/pypop/pull/430))
+- Update numpy requirement from \<=2.5.0 to \<=2.5.1 in the all-python-deps group across 1 directory ([#428](https://github.com/alexlancaster/pypop/pull/428))
+- Bump sphinx-argparse from 0.5.2 to 0.6.0 in /website in the all-docs-deps group ([#427](https://github.com/alexlancaster/pypop/pull/427))
+- Bump actions/cache from 5 to 6 in the actions group across 1 directory ([#423](https://github.com/alexlancaster/pypop/pull/423))
+- Bump setuptools-scm from 10.1.1 to 10.2.0 in the all-python-deps group ([#424](https://github.com/alexlancaster/pypop/pull/424))
+- Bump cibuildwheel from 3.4.1 to 4.1.0 in the cibuildwheel-deps group ([#422](https://github.com/alexlancaster/pypop/pull/422))
+- Bump actions/checkout from 6 to 7 in the actions group across 1 directory ([#420](https://github.com/alexlancaster/pypop/pull/420))
+- Bump setuptools-scm from 10.0.5 to 10.1.1 ([#419](https://github.com/alexlancaster/pypop/pull/419))
+- Update numpy requirement from \<=2.4.6 to \<=2.5.0 ([#418](https://github.com/alexlancaster/pypop/pull/418))
+- Bump pydata-sphinx-theme from 0.18.0 to 0.19.0 ([#416](https://github.com/alexlancaster/pypop/pull/416))
+- Bump pydata-sphinx-theme from 0.17.1 to 0.18.0 ([#411](https://github.com/alexlancaster/pypop/pull/411))
+- Update lxml requirement from \<=6.1.0 to \<=6.1.1 ([#409](https://github.com/alexlancaster/pypop/pull/409))
+- Update numpy requirement from \<=2.4.4 to \<=2.4.6 ([#408](https://github.com/alexlancaster/pypop/pull/408))
+- Bump myst-parser from 5.0.0 to 5.1.0 ([#407](https://github.com/alexlancaster/pypop/pull/407))
+- Bump sphinxcontrib-bibtex from 2.6.5 to 2.7.0 ([#405](https://github.com/alexlancaster/pypop/pull/405))
+- Bump softprops/action-gh-release from 2 to 3 in the actions group across 1 directory ([#400](https://github.com/alexlancaster/pypop/pull/400))
+- Bump pydata-sphinx-theme from 0.17.0 to 0.17.1 ([#403](https://github.com/alexlancaster/pypop/pull/403))
+- Update lxml requirement from \<=6.0.4 to \<=6.1.0 ([#402](https://github.com/alexlancaster/pypop/pull/402))
+- Update lxml requirement from \<=6.0.2 to \<=6.0.4 ([#399](https://github.com/alexlancaster/pypop/pull/399))
+- python(CI deps): bump cibuildwheel from 3.4.0 to 3.4.1 in /.github in the build-wheel-deps group across 1 directory ([#397](https://github.com/alexlancaster/pypop/pull/397))
+- Bump pydata-sphinx-theme from 0.16.1 to 0.17.0 ([#396](https://github.com/alexlancaster/pypop/pull/396))
+- Update numpy requirement from \<=2.4.3 to \<=2.4.4 ([#392](https://github.com/alexlancaster/pypop/pull/392))
+- Bump sphinx-togglebutton from 0.4.4 to 0.4.5 ([#393](https://github.com/alexlancaster/pypop/pull/393))
+- Bump setuptools-scm from 9.2.2 to 10.0.5 ([#394](https://github.com/alexlancaster/pypop/pull/394))
+
+### Documentation
+
+- Bump sphinx-argparse from 0.5.2 to 0.6.0 in /website in the all-docs-deps group ([#427](https://github.com/alexlancaster/pypop/pull/427))
+- Update homepage using `sphinx-design` for nicer layout ([#412](https://github.com/alexlancaster/pypop/pull/412))
+
 ## [1.4.1] - 2026-03-22
 
 ### Internal
@@ -653,3 +703,4 @@ Single, Owen Solberg and Steve Mack.
 [1.3.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.3.1
 [1.4.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.4.0
 [1.4.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.4.1
+[1.4.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.4.2
