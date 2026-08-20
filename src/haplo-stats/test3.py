@@ -9,7 +9,7 @@ import numpy as np
 DIR = Path(__file__).parent.resolve()
 sys.path.insert(0, str(Path(DIR) / ".."))
 
-from PyPop.Haplo import _compute_LD  # noqa: E402
+from PyPop.Haplo import _compute_LD
 
 # FIXME: these arrays have to be in same order
 # this is fragile and probably needs changing in main code

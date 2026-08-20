@@ -655,7 +655,7 @@ class AnthonyNolanFilter(Filter):
                     break
             try:
                 self.length = int(match.group().split()[1])
-            except Exception:
+            except (AttributeError, IndexError, ValueError):
                 # FIXME:  How do we want to handle a non-existent MSF header alignment length
                 msg = f"could not find the alignment length from msf file {self.filename}."
                 raise RuntimeError(msg) from None
