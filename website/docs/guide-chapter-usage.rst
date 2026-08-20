@@ -740,8 +740,11 @@ us know <guide-contributing-bug-report>`.
 ``[HomozygosityEWSlatkinExact]``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The presence of this section enables Slatkin's :cite:yearpar:`slatkin_exact_1994`
-implementation of the Ewens-Watterson exact test of neutrality.
+The presence of this section enables Slatkin's
+:cite:yearpar:`slatkin_exact_1994` implementation of the
+Ewens-Watterson exact test of neutrality.  Note that this test
+computes a Monte Carlo approximation of the "exact" fully enumerated
+test.
 
 -  ``numReplicates``
 
@@ -749,6 +752,13 @@ implementation of the Ewens-Watterson exact test of neutrality.
    reason to change them unless you are particularly curious. If you
    change the default values and have problems, :ref:`please let us
    know <guide-contributing-bug-report>`.
+
+.. warning::
+
+   This module has a hardcoded limit on the number of distinct alleles
+   ``k`` for which it can compute homozygosity statistics.  At the
+   time of writing it is ``100``. If an analysis at runtime exceeds
+   this limit, it will be skipped in the output with a warning.
 
 .. _guide-usage-config-emhaplofreq:
 
