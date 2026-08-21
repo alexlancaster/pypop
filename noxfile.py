@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """nox commands."""
 
 import json
@@ -11,7 +12,6 @@ from zoneinfo import ZoneInfo
 
 nox.needs_version = ">=2025.10.14"
 nox.options.default_venv_backend = "virtualenv"
-# nox.options.sessions = ["precommit"]  # default session
 
 # Eastern Time (handles DST automatically)
 ET = ZoneInfo("America/New_York")
