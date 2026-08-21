@@ -284,6 +284,7 @@ MY = "no typechecker"
 RTD = "doesn't use read the docs"
 SEC001 = "no enabled yet"
 PP006 = "not using uv and using cibuildwheel"
+NOX201 = "does not use uv to bootstrap"
 
 [tool.pydoclint]
 style = "google"                        # Google style
