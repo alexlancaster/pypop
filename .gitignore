@@ -1,0 +1,11 @@
+*~
+build/
+dist/
+.tox/
+.eggs/
+tests/__pycache__/
+wheelhouse/
+src/PyPop/__pycache__/
+src/PyPop/xslt/__pycache__/
+src/pypop.egg-info/
+src/pypopgen.egg-info/

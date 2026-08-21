@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """nox commands."""
 
 import json
@@ -9,7 +10,8 @@ from pathlib import Path
 import nox
 from zoneinfo import ZoneInfo
 
-nox.options.sessions = ["precommit"]  # default session
+nox.needs_version = ">=2025.10.14"
+nox.options.default_venv_backend = "virtualenv"
 
 # Eastern Time (handles DST automatically)
 ET = ZoneInfo("America/New_York")
@@ -53,7 +55,7 @@ def commit_with_retry(session, filename, message):
     return committed
 
 
-@nox.session
+@nox.session(default=True)
 def precommit(session):
     """Run all pre-commit hooks (code formatting, spell check, linting).
 
@@ -63,14 +65,14 @@ def precommit(session):
     session.run("pre-commit", "run", "--all-files")
 
 
-@nox.session
+@nox.session(default=False)
 def build(session):
     """Build the package (including binary extensions)."""
     session.install("build")
     session.run("python", "-m", "build")
 
 
-@nox.session
+@nox.session(default=False)
 def tests(session):
     """Run unit tests and doctests using pytest."""
     session.install(".[test]")  # now install assumes [test] includes pytest, etc.
@@ -79,7 +81,7 @@ def tests(session):
     )  # do docstring tests then unit tests
 
 
-@nox.session
+@nox.session(default=False)
 def docs(session):
     """Build HTML documentation with Sphinx."""
     output_dir = session.posargs[0] if len(session.posargs) == 1 else "_htmlbuild"
@@ -93,7 +95,7 @@ def docs(session):
     session.run("sphinx-build", "website", output_dir)
 
 
-@nox.session
+@nox.session(default=False)
 def docs_pdf(session):
     """Build PDF documentation with Sphinx. Requires LaTeX to already be installed."""
     output_dir = session.posargs[0] if len(session.posargs) == 1 else "_latexbuild"
@@ -108,7 +110,7 @@ def docs_pdf(session):
     session.run("make", "-C", output_dir)
 
 
-@nox.session
+@nox.session(default=False)
 def clean(session):
     # FIXME: very basic, needs work
     """Clean build artifacts."""
@@ -117,7 +119,7 @@ def clean(session):
     )
 
 
-@nox.session
+@nox.session(default=False)
 def sdist_test(session):
     """Build sdist, install with test extras, and run tests."""
     session.install("build")
@@ -143,7 +145,7 @@ def sdist_test(session):
     session.run("pytest", *session.posargs)
 
 
-@nox.session
+@nox.session(default=False)
 def update_news(session):
     """Update NEWS.md in local checkout from latest GitHub *draft* release notes (if not already present)."""
     session.log("Running update NEWS.md from latest release draft...")
@@ -210,7 +212,7 @@ def update_news(session):
     return "NEWS.md"
 
 
-@nox.session
+@nox.session(default=False)
 def push_news(session):
     """Commit and push local changes to NEWS.md back to repo."""
     news_filename = "NEWS.md"
@@ -236,7 +238,7 @@ def push_news(session):
             session.warn("no changes were committed, skipping git push...")
 
 
-@nox.session
+@nox.session(default=False)
 def bump_release_date(session):
     """Bump release date in draft release to today."""
     session.log("Fetching draft releases...")
@@ -307,7 +309,7 @@ def bump_release_date(session):
     return tag_name
 
 
-@nox.session
+@nox.session(default=False)
 def prepare_release(session):
     """Prepare latest release draft with correct tag, target, and NEWS.md update."""
     # Confirm branch
@@ -363,7 +365,7 @@ def prepare_release(session):
     return tag_name
 
 
-@nox.session
+@nox.session(default=False)
 def publish_release(session):
     """Finalize publishing the release after preparing it."""
     tag_name = prepare_release(session)
@@ -381,3 +383,7 @@ def publish_release(session):
             "gh", "release", "edit", f"{tag_name}", "--draft=false", external=True
         )
         session.log(f"Release: {tag_name} published.")
+
+
+if __name__ == "__main__":
+    nox.main()

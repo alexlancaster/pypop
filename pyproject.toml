@@ -81,6 +81,7 @@ xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
 filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
+log_level = "INFO"
 log_cli_level = "INFO"
 testpaths = [
   "website/docs",
@@ -281,6 +282,9 @@ PC111 = "doesn't use blacken directly (uses ruff)"
 PC140 = "doesn't use typechecker"
 MY = "no typechecker"
 RTD = "doesn't use read the docs"
+SEC001 = "no enabled yet"
+PP006 = "not using uv and using cibuildwheel"
+NOX201 = "does not use uv to bootstrap"
 
 [tool.pydoclint]
 style = "google"                        # Google style
