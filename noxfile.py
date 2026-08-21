@@ -383,3 +383,7 @@ def publish_release(session):
             "gh", "release", "edit", f"{tag_name}", "--draft=false", external=True
         )
         session.log(f"Release: {tag_name} published.")
+
+
+if __name__ == "__main__":
+    nox.main()
