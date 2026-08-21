@@ -282,6 +282,7 @@ PC111 = "doesn't use blacken directly (uses ruff)"
 PC140 = "doesn't use typechecker"
 MY = "no typechecker"
 RTD = "doesn't use read the docs"
+SEC001 = "no enabled yet"
 
 [tool.pydoclint]
 style = "google"                        # Google style
