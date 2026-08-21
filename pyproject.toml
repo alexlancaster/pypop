@@ -283,6 +283,7 @@ PC140 = "doesn't use typechecker"
 MY = "no typechecker"
 RTD = "doesn't use read the docs"
 SEC001 = "no enabled yet"
+PP006 = "not using uv and using cibuildwheel"
 
 [tool.pydoclint]
 style = "google"                        # Google style
