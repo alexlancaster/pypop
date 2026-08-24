@@ -101,8 +101,14 @@ MODIFICATIONS.
 
     <xsl:choose>
 
-     <xsl:when test="@role='no-data'">
+      <xsl:when test="@role='no-data'">
       <xsl:text>*No data*</xsl:text>
+     </xsl:when>
+
+     <xsl:when test="@role='too-many-alleles'">
+       <xsl:text>The number of distinct alleles exceeded the hardcoded limit of </xsl:text>
+       <xsl:value-of select="@limit"/>
+       <xsl:text> The test cannot be run.</xsl:text>
      </xsl:when>
 
      <xsl:when test="@role='monomorphic'">

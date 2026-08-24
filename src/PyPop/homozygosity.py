@@ -340,13 +340,25 @@ class HomozygosityEWSlatkinExact(Homozygosity):
     def __init__(self, alleleData=None, numReplicates=10000):
         self.alleleData = alleleData
         self.numReplicates = numReplicates
+        self.alleleLimitExceeded = False
 
     def doCalcs(self, alleleData):
         """Run the computations.
 
         Args:
            alleleData (list): list of allele counts
+
+        Returns:
+           None
         """
+        self.alleleLimitExceeded = False
+        self.theta = None
+        self.prob_ewens = None
+        self.prob_homozygosity = None
+        self.mean_homozygosity = None
+        self.obsv_homozygosity = None
+        self.var_homozygosity = None
+
         self.alleleData = alleleData
         self.numAlleles = len(self.alleleData)
         if self.numAlleles > 0:
@@ -356,6 +368,17 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
         if self.sampleCount > 0:
             self.EW = _EWSlatkinExact
+
+            klimit = self.EW.get_klimit()
+            if self.numAlleles > klimit:
+                logger.warning(
+                    "Ewens-Watterson-Slatkin exact test cannot be run: "
+                    "%d alleles supplied, but the maximum is %d",
+                    self.numAlleles,
+                    klimit,
+                )
+                self.alleleLimitExceeded = True
+                return
 
             # create the correct array that module expect,
             # by pre- and appending zeroes to the list
@@ -410,7 +433,13 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         """
         self.doCalcs(self.alleleData)
 
-        if self.getObservedHomozygosity() >= 1.0:
+        if self.alleleLimitExceeded:
+            stream.emptytag(
+                "homozygosityEWSlatkinExact",
+                role="too-many-alleles",
+                limit=f"{self.EW.get_klimit()}",
+            )
+        elif self.getObservedHomozygosity() >= 1.0:
             stream.emptytag("homozygosityEWSlatkinExact", role="monomorphic")
         elif self.sampleCount > 0:
             stream.opentag("homozygosityEWSlatkinExact")
@@ -482,6 +511,8 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
             self.alleleData = list(i)
             self.doCalcs(self.alleleData)
+            if self.alleleLimitExceeded:
+                continue
             # calculate normalized deviate of homozygosity (F_nd)
             sqrtVar = math.sqrt(math.fabs(self.EW.get_var_homozygosity()))
             normDevHomozygosity = (
@@ -536,8 +567,8 @@ class HomozygosityEWSlatkinExactPairwise:
             stream.opentag("group", locus=pair, metalocus=metaLocus)
             stream.writeln()
             subMat = self.matrix.getSuperType(pair)
-            ##print(subMat
-            ##print(subMat.colList
+            ##print(subMat)
+            ##print(subMat.colList)
 
             # StringMatrix can't use a colon (":") as part of an allele
             # identifier, so replace them with dash ("-")
