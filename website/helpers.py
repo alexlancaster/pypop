@@ -202,7 +202,7 @@ def _make_deprecations_block():
     """
     try:
         from PyPop._deprecations import deprecated_modules  # noqa: PLC0415
-    except Exception:
+    except ImportError:
         return ""
 
     INDENT = "   "
@@ -235,7 +235,7 @@ def _make_deprecations_block():
     def parse_ver(v):
         try:
             return tuple(map(int, v.split(".")))
-        except Exception:
+        except (AttributeError, ValueError):
             return (0, 0, 0)
 
     sorted_versions = sorted(versions.keys(), key=parse_ver, reverse=True)
@@ -504,7 +504,7 @@ def get_autoapi_dirs(package_name, fallback_dir):
                 )
                 return [str(installed_path)]
             print(f"[helpers] {package_name} not found")
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             print(f"[helpers] Could not import installed package ({e})")
     # fallback
     fallback = str(Path(fallback_dir).resolve())

@@ -71,8 +71,8 @@ def is_musllinux():
         )
         if "musl" in output:
             return True
-    except Exception:
-        pass  # `ldd` might not exist
+    except Exception:  # noqa: BLE001
+        print("`ldd` might not exist")
 
     # Fallback: Check if running on Alpine (common musl distribution)
     try:
@@ -103,7 +103,7 @@ def debug_musllinux_check():
         )
         print("ldd --version output:")
         print(output.strip())
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         print(f"ldd check failed: {e}")
 
     # Check `/etc/os-release`

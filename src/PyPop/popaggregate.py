@@ -170,7 +170,7 @@ class Meta:
             try:
                 etree.parse(xml_file)
                 wellformed_files.append(xml_file)
-            except Exception:
+            except etree.XMLSyntaxError:
                 logger.warning("%d is not well-formed XML:", xml_file)
                 logger.warning(
                     "  probably a problem with analysis not completing, skipping in meta analysis!"
@@ -451,7 +451,7 @@ def _translate_file_to(
 
         success = True
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         logger.warning(e.args)
         logger.warning(
             "Can't process: %s with stylesheet: %s, skipping", inFile, xslFilename

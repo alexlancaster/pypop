@@ -301,8 +301,8 @@ double F(int k, int n, int *r) {
 
   sum = 0.0;
   for (i = 1; i <= k; i++)
-    sum += r[i] * r[i];
-  return sum / (n * n);
+    sum += (double)r[i] * r[i];
+  return sum / ((double)n * n);
 }
 
 double theta_est(int k_obs, int n) {
@@ -485,3 +485,5 @@ double get_prob_homozygosity(void) { return P_H; }
 double get_mean_homozygosity(void) { return E_F; }
 
 double get_var_homozygosity(void) { return Var_F; }
+
+int get_klimit(void) { return KLIMIT; }

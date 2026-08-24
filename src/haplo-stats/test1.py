@@ -10,8 +10,8 @@ import numpy as np
 DIR = Path(__file__).parent.resolve()
 sys.path.insert(0, str(Path(DIR) / ".."))
 
-from PyPop.Haplo import Haplostats  # noqa: E402
-from PyPop.Utils import StringMatrix, XMLOutputStream  # noqa: E402
+from PyPop.Haplo import Haplostats
+from PyPop.Utils import StringMatrix, XMLOutputStream
 
 # here we try to match this haplo.stats example
 

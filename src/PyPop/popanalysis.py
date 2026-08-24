@@ -544,7 +544,7 @@ class Main:
                 remoteMSF = None
             else:
                 anthonynolanPath = None
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             critical_exit("Error parsing the configuration: %s", e)
 
         return anthonynolanPath, remoteMSF
@@ -555,13 +555,13 @@ class Main:
                 self.binningMethod = self.config.get(
                     "RandomAlleleBinning", "binningMethod"
                 )
-            except Exception:
+            except NoOptionError:
                 self.binningMethod = "random"
             try:
                 self.binningStartPoint = self.config.getint(
                     "RandomAlleleBinning", "binningStartPoint"
                 )
-            except Exception:
+            except NoOptionError:
                 self.binningStartPoint = 0
             try:
                 self.binningReplicates = self.config.getint(
@@ -572,7 +572,7 @@ class Main:
             try:
                 self.binningLoci = self.config.get("RandomAlleleBinning", "binningLoci")
                 self.binningLoci = self.binningLoci.split(",")
-            except Exception:
+            except NoOptionError:
                 self.binningLoci = []
             if len(self.binningLoci) > 0:
                 self.randomBinningFlag = 1
@@ -588,7 +588,7 @@ class Main:
             else:
                 try:
                     filterType = self.config.get(filterCall, "filterType")
-                except Exception:
+                except NoOptionError:
                     critical_exit(
                         "No valid filter type specified under filter heading %s",
                         filterCall,
@@ -599,25 +599,25 @@ class Main:
 
                 try:
                     alleleFileFormat = self.config.get(filterCall, "alleleFileFormat")
-                except Exception:
+                except NoOptionError:
                     alleleFileFormat = "msf"
                 try:
                     preserveAmbiguousFlag = self.config.getint(
                         filterCall, "preserve-ambiguous"
                     )
-                except Exception:
+                except NoOptionError:
                     preserveAmbiguousFlag = 0
                 try:
                     preserveUnknownFlag = self.config.getint(
                         filterCall, "preserve-unknown"
                     )
-                except Exception:
+                except NoOptionError:
                     preserveUnknownFlag = 0
                 try:
                     preserveLowresFlag = self.config.getint(
                         filterCall, "preserve-lowres"
                     )
-                except Exception:
+                except NoOptionError:
                     preserveLowresFlag = 0
 
                 filter = AnthonyNolanFilter(
@@ -639,7 +639,7 @@ class Main:
             elif filterType == "DigitBinning":
                 try:
                     binningDigits = self.config.getint(filterCall, "binningDigits")
-                except Exception:
+                except NoOptionError:
                     binningDigits = 4
 
                 filter = BinningFilter(
@@ -660,7 +660,7 @@ class Main:
                             self.config.get(filterCall, option)
                         ).split()
                         logger.debug("customBinningDict: %s", str(customBinningDict))
-                except Exception:
+                except NoOptionError:
                     critical_exit("Could not parse the CustomBinning rules.")
 
                 filter = BinningFilter(
@@ -680,13 +680,13 @@ class Main:
                     self.unsequencedSite = self.config.get(
                         filterCall, "unsequencedSite"
                     )
-                except Exception:
+                except NoOptionError:
                     self.unsequencedSite = "#"
                 try:
                     sequenceFileSuffix = self.config.get(
                         filterCall, "sequenceFileSuffix"
                     )
-                except Exception:
+                except NoOptionError:
                     sequenceFileSuffix = "_prot"
 
                 try:
@@ -695,7 +695,7 @@ class Main:
                     )
                     if sequenceFilterMethod != "greedy":
                         sequenceFilterMethod = "strict-default"
-                except Exception:
+                except NoOptionError:
                     sequenceFilterMethod = "strict-default"
 
                 anthonynolanPath, remoteMSF = self._checkMSFOptions(filterCall)
@@ -1146,13 +1146,13 @@ class Main:
                                 sequenceFileSuffix = self.config.get(
                                     "Sequence", "sequenceFileSuffix"
                                 )
-                            except Exception:
+                            except NoOptionError:
                                 sequenceFileSuffix = "_nuc"
                             try:
                                 anthonynolanPath = self.config.get(
                                     "Sequence", "directory"
                                 )
-                            except Exception:
+                            except NoOptionError:
                                 anthonynolanPath = (
                                     Path(self.datapath) / "anthonynolan" / "msf"
                                 )

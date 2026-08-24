@@ -95,7 +95,7 @@ sphinxcontrib.bibtex.plugin.register_plugin(
 )
 
 # FIXME: should move this to top - currently doesn't work
-from pybtex.style.template import field, first_of, optional, sentence  # noqa: E402
+from pybtex.style.template import field, first_of, optional, sentence
 
 
 class AlphaInitialsStyle(AlphaStyle):

@@ -79,20 +79,7 @@ class RandomBinsForHomozygosity:
         # FIXME: don't require context manager, skip run SIM115
         self.randomResultsFile = open(randomResultsFileName, "w")  # noqa: SIM115
         self.randomResultsFile.write(
-            "\t".join(
-                [
-                    "filename",
-                    "locus",
-                    "method",
-                    "theta",
-                    "prob_ewens",
-                    "prob_homozygosity",
-                    "mean_homozygosity",
-                    "obsv_homozygosity",
-                    "var_homozygosity",
-                    "normDevHomozygosity",
-                ]
-            )
+            "filename\tlocus\tmethod\ttheta\tprob_ewens\tprob_homozygosity\tmean_homozygosity\tobsv_homozygosity\tvar_homozygosity\tnormDevHomozygosity"
             + "\n"
         )
 
@@ -223,7 +210,7 @@ class RandomBinsForHomozygosity:
 
             try:
                 del polyseqSliced[self.locus + "*" + self.untypedAllele]
-            except Exception:
+            except KeyError:
                 logger.debug("no untyped allele in polyseq")
 
             while len(alleleCountsRand) > len(alleleCountsAfter):

@@ -30,8 +30,8 @@ classifiers = [
     "Operating System :: POSIX :: Linux"
 ]
 dependencies = [
-    "numpy <= 2.5.1",
-    "lxml <= 6.1.1",
+    "numpy <= 2.5.2",
+    "lxml <= 6.1.2",
     "SciPy <= 1.16.2",
     "pooch <= 1.9.0",
     "importlib-resources; python_version <= '3.8'",
@@ -81,6 +81,7 @@ xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
 filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
+log_level = "INFO"
 log_cli_level = "INFO"
 testpaths = [
   "website/docs",
@@ -99,7 +100,8 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
      "pp311-*",            # no numpy wheels for PyPy 3.11
      "cp39-musllinux_aarch64",   # no scipy for aarch64
      "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*", # older musllinux missing numpy wheels
-     "cp314t*"             # lxml not yet built
+	 "cp314t*",           # issues with lxml threaded version throwing warnings
+     "cp315*"             # numpy not yet available
      ]
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
@@ -282,6 +284,9 @@ PC111 = "doesn't use blacken directly (uses ruff)"
 PC140 = "doesn't use typechecker"
 MY = "no typechecker"
 RTD = "doesn't use read the docs"
+SEC001 = "no enabled yet"
+PP006 = "not using uv and using cibuildwheel"
+NOX201 = "does not use uv to bootstrap"
 
 [tool.pydoclint]
 style = "google"                        # Google style
