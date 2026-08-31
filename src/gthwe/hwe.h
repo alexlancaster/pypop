@@ -62,7 +62,7 @@ MODIFICATIONS. */
 #define TRANS(x) (MIN(1.0, x)) / 2.0 /* transition probability */
 
 #define LL(a, b) a *(a + 1) / 2 + b
-#define L(a, b) (a < b) ? b *(b + 1) / 2 + a : a *(a + 1) / 2 + b
+#define L(a, b) (a < b) ? b * (b + 1) / 2 + a : a * (a + 1) / 2 + b
 
 #define EXPECT(a, b, c) ((double)a) / ((double)c) * ((double)b) / 2.0
 
