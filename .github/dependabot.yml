@@ -12,6 +12,8 @@ updates:
 
 - package-ecosystem: "pip"
   directory: "/"
+  exclude-paths:
+    - "website/**"
   schedule:
     interval: "weekly"
 
