@@ -222,7 +222,7 @@ jobs:
             local_file = pooch.retrieve(
               url=f'{base_url}{file}',  # full URL to the file
               known_hash=None,  # pooch will calculate the hash automatically
-              path=cache_dir  # cache location
+              path=cache_dir,  # cache location
               downloader=pooch.HTTPDownloader(timeout=120)
             )
             print(f'Saved {local_file}...')
