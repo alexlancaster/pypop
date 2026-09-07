@@ -1,0 +1,20 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Breton_1995.pop	DPB1	300	300	lit	Breton_1995	Caucasian	03-EUR	Western France	2	Assumed to be Breton(population of Western France). Note that the paper cites the use of Breton patients, but makes not mention of the control group.	45N	5W	1	1	PCR-RFLP	{RMC+95}	Raguenes	1995	HLA class II typing and idiopathic IgA nephropathy (IgAN): DQB1*0301, a possible marker of unfavorable outcome	Tissue Antigens	45	246-249			FR	Ragnues	1301073	11	1	DQB-Urgu et al. 1990. Mercier et al. 1992. DQA, DPB1- A1 Daccock et al. 1991	N		Y	N	Y	IgA nephropathy					JGG
+DPB1	count
+0101	18
+0201	33
+0202	2
+0301	25
+0401	123
+0402	39
+0501	5
+0601	5
+0801	2
+0901	2
+1001	10
+1101	8
+1301	6
+1401	8
+1501	8
+1601	3
+1901	3

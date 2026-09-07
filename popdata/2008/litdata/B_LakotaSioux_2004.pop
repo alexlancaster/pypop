@@ -1,0 +1,25 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+B_LakotaSioux_2004.pop	B	404	404	lit	LakotaSioux_2004	Amerindian	09-NAM	South Dakota	2	adult volunteers from the Cheyenne River and Ogala Sioux tribes	38N	97W	1	1	Sequence, SSOP	{LFH+04}	Leffell	2004	HLA Alleles and Haplotypes Among the Lakota Sioux: Report of the HI Minority Workshops, Part III	Human Immunology	65	78-89	msleffel@jhmi.edu		US	Zachary		52	2		N		Y	N							KD
+B	count
+3501	102
+3901	91
+5101	52
+2705	30
+1501	28
+4001	28
+4002	9
+4801	9
+0702	8
+4402	8
+1402	6
+3906	6
+0801	8
+5501	4
+1801	3
+4403	2
+4807	2
+5108	2
+5301	2
+5701	2
+4501	1
+5202	1

@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_MexicanMazatecan_2000.pop	DQA1	142	142	lit	MexicanMazatecan_2000	Amerindians	09-NAM	Mexico	2	living in Huautla de Jimenez and San Mateo Yoloxochitl villages, Oaxaca State, Mexico, individuals born in Mazatecan area, had Mazatecan physical appearance, four grandparents born in Mazatecan area and spoke Mazatecan	23.00N	102.00W	1	0.986	PCR-SSO	{AVG+00}	Arnaiz-Villena	2000	HLA genes in Mexican Mazatecans, the peopling of the Americas and the uniqueness of Amerinidians	Tissue Antigens	56	405-416	aarnaiz@eucmax.sim.ucm.es		MX	Arnaiz-Villena		53	3	Martinez-Laso et al 1995	N		Y	N	N						YT
+DQA1	count
+01	2
+0102	2
+0103	5
+0201	1
+030101	69
+0401	19
+0501	44

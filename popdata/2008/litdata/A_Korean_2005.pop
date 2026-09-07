@@ -1,0 +1,23 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_Korean_2005.pop	A	970	970	lit	Korean_2005	Asian	08-NEA	Korea	3	467 unrelated healthy individuals	38.34N	127.13E	1	1			Lee	2005	Allelic and haplotypic diversity of HLA-A, -B, -C, -DRB1, and -DQB1 genes in the Korean population	Tissue Antigens	65	437-447																			ODS
+A	count
+2402	210
+0201	160
+3303	158
+1101	105
+0206	69
+2601	58
+3101	52
+3001	34
+0207	29
+3004	18
+0101	17
+0301	17
+2603	10
+2901	10
+0210	6
+2602	6
+0203	5
+3201	3
+0302	2
+6801	1

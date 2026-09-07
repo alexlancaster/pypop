@@ -1,0 +1,6 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPA1_Basques_1998.pop	DPA1	200	195	lit	Basques_1998	Caucasian	03-EUR	Spain	2	autochthonous individuals, unrelated healthy blood donors from Basque country, Gipuzkoa province	40.00N	4.00W	0.975	1	PCR-SSO	{CMC+98}	Comas	1998	HLA class I and class II DNA typing and the origin of Basques	Tissue Antigens	51	30-40			ES	Comas	1301024	11	1	12th IHW	N		Y	N	N		Fst				YT
+DPA1	count
+0103	155
+0201	38
+0202	2

@@ -1,0 +1,25 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+Cw_Lebanese_2006.pop	Cw	194	194	lit	Lebanese_2006		04-SWA	Lebanon	3	samples from a University in Beirut from people from all over the country. Cw*020204 changed to Cw*0210 the preferred name --OS	33.8N	35.8E	1	0.964			Buhler	2006	HLA-C molecular characterization of a Lebanese population and genetic structure of 39 populations from Europe to India-Pakistan	Tissue Antigens	68	44-57																			ODS
+C	count
+0401	47
+0602	24
+070101/070102/0706	21
+1203	21
+1701/1702/1703	14
+0802	11
+1502	10
+0702	8
+120201/120202	6
+0210	4
+0302	4
+0501/0502/0503	4
+1602	4
+0303	3
+030401/0306/0309	3
+16041	3
+1402	2
+0102	1
+0704/0711	1
+120203	1
+1505	1
+1601	1

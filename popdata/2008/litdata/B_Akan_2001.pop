@@ -1,0 +1,26 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+B_Akan_2001.pop	B	88	88	lit	Akan_2001	African	01-SSA	Villiage of Adiopodoume	2	44 unrelated indeviduals living in the village od Adiopodoume, in the ivory coast. The Study participants belong to the Akan, an Agni subgroup.	7.50N	7.0E	1	1	SBT	{EHC+01}	Ellis	2001	HLA-B allele frequencies in Cote d'lvoire defined by direct DNA sequencing: identification of HLA-B*1405,B*4410, and B*5302	Tissue Antigens	57	339-343			CI	Hurley	1301192	22	1	primers listed in paper	N		N	N	N						JGG
+B	count
+07021	4
+0705/0706	5
+0801	2
+1402	2
+1405	1
+1503	7
+1510	5
+1516	4
+1518	1
+1801	2
+2703	1
+3501	5
+4201	3
+44031	3
+4410	1
+4501	8
+51011	2
+52012	3
+5301	20
+5302	1
+5703	4
+5801	2
+7801	2

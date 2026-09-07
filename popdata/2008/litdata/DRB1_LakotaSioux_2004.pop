@@ -1,0 +1,29 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_LakotaSioux_2004.pop	DRB1	404	404	lit	LakotaSioux_2004	Amerindian	09-NAM	South Dakota	2	adult volunteers from the Cheyenne River and Ogala Sioux tribes	38N	97W	1	1	Sequence, SSOP	{LFH+04}	Leffell	2004	HLA Alleles and Haplotypes Among the Lakota Sioux: Report of the HI Minority Workshops, Part III	Human Immunology	65	78-89	msleffel@jhmi.edu		US	Zachary		52	2		N		Y	N							KD
+DRB1	count
+0407	76
+0404	70
+1402	61
+0811	48
+16021	48
+09012	17
+0403	10
+0802	10
+1301	8
+0701	8
+15011	7
+03011	6
+0102	5
+1101	5
+0401	4
+0408	4
+0410	3
+0103	3
+1401	3
+08032	2
+0101	1
+0411	1
+0801	1
+1104	1
+1201	1
+1302	1

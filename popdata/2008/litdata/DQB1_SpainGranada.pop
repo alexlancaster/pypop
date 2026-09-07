@@ -1,0 +1,15 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DQB1_SpainGranada.pop	DQB1	560	562	mid	SpainGranada	Caucasoid	03-EUR	SPAIN	3	..	37N	7W	1.004	1	SSP		Oliver J,Martin J, Lopez-Nevot MA,	1995	Rheumatoid arthritis in southern Spain: toward elucidation of a    unifying roleof the HLA class II region in disease predisposition.Arthr   itis Rheum. 2001 Feb;44(2):307-14.				javi_om@ipb.csic.es		280	Not Known	BLOOD DONOR	DM
+DQB1	count
+0201	77
+0202	99
+0301	99
+0302	55
+0303	8
+0402	22
+0501	90
+0502	6
+0503	20
+0602	53
+0603	29
+0609	4

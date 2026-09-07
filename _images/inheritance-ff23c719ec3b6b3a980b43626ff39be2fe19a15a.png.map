@@ -1,0 +1,4 @@
+<map id="inheritance88f60adf91" name="inheritance88f60adf91">
+<area shape="rect" id="node1" href="#PyPop.hardyweinberg.HardyWeinberg" target="_top" title="Calculate Hardy&#45;Weinberg statistics for a single locus." alt="" coords="5,5,128,31"/>
+<area shape="rect" id="node2" href="#PyPop.hardyweinberg.HardyWeinbergGuoThompson" target="_top" title="Use Guo &amp; Thompson (1992) algorithm for calculating statistics." alt="" coords="147,5,363,31"/>
+</map>

@@ -1,0 +1,12 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+B_WestSchader_2001.pop	B	110	110	lit	WestSchader_2001	South Pacific Islanders	06-OCE	West Schrader ranges	2		5.15S	144.45E	1	1	PCR-SSO	{MAC+01}	Main	2001	The Peopling of New Guinea: Evidence from Class I Human Leukocyte Antigen	Human Biology	73	365-383			PG	Main		38	1	primer description in paper, Gao et al. 1994	N		N	N	N		LD, Nei's Genetic Distance				JGG
+B	count
+1301	4
+1506	30
+1525	9
+1536	5
+2704	10
+4001	5
+4002	14
+5601	23
+5602	10

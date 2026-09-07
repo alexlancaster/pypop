@@ -1,0 +1,30 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_Portuguese_2005.pop	A	290	290	lit	Portuguese_2005	Caucasian	03-EUR	Portugal	3	145 healthy unrelated males randomly distributed throughout Portugal	39.5N	8W	1	1			Spinola	2005	HLA genes in Portugal inferred from sequence-based typing: in the crossroad between Europe and Africa	Tissue Antigens	66	26-36																			ODS
+A	count
+020101	76
+010101	25
+030101	23
+110101	23
+240201	23
+2301	17
+2902	17
+310102	14
+3301	14
+3201	12
+3002	8
+2601	7
+680101	7
+0205	3
+3001	3
+6601	3
+6802	3
+0302	2
+680102	2
+0202	1
+022001	1
+1110	1
+2501	1
+2608	1
+290101	1
+3303	1
+6901	1

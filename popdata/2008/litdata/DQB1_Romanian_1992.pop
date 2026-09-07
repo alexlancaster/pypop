@@ -1,0 +1,16 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Romanian_1992.pop	DQB1	134	134	lit	Romanian_1992	Caucasian	03-EUR	United States	3	unrelated native Christian Romanians, emigrated to the United States after 1948, 61% from Munthenia, 9% from Moldavia, 16.4% from Transylvania, 13.6% from Banat	046.50N	025.00E	1	1	PCR-SSOP	{RHL+92}	Reed	1992	Polymorphism of HLA in the Romanian population	Tissue Antigens	39	8-13	efr1@columbia.edu		US	Reed	1301196	11	1	primers from 11th IHW	N		Y	N	N		HW				YT
+DQB1	count
+0501	21
+0502	12
+05031	2
+05032	5
+0601	4
+0602	6
+0603	8
+0604	2
+0201	31
+0301	29
+0302	11
+0303	1
+0402	2

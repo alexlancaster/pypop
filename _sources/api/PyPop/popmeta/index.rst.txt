@@ -1,0 +1,30 @@
+PyPop.popmeta
+=============
+
+.. py:module:: PyPop.popmeta
+
+.. autoapi-nested-parse::
+
+   Command-line interface for ``popmeta``.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.popmeta.main
+
+
+Module Contents
+---------------
+
+.. py:function:: main(argv=sys.argv)
+
+   Entry point for ``popmeta`` script.
+
+   :param argv: list of command-line options (default is ``sys.argv``)
+   :type argv: list
+
+

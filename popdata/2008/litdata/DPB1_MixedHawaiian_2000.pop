@@ -1,0 +1,14 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_MixedHawaiian_2000.pop	DPB1	76	76	lit	MixedHawaiian_2000	South Pacific Islanders	06-OCE	Honolulu	2	unrelated individuals, included individuals who report themselves to be greater than or equal to 12.5% Hawaiian ancestry. 7 are purely Hawaiian ancestry and 6 report as greater than 75% Hawaiian ancestry: these 13 individuals are in the dataset DPB1_NativeHawaiian_2000	21.32N	157.80W	1	1	PCR-SSOP	{MBM+00}	Mack	2000	Evolution of Pacific/Asian populations inferred from HLA class II allele frequency distributions	Tissue Antigens	55	383-400			US	Erlich	1301088	38	1	Begovich 1992	Y	Caucasian, Asian, SE Asian	Y	N	N		F, HW, neighbor joining trees				YT
+DPB1	count
+0101	9
+0201	11
+0301	2
+0401	12
+0402	11
+0501	25
+1301	2
+1601	1
+1701	1
+2001	1
+3901	1
