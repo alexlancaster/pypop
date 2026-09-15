@@ -62,8 +62,7 @@ pypop-interactive = "PyPop.pypop:main_interactive"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["PyPop", "PyPop.*"]
-exclude = ["PyPop.citation"]
+include = ["PyPop", "PyPop.xslt", "PyPop.citation"]
 
 [tool.setuptools.package-data]
 "PyPop" = ["citation/CITATION*"]
