@@ -114,7 +114,7 @@ environment = { PIP_ONLY_BINARY=":all:", PIP_VERBOSE="0", PYPOP_DOCS_MODE="insta
 
 # use pip and override the PIP_ONLY_BINARY=:all: during wheel generation
 # so that certain source-only build deps (like cffconvert) install
-build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
+build-frontend = { name = "pip", args = ["-v", "--only-binary=:none:"] }
 
 [tool.cibuildwheel.linux]
 # add aarch64 to default ("auto") architectures
