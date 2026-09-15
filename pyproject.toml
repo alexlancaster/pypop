@@ -62,10 +62,11 @@ pypop-interactive = "PyPop.pypop:main_interactive"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["PyPop", "PyPop.xslt"]
+include = ["PyPop", "PyPop.xslt", "PyPop.citation"]
 
 [tool.setuptools.package-data]
 "PyPop" = ["citation/CITATION*"]
+"PyPop.xslt" = ["*.xsl"]
 
 [tool.setuptools.dynamic]
 readme = { file = "README.rst", content-type = "text/x-rst" }
