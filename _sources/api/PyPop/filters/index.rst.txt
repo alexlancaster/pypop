@@ -1,0 +1,511 @@
+PyPop.filters
+=============
+
+.. py:module:: PyPop.filters
+
+.. autoapi-nested-parse::
+
+   Filters for pre-filtering of data files before analysis.
+
+   This module includes filters that modify or otherwise transform the
+   input data before being passed to PyPop analysis.
+
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   PyPop.filters.SubclassError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.filters.Filter
+   PyPop.filters.PassThroughFilter
+   PyPop.filters.AnthonyNolanFilter
+   PyPop.filters.BinningFilter
+   PyPop.filters.AlleleCountAnthonyNolanFilter
+
+
+Module Contents
+---------------
+
+.. py:exception:: SubclassError
+
+   Bases: :py:obj:`Exception`
+
+   .. autoapi-inheritance-diagram:: PyPop.filters.SubclassError
+      :parts: 1
+
+
+   Customized exception if a subclass doesn't implement required methods.
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+   .. py:method:: __str__()
+
+      Returns a warning to subclass.
+
+
+
+.. py:class:: Filter
+
+   Bases: :py:obj:`abc.ABC`
+
+   .. autoapi-inheritance-diagram:: PyPop.filters.Filter
+      :parts: 1
+
+
+   Abstract base class for all Filters.
+
+
+   .. py:method:: doFiltering(matrix=None)
+      :abstractmethod:
+
+
+
+   .. py:method:: startFirstPass(locus)
+      :abstractmethod:
+
+
+
+   .. py:method:: checkAlleleName(alleleName)
+      :abstractmethod:
+
+
+
+   .. py:method:: addAllele(alleleName)
+      :abstractmethod:
+
+
+
+   .. py:method:: endFirstPass()
+      :abstractmethod:
+
+
+
+   .. py:method:: startFiltering()
+      :abstractmethod:
+
+
+
+   .. py:method:: filterAllele(alleleName)
+      :abstractmethod:
+
+
+
+   .. py:method:: endFiltering()
+      :abstractmethod:
+
+
+
+   .. py:method:: writeToLog(logstring=None)
+      :abstractmethod:
+
+
+
+   .. py:method:: cleanup()
+      :abstractmethod:
+
+
+
+.. py:class:: PassThroughFilter
+
+   Bases: :py:obj:`Filter`
+
+   .. autoapi-inheritance-diagram:: PyPop.filters.PassThroughFilter
+      :parts: 1
+
+
+   A filter that doesn't change input data.
+
+
+   .. py:method:: doFiltering(matrix=None)
+
+
+   .. py:method:: startFirstPass(locus)
+
+
+   .. py:method:: checkAlleleName(alleleName)
+
+
+   .. py:method:: addAllele(alleleName)
+
+
+   .. py:method:: endFirstPass()
+
+
+   .. py:method:: startFiltering()
+
+
+   .. py:method:: filterAllele(alleleName)
+
+
+   .. py:method:: endFiltering()
+
+
+   .. py:method:: writeToLog(logstring=None)
+
+
+   .. py:method:: cleanup()
+
+
+.. py:class:: AnthonyNolanFilter(directoryName=None, remoteMSF=None, alleleFileFormat='msf', preserveAmbiguousFlag=0, preserveUnknownFlag=0, preserveLowresFlag=0, alleleDesignator='*', logFile=None, untypedAllele='****', unsequencedSite='#', sequenceFileSuffix='_prot', filename=None, numDigits=4, verboseFlag=1, sequenceFilterMethod='strict')
+
+   Bases: :py:obj:`Filter`
+
+   .. autoapi-inheritance-diagram:: PyPop.filters.AnthonyNolanFilter
+      :parts: 1
+
+
+   Filters data via Anthony Nolan's allele call data.
+
+   Allele call data files can be of either ``txt`` or ``msf`` formats.
+
+   - ``txt`` files available at http://www.anthonynolan.com
+   - ``msf`` files available at ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/
+
+
+   Base class parameters.
+
+   :param directoryName: directory that AnthonyNolan allele data is located
+   :type directoryName: str
+   :param remoteMSF: Specifies the version (tag) of the remote ``msf``
+                     directory in the `IMGT-HLA GitHub repo
+                     <https://github.com/ANHIG/IMGTHLA/>`__.  If present, the remote
+                     MSF files for the specified version will be downloaded on-demand,
+                     and cached for later reuse
+   :type remoteMSF: str
+   :param alleleFileFormat: file format, can be
+                            ``txt`` or ``msf`` (default). Use of ``msf`` files is
+                            required in order to translate allele codes into
+                            polymorphic sequence data.
+   :type alleleFileFormat: str, optional
+   :param preserveAmbiguousFlag: If set to ``0`` (default) then
+                                 ambiguitity is removed (e.g.  ``010101/0102/010301`` will
+                                 truncate this to ``0101``).  To preserve the ambiguity,
+                                 set the option to ``1`` (for this example, it will result
+                                 in a filtered allele "name" of ``0101/0102/0103``)
+   :type preserveAmbiguousFlag: int, optional
+   :param preserveUnknownFlag: If set to ``0`` (default) replace
+                               unknown alleles with the ``untypedAllele`` designator. To
+                               keep unrecognized allele names set to ``1``.
+   :type preserveUnknownFlag: int, optional
+   :param preserveLowresFlag: This option is similar to
+                              ``preserveUnknownFlag``, but only applies to lowres
+                              alleles. If set to ``1``, PyPop will keep allele names
+                              that are shorter than the default allele name length,
+                              usually 4 digits long.  But if  ``preserveUnknownFlag``
+                              is set, this option has no effect, because all unknown
+                              alleles are preserved.
+   :type preserveLowresFlag: int, optional
+   :param alleleDesignator: the designator used to indicate a locus name (default ``*``),
+   :type alleleDesignator: str, optional
+   :param logFile: log file
+   :type logFile: str, optional
+   :param untypedAllele: defaults to ``****``
+   :type untypedAllele: str, optional
+   :param unsequencedSite: defaults to ``#``
+   :type unsequencedSite: str, optional
+   :param sequenceFileSuffix: Suffix for file names
+                              used for finding sequences each allele. (e.g.,, if the
+                              file for locus ``A`` is ``A_prot.msf``, then keep the
+                              default be ``_prot``. For  nucleotide sequence files,
+                              this would be set  ``_nuc``.
+   :type sequenceFileSuffix: str, optional
+   :param filename: Currently not used
+   :type filename: str, optional
+   :param numDigits: Number of digits used for HLA data (default ``4``)
+   :type numDigits: int, optional
+   :param verboseFlag: Verbose output (default is on, i.e. ``1``)
+   :type verboseFlag: int, optional
+   :param sequenceFilterMethod: matching alleles to
+                                sequence, defaults to ``strict``, can also be
+                                ``greedy``
+   :type sequenceFilterMethod: str, optional
+
+
+   .. py:method:: doFiltering(matrix=None)
+
+      Do filtering on the provided matrix.
+
+      :param matrix: matrix to be filteredng
+      :type matrix: StringMatrix
+
+      :returns: returns processed matrix for further downstream processing
+      :rtype: StringMatrix
+
+
+
+   .. py:method:: startFirstPass(locus)
+
+      Start the first pass of filtering.
+
+      :param locus: locus to start filtering
+      :type locus: str
+
+      .. seealso:: Must be paired with a subsequent :meth:`endFirstPass`
+
+
+
+   .. py:method:: checkAlleleName(alleleName)
+
+      Checks allele name against the database.
+
+      :param alleleName: allele name
+      :type alleleName: str
+
+      :returns: returns the original ``allele`` truncated to appropriate number of digits,
+                if it can't be found using any of the heuristics, return it as
+                an ``untypedAllele`` (normally ``****``).
+      :rtype: str
+
+
+
+   .. py:method:: addAllele(alleleName)
+
+      Add allele to be filtered.
+
+      :param alleleName: process allele to be filtered
+      :type alleleName: str
+
+
+
+   .. py:method:: endFirstPass()
+
+      End first pass of filtering.
+
+      .. seealso:: Must be paired with a previous :meth:`startFirstPass`
+
+
+
+   .. py:method:: startFiltering()
+
+      Start the main filtering.
+
+      .. seealso:: must be paired with a subsequent :meth:`endFiltering`
+
+
+
+   .. py:method:: filterAllele(alleleName)
+
+      Filter a specified allele.
+
+      :param alleleName: allele to filter
+      :type alleleName: str
+
+      :returns: return the translated allele
+      :rtype: dict
+
+
+
+   .. py:method:: endFiltering()
+
+      End filtering.
+
+      .. seealso:: Must be paired with a previous :meth:`startFiltering`
+
+
+
+   .. py:method:: writeToLog(logstring='\n')
+
+      Write a string to log.
+
+      :param logstring: defaults to line feed
+      :type logstring: str
+
+
+
+   .. py:method:: cleanup()
+
+      Do any cleanups.
+
+
+
+   .. py:method:: makeSeqDictionaries(matrix=None, locus=None)
+
+      Make a sequence dictionary for a given locus.
+
+      :param matrix: matrix to use.
+      :type matrix: StringMatrix
+      :param locus: locus to use.
+      :type locus: str
+
+      :returns:     polyseq (dict): Keyed on ``locus*allele`` of all
+                    allele sequences, containing **ONLY** the polymorphic
+                    positions.
+
+                    polyseqpos (dict): Keyed on ``locus`` of the positions
+                    of the polymorphic residues which you find in
+                    ``polyseq``.
+      :rtype: tuple
+
+      :raises RuntimeError: If the alignment length could not be found
+          in the MSF header.
+
+
+
+   .. py:method:: translateMatrix(matrix=None)
+
+      Translate the whole matrix (all loci).
+
+      :param matrix: matrix to translate
+      :type matrix: StringMatrix
+
+      :returns: new instance with sequence data in columns
+      :rtype: StringMatrix
+
+
+
+.. py:class:: BinningFilter(customBinningDict=None, logFile=None, untypedAllele='****', filename=None, binningDigits=4)
+
+   Filters original data into "bins".
+
+   This can be done through either digits (for HLA alleles) or custom
+   rules defined a file for each locus.
+
+   :param customBinningDict: a custom binning dict, this is
+                             keyed by locus, but each key consists of a series of
+                             lines, each line containing ruleset of which alleles
+                             belong in a given bin
+   :type customBinningDict: dict, optional
+   :param logFile: output logfilek, must be set
+   :type logFile: str, optional
+   :param untypedAllele: defaults to ``****``
+   :type untypedAllele: str, optional
+   :param filename: filename (**unused**), defaults to ``None``
+   :type filename: str, optional
+   :param binningDigits: defaults to ``4``
+   :type binningDigits: int, optional
+
+
+   .. py:method:: doDigitBinning(matrix=None)
+
+      Do the **digit** binning on specified matrix.
+
+      .. note:: Digit binning is done only if :attr:`binningDigits` is set.
+
+      :param matrix: matrix to modify
+      :type matrix: StringMatrix
+
+      :returns: the modified matrix
+      :rtype: StringMatrix
+
+
+
+   .. py:method:: doCustomBinning(matrix=None)
+
+      Do the **custom** binning  on specified matrix.
+
+      .. note:: Custom binning is done only if ``customBinningDict`` is set.
+
+      :param matrix: matrix to modify
+      :type matrix: StringMatrix
+
+      :returns: the modified matrix
+      :rtype: StringMatrix
+
+
+
+   .. py:method:: lookupCustomBinning(testAllele, locus)
+
+      Apply custom binning rules to a allele and locus pair.
+
+      :param testAllele: allele to check
+      :type testAllele: str
+      :param locus: locus to check
+      :type locus: str
+
+      :returns: binned (or not) allele
+      :rtype: str
+
+
+
+.. py:class:: AlleleCountAnthonyNolanFilter(lumpThreshold=None, **kw)
+
+   Bases: :py:obj:`AnthonyNolanFilter`
+
+   .. autoapi-inheritance-diagram:: PyPop.filters.AlleleCountAnthonyNolanFilter
+      :parts: 1
+
+
+   Filters data with an allelecount less than a threshold.
+
+   :param lumpThreshold: set threshold
+   :type lumpThreshold: int
+
+   Base class parameters.
+
+   :param directoryName: directory that AnthonyNolan allele data is located
+   :type directoryName: str
+   :param remoteMSF: Specifies the version (tag) of the remote ``msf``
+                     directory in the `IMGT-HLA GitHub repo
+                     <https://github.com/ANHIG/IMGTHLA/>`__.  If present, the remote
+                     MSF files for the specified version will be downloaded on-demand,
+                     and cached for later reuse
+   :type remoteMSF: str
+   :param alleleFileFormat: file format, can be
+                            ``txt`` or ``msf`` (default). Use of ``msf`` files is
+                            required in order to translate allele codes into
+                            polymorphic sequence data.
+   :type alleleFileFormat: str, optional
+   :param preserveAmbiguousFlag: If set to ``0`` (default) then
+                                 ambiguitity is removed (e.g.  ``010101/0102/010301`` will
+                                 truncate this to ``0101``).  To preserve the ambiguity,
+                                 set the option to ``1`` (for this example, it will result
+                                 in a filtered allele "name" of ``0101/0102/0103``)
+   :type preserveAmbiguousFlag: int, optional
+   :param preserveUnknownFlag: If set to ``0`` (default) replace
+                               unknown alleles with the ``untypedAllele`` designator. To
+                               keep unrecognized allele names set to ``1``.
+   :type preserveUnknownFlag: int, optional
+   :param preserveLowresFlag: This option is similar to
+                              ``preserveUnknownFlag``, but only applies to lowres
+                              alleles. If set to ``1``, PyPop will keep allele names
+                              that are shorter than the default allele name length,
+                              usually 4 digits long.  But if  ``preserveUnknownFlag``
+                              is set, this option has no effect, because all unknown
+                              alleles are preserved.
+   :type preserveLowresFlag: int, optional
+   :param alleleDesignator: the designator used to indicate a locus name (default ``*``),
+   :type alleleDesignator: str, optional
+   :param logFile: log file
+   :type logFile: str, optional
+   :param untypedAllele: defaults to ``****``
+   :type untypedAllele: str, optional
+   :param unsequencedSite: defaults to ``#``
+   :type unsequencedSite: str, optional
+   :param sequenceFileSuffix: Suffix for file names
+                              used for finding sequences each allele. (e.g.,, if the
+                              file for locus ``A`` is ``A_prot.msf``, then keep the
+                              default be ``_prot``. For  nucleotide sequence files,
+                              this would be set  ``_nuc``.
+   :type sequenceFileSuffix: str, optional
+   :param filename: Currently not used
+   :type filename: str, optional
+   :param numDigits: Number of digits used for HLA data (default ``4``)
+   :type numDigits: int, optional
+   :param verboseFlag: Verbose output (default is on, i.e. ``1``)
+   :type verboseFlag: int, optional
+   :param sequenceFilterMethod: matching alleles to
+                                sequence, defaults to ``strict``, can also be
+                                ``greedy``
+   :type sequenceFilterMethod: str, optional
+
+
+   .. py:method:: endFirstPass()
+
+      End first pass and then lump alleles.
+
+      First process regular :class:`AnthonyNolanFilter` then modify
+      all alleles with a ``count`` < ``lumpThreshold`` to ``lump``.
+
+
+
+

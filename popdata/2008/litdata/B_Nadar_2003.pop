@@ -1,0 +1,16 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+B_Nadar_2003.pop	B	122	122	lit	Nadar_2003	Asian	04-SWA	Southern-most part of the peninsular of Southern India, lying between 77 and 80 degrees E and 8 and 13 degrees N.	3	61 unrelated healthy individual Nadars from Tamil Nadu State in South India	10.5N	78.5E	1	1	PCR-RLS-SSOP	{SSP03}	Shankarkumar	2003	HLA Diversity among Nadars, a primitive Dravidian caste of South India	Tissue Antigens	62	542-547	shankarkumar16@hotmail.com		IN	Pitchappan	1301226	31	1	Pitchappan et al.	Y	SE Asian, SW Asian	Y	N	N		HW, analysis of homozygosity, Pearson's Chi square			14th!	JN
+B	count
+0707	2
+1304	2
+15011	21
+1508	4
+2705	5
+3501	18
+3503	3
+3701	11
+4006	11
+4406	9
+51011	19
+5603	7
+5701	10

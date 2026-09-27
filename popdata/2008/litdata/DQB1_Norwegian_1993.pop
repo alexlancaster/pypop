@@ -1,0 +1,13 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Norwegian_1993.pop	DQB1	47	47	lit	Norwegian_1993	Caucasian	03-EUR	inexact	3	Norwegian Caucasoids from a former study by same team, taken from Norwegian Bone Marrow Donor Registry	62N	10E	1	1	PCR-SSO		Ploski	1993	On the HLA-DQ(alpha1*0501, beta1*0201)- asociated susceptibility in celiac disease: A possible gene dosage effect of DQB1*0201	Tissue Antigens	41	173-177	erikthorsby@labmed.uio.no		NO	Erik Throsby	1301165	11	1	Ronningen et. Al 1990+ 1 additional probe given.	N		Y	N	Y	celiac disease	fisher exact test				JGG
+DQB1	count
+0201	2
+0301	5
+0302	6
+0303	2
+0402	4
+0501	9
+0503	1
+0602	14
+0603	3
+0604	1

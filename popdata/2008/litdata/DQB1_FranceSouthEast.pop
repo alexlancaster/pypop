@@ -1,0 +1,19 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DQB1_FranceSouthEast.pop	DQB1	260	253	mid	FranceSouthEast	Caucasoid	03-EUR	FRANCE	3	some of the typings have been verified in 2000, 2001 or 2002	46N	5E	0.973	1	SSP		Dubois ValerieGebuhrer Lucette	1996	not published				valerie.dubois@efs.sante.fr		130	Parents live at same location	ANTHROPOLOGY STUDY	DM
+DQB1	count
+0201	25
+0202	13
+0301	65
+0302	24
+0303	10
+0304	2
+0305	1
+0402	5
+0501	28
+0502	10
+0503	12
+0601	4
+0602	21
+0603	18
+0604	11
+0609	4

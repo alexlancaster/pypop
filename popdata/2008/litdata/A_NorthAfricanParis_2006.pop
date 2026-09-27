@@ -1,0 +1,35 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_NorthAfricanParis_2006.pop	A	187	187	lit	NorthAfricanParis_2006	African	02-NAF	France	3mig	The population studied was composed of 50 families with documented North African origin who live in the Paris	48.87N	2.33E	1	1			Pedron	2006	HLA Alleles and Haplotypes in French North African Immigrants	Human Immunology	67	540-550																			ODS
+A	count
+0201	33
+0101	18
+2402	16
+0301	14
+3002	10
+2902	10
+2601	8
+2301	8
+6801	7
+3301	7
+1101	7
+3201	6
+3001	5
+0205	5
+3101	4
+2501	3
+0302	3
+6901	2
+6802	2
+3601	2
+3303	2
+3004	2
+2901	2
+0211	2
+0204	2
+8001	1
+7401	1
+6601	1
+3401	1
+2608	1
+2403	1
+0202	1

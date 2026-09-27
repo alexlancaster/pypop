@@ -1,0 +1,19 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Danish_1992.pop	DPB1	142	142	lit	Danish_1992	Caucasian	03-EUR	Blood samples were drawn from staff members, their relatives and blood donors within Copenhagen	3	Staff members, their family members and some radom blood donors at the university of Copenhagen.	55.67N	12.58E	1	1	PCR-RFLP	{HMM92}	Hviid	1992	HLA-DPB1 typing with polymerase chain reaction and restriction fragment length polymorphism technique in Danes	Tissue Antigens	40	140-144	t.hh@get2net.dk		DK	Hviid	1301059	11	1	Includes enzymes and restrictions patterns. Check with PCR-ASO.	N		N	Y	N						JGG
+DPB1	count
+0101	13
+0201	12
+0202	1
+0301	17
+0401	59
+0402	12
+0501	7
+0601	4
+0901	4
+1001	2
+1401	1
+1501	2
+1601	1
+1701	4
+1801	1
+1901	2
