@@ -1,0 +1,133 @@
+PyPop.popaggregate
+==================
+
+.. py:module:: PyPop.popaggregate
+
+.. autoapi-nested-parse::
+
+   Module for collecting multiple population outputs.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.popaggregate.Meta
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.popaggregate.translate_string_to_stdout
+   PyPop.popaggregate.translate_string_to_file
+   PyPop.popaggregate.translate_file_to_stdout
+   PyPop.popaggregate.translate_file_to_file
+
+
+Module Contents
+---------------
+
+.. py:class:: Meta(popmetabinpath=None, datapath=None, metaXSLTDirectory=None, dump_meta=False, TSV_output=True, prefixTSV=None, PHYLIP_output=False, ihwg_output=False, batchsize=0, outputDir=None, xml_files=None)
+
+   Aggregates output from multiple population runs.
+
+   Transform a specified list of ``.xml`` output files to ``.tsv``
+   tab-separated values (TSV) form.
+
+   :param popmetabinpath: the directory for where meta sources are kept
+   :type popmetabinpath: str
+   :param datapath: data where XSLT and other meta sources may be kept
+   :type datapath: str
+   :param metaXSLTDirectory: fallback XSLT directory
+   :type metaXSLTDirectory: str
+   :param dump_meta: create the ``meta.xml`` file (default to ``False,``)
+   :type dump_meta: bool
+   :param TSV_output: output ``.tsv`` tables by default (enabled by default). (such tables can be used by R)
+   :type TSV_output: bool
+   :param prefixTSV: prefix to use for all ``.tsv`` files
+   :type prefixTSV: str
+   :param PHYLIP_output: create PHYLIP output (disabled by default)
+   :type PHYLIP_output: bool
+   :param ihwg_output: by default, don't enable the 13th IHWG format headers
+   :type ihwg_output: bool
+   :param batchsize: size of batches to process separately (default
+                     ``batchsize=0``, a separate batch for each file)
+   :type batchsize: int
+   :param outputDir: output directory to write XML files to
+   :type outputDir: str
+   :param xml_files: list of generate XML files
+   :type xml_files: list
+
+
+.. py:function:: translate_string_to_stdout(xslFilename, inString, outputDir=None, params=None)
+
+   Transform XML string using XSLT and save to stdout.
+
+   :param xslFilename: name of XSLT file
+   :type xslFilename: str
+   :param inString: XML string
+   :type inString: str
+   :param outputDir: name of output directory
+   :type outputDir: str, optional
+   :param params: list of XSLT parameters
+   :type params: list, optional
+
+
+.. py:function:: translate_string_to_file(xslFilename, inString, outFile, outputDir=None, params=None)
+
+   Transform XML string using XSLT and save to file.
+
+   :param xslFilename: name of XSLT file
+   :type xslFilename: str
+   :param inString: XML string
+   :type inString: str
+   :param outFile: name of output file
+   :type outFile: str
+   :param outputDir: name of output directory
+   :type outputDir: str
+   :param params: list of XSLT parameters
+   :type params: list
+
+
+.. py:function:: translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None)
+
+   Transform XML file using XSLT and save to stdout.
+
+   :param xslFilename: name of XSLT file
+   :type xslFilename: str
+   :param inFile: name of input XML file
+   :type inFile: str
+   :param inputDir: name of input directory
+   :type inputDir: str, optional
+   :param params: list of XSLT parameters
+   :type params: list, optional
+
+   :returns: consisting of a bool (transformation successful) and str (output)
+   :rtype: tuple
+
+
+.. py:function:: translate_file_to_file(xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None)
+
+   Transform XML file using XSLT and save to a file.
+
+   :param xslFilename: name of XSLT file
+   :type xslFilename: str
+   :param inFile: name of input XML file
+   :type inFile: str
+   :param outFile: name of output file
+   :type outFile: str
+   :param inputDir: name of input directory
+   :type inputDir: str, optional
+   :param outputDir: name of output directory
+   :type outputDir: str, optional
+   :param params: list of XSLT parameters
+   :type params: list, optional
+
+   :returns: transformation successful
+   :rtype: bool
+
+

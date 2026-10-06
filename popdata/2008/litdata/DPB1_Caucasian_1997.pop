@@ -1,0 +1,16 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Caucasian_1997.pop	DPB1	190	184	lit	Caucasian_1997	Caucasian	03-EUR	inexact, assume same as patient group	3	pregnant women with normal glucose tolerance	46.00N	2.00E	0.968	1	PCR-RFLP	{VFB+97}	Vambergue	1997	Gestational Diabetes Mellitus and HLA Class II (-DQ, -DR) Association: The Diagest Study	European Journal of Immunogenetics	24	385-394			FR	Fahardy		11	1	restriction enzymes given in paper	N		Y	N	Y	gestational giabetes mellitus					YT
+DPB1	count
+0101	8
+0201	23
+0202	2
+0301	21
+0401	70
+0402	31
+0501	6
+0601	3
+0901	4
+1101	1
+1301	8
+1401	6
+1701	1

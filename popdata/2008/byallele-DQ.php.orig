@@ -1,0 +1,686 @@
+<php>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+	<title>HLA-DQA1 and DQB1 alleles, sorted by allele name</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!-- "G_PLUGIN_FOR_HTML" -->
+<style><!--
+tt {
+	font-family: courier;
+}
+td {
+	font-family: helvetica, sans-serif;
+}
+caption {
+	font-family: helvetica, sans-serif;
+	font-size: 14pt;
+	text-align: left;
+}
+--></style>
+</head>
+<body>
+
+<p>View this table <a href="byfreq-DQ.php">sorted by allele frequency</a>.
+<br>Jump to locus:  <a href="byallele-A.php">A</a>, <a href="byallele-C.php">C</a>, <a href="byallele-B.php">B</a>, <a href="byallele-DRB1.php">DRB1</a>, <a href="byallele-DQ.php">DQA1 and DQB1</a>, <a href="byallele-DP.php">DPA1 and DPB1</a>.
+<br>Or return to <a href="../index.html">main page</a>.</p>
+<p>Explanation of column headers: 
+<ul>
+<li><b>Year</b> is the year the allele was first described in the literature.</li>
+<li><b>CWD</b> indicates that the allele is considered Common and Well Documented by Cano et. al. (2007)
+<a href="http://dx.doi.org/10.1016/j.humimm.2007.01.014">[DOI]</a> <a href="http://www.ncbi.nlm.nih.gov/pubmed/17462507">[PubMed]</a>.</li>
+<li><b>Freq</b> is the overall average frequency, across all population samples included in Solberg et. al. (2008).
+<a href="http://dx.doi.org/10.1016/j.humimm.2008.05.001">[DOI]</a> <a href="http://www.ncbi.nlm.nih.gov/pubmed/18638659">[PubMed]</a></li>
+<li><b>Regions</b> is the number of world regions the allele appears in.</li>
+<li>The <b>Map</b> link provides a geographical interpolation of allele frequency, using only non-migrant populations (maps are not available for a few alleles because of this). 
+<br>N.B.: The maps should be considered crude approximations of regional patterns.</p></li>
+</ul>
+
+ 
+<p><table border="1">
+<caption>HLA-DQA1 and DQB1 alleles, sorted by allele name</caption>
+<tr>
+<td>Locus</td>
+<td>Allele</td>
+<td>Year</td>
+<td>CWD</td>
+<td>Freq</td>
+<td>Regions</td>
+<td>Map</td>
+</tr>
+
+<tr>
+<td>DQA1</td>
+<td>DQA1*0101</td>
+<td>1987</td>
+<td> </td>
+<td>0.12682</td>
+<td>11</td>
+<td><A HREF=maps/DQA1-0101.gif><IMG border=0 SRC=maps/DQA1-0101-t.gif></A></td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0102</td>
+<td>1984</td>
+<td> </td>
+<td>0.17286</td>
+<td>11</td>
+<td><A HREF=maps/DQA1-0102.gif><IMG border=0 SRC=maps/DQA1-0102-t.gif></A></td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0103</td>
+<td>1987</td>
+<td> </td>
+<td>0.06956</td>
+<td>11</td>
+<td><A HREF=maps/DQA1-0103.gif><IMG border=0 SRC=maps/DQA1-0103-t.gif></A></td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0106</td>
+<td>1999</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0107</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0201</td>
+<td>1983</td>
+<td> </td>
+<td>0.08840</td>
+<td>11</td>
+<td><A HREF=maps/DQA1-0201.gif><IMG border=0 SRC=maps/DQA1-0201-t.gif></A></td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0301</td>
+<td>1982</td>
+<td> </td>
+<td>0.21576</td>
+<td>11</td>
+<td><A HREF=maps/DQA1-0301.gif><IMG border=0 SRC=maps/DQA1-0301-t.gif></A></td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0401</td>
+<td>1987</td>
+<td> </td>
+<td>0.05623</td>
+<td>10</td>
+<td><A HREF=maps/DQA1-0401.gif><IMG border=0 SRC=maps/DQA1-0401-t.gif></A></td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0402</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0403</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0404</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0501</td>
+<td>1984</td>
+<td> </td>
+<td>0.25958</td>
+<td>11</td>
+<td><A HREF=maps/DQA1-0501.gif><IMG border=0 SRC=maps/DQA1-0501-t.gif></A></td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0504</td>
+<td>1997</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQA1</td>
+<td>DQA1*0601</td>
+<td>1988</td>
+<td> </td>
+<td>0.01003</td>
+<td>9</td>
+<td><A HREF=maps/DQA1-0601.gif><IMG border=0 SRC=maps/DQA1-0601-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0201</td>
+<td>1984</td>
+<td>CWD</td>
+<td>0.15003</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0201.gif><IMG border=0 SRC=maps/DQB1-0201-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0203</td>
+<td>1995</td>
+<td>CWD</td>
+<td>0.00033</td>
+<td>6</td>
+<td><A HREF=maps/DQB1-0203.gif><IMG border=0 SRC=maps/DQB1-0203-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0205</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0301</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.22376</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0301.gif><IMG border=0 SRC=maps/DQB1-0301-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0302</td>
+<td>1983</td>
+<td>CWD</td>
+<td>0.11539</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0302.gif><IMG border=0 SRC=maps/DQB1-0302-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0303</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.05764</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0303.gif><IMG border=0 SRC=maps/DQB1-0303-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0304</td>
+<td>1992</td>
+<td>CWD</td>
+<td>0.00238</td>
+<td>7</td>
+<td><A HREF=maps/DQB1-0304.gif><IMG border=0 SRC=maps/DQB1-0304-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0305</td>
+<td>1993</td>
+<td>CWD</td>
+<td>0.00072</td>
+<td>6</td>
+<td><A HREF=maps/DQB1-0305.gif><IMG border=0 SRC=maps/DQB1-0305-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0306</td>
+<td>1996</td>
+<td> </td>
+<td>0.00004</td>
+<td>2</td>
+<td><A HREF=maps/DQB1-0306.gif><IMG border=0 SRC=maps/DQB1-0306-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0307</td>
+<td>1997</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0308</td>
+<td>1998</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0310</td>
+<td>2000</td>
+<td> </td>
+<td>0.00002</td>
+<td>1</td>
+<td><A HREF=maps/DQB1-0310.gif><IMG border=0 SRC=maps/DQB1-0310-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0311</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0312</td>
+<td>2002</td>
+<td> </td>
+<td>0.00002</td>
+<td>1</td>
+<td><A HREF=maps/DQB1-0312.gif><IMG border=0 SRC=maps/DQB1-0312-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0313</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0314</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0315</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0316</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0317</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0318</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0320</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0401</td>
+<td>1986</td>
+<td>CWD</td>
+<td>0.01928</td>
+<td>10</td>
+<td><A HREF=maps/DQB1-0401.gif><IMG border=0 SRC=maps/DQB1-0401-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0402</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.05259</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0402.gif><IMG border=0 SRC=maps/DQB1-0402-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0501</td>
+<td>1985</td>
+<td>CWD</td>
+<td>0.09307</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0501.gif><IMG border=0 SRC=maps/DQB1-0501-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0502</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.05146</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0502.gif><IMG border=0 SRC=maps/DQB1-0502-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0503</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.03481</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0503.gif><IMG border=0 SRC=maps/DQB1-0503-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0504</td>
+<td>1991</td>
+<td>CWD</td>
+<td>0.00053</td>
+<td>7</td>
+<td><A HREF=maps/DQB1-0504.gif><IMG border=0 SRC=maps/DQB1-0504-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0505</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0601</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.04898</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0601.gif><IMG border=0 SRC=maps/DQB1-0601-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0602</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.08062</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0602.gif><IMG border=0 SRC=maps/DQB1-0602-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0603</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.03150</td>
+<td>11</td>
+<td><A HREF=maps/DQB1-0603.gif><IMG border=0 SRC=maps/DQB1-0603-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0604</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.02503</td>
+<td>9</td>
+<td><A HREF=maps/DQB1-0604.gif><IMG border=0 SRC=maps/DQB1-0604-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0605</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.00912</td>
+<td>10</td>
+<td><A HREF=maps/DQB1-0605.gif><IMG border=0 SRC=maps/DQB1-0605-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0606</td>
+<td>1992</td>
+<td> </td>
+<td>0.00023</td>
+<td>4</td>
+<td><A HREF=maps/DQB1-0606.gif><IMG border=0 SRC=maps/DQB1-0606-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0607</td>
+<td>1992</td>
+<td> </td>
+<td>0.00060</td>
+<td>3</td>
+<td><A HREF=maps/DQB1-0607.gif><IMG border=0 SRC=maps/DQB1-0607-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0608</td>
+<td>1992</td>
+<td>CWD</td>
+<td>0.00039</td>
+<td>5</td>
+<td><A HREF=maps/DQB1-0608.gif><IMG border=0 SRC=maps/DQB1-0608-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0610</td>
+<td>1996</td>
+<td>CWD</td>
+<td>0.00004</td>
+<td>1</td>
+<td><A HREF=maps/DQB1-0610.gif><IMG border=0 SRC=maps/DQB1-0610-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0612</td>
+<td>1996</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0613</td>
+<td>1997</td>
+<td> </td>
+<td>0.00008</td>
+<td>1</td>
+<td><A HREF=maps/DQB1-0613.gif><IMG border=0 SRC=maps/DQB1-0613-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0614</td>
+<td>1998</td>
+<td> </td>
+<td>0.00002</td>
+<td>1</td>
+<td><A HREF=maps/DQB1-0614.gif><IMG border=0 SRC=maps/DQB1-0614-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0615</td>
+<td>1998</td>
+<td> </td>
+<td>0.00004</td>
+<td>2</td>
+<td><A HREF=maps/DQB1-0615.gif><IMG border=0 SRC=maps/DQB1-0615-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0616</td>
+<td>1999</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0617</td>
+<td>1999</td>
+<td> </td>
+<td>0.00002</td>
+<td>1</td>
+<td><A HREF=maps/DQB1-0617.gif><IMG border=0 SRC=maps/DQB1-0617-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0618</td>
+<td>2001</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0619</td>
+<td>2001</td>
+<td>CWD</td>
+<td>0.00002</td>
+<td>1</td>
+<td><A HREF=maps/DQB1-0619.gif><IMG border=0 SRC=maps/DQB1-0619-t.gif></A></td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0620</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0621</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0622</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0623</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0624</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0625</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0626</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0627</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0628</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0629</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>DQB1</td>
+<td>DQB1*0630</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+
+
+</table>
+</body>
+</html>

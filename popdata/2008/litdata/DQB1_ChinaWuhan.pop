@@ -1,0 +1,18 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DQB1_ChinaWuhan.pop	DQB1	242	241	mid	ChinaWuhan	Oriental	05-SEA	CHINA	3	Source of Population: Students of the Medical Faculty	30.45N	114.15E	0.996	1	SSP		S.Ferencik, F.Gong,H.Grosse-Wilde	1997	HLA 1998, p:202-203 Ed: P.I.Terasaki and DW Gjertson				immunologie@uni-essen.de, stanislav.ferencik@medi		121	Not Known	OTHER	DM
+DQB1	count
+0201	26
+0301	55
+0302	15
+0303	40
+0401	7
+0402	4
+0501	6
+0502	19
+0503	8
+0504	1
+0601	31
+0602	21
+0603	4
+0604	3
+0605	1

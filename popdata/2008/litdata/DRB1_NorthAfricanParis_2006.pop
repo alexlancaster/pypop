@@ -1,0 +1,34 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_NorthAfricanParis_2006.pop	DRB1	187	187	lit	NorthAfricanParis_2006	African	02-NAF	France	3mig	The population studied was composed of 50 families with documented North African origin who live in the Paris	48.87N	2.33E	1	1			Pedron	2006	HLA Alleles and Haplotypes in French North African Immigrants	Human Immunology	67	540-550																			ODS
+DRB1	count
+0701	30
+0301	26
+1501	17
+1302	11
+1104	11
+0102	11
+1303	9
+0405	8
+1101	7
+0402	6
+0101	5
+0406	4
+0404	4
+1502	3
+1401	3
+1301	3
+1102	3
+1001	3
+0806	3
+0801	3
+0403	3
+1305	2
+1103	2
+0901	2
+0302	2
+1601	1
+1406	1
+0804	1
+0407	1
+0401	1
+0305	1
