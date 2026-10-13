@@ -30,8 +30,8 @@ classifiers = [
     "Operating System :: POSIX :: Linux"
 ]
 dependencies = [
-    "numpy <= 2.5.2",
-    "lxml <= 6.1.2",
+    "numpy <= 2.5.3",
+    "lxml <= 6.1.3",
     "pooch <=1.9.0",
     "importlib-resources; python_version <= '3.8'",
     "importlib-metadata; python_version <= '3.8'"
@@ -62,10 +62,11 @@ pypop-interactive = "PyPop.pypop:main_interactive"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["PyPop", "PyPop.xslt"]
+include = ["PyPop", "PyPop.xslt", "PyPop.citation"]
 
 [tool.setuptools.package-data]
 "PyPop" = ["citation/CITATION*"]
+"PyPop.xslt" = ["*.xsl"]
 
 [tool.setuptools.dynamic]
 readme = { file = "README.rst", content-type = "text/x-rst" }
@@ -94,12 +95,11 @@ norecursedirs = [
 [tool.cibuildwheel]
 enable = ["pypy"]             # explicitly enable, this will be required for cibuildwheel >= 3
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
-     "pp37-*",             # skip certain PyPy configurations
-     "pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
-     "pp311-*",            # no numpy wheels for PyPy 3.11
+     "pp37-*",                # skip certain PyPy configurations
+     "pp*_aarch64 ",          # no numpy wheels for aarch64 on PyPy
+     "pp311-*","pp312-*",     # no numpy wheels for PyPy 3.11 & 3.12
      "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*", # older musllinux missing numpy wheels
-	 "cp314t*",           # issues with lxml threaded version throwing warnings
-     "cp315*"             # numpy not yet available
+     "cp314t*", "cp315t*"     # issues with lxml threaded version throwing warnings
      ]
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
