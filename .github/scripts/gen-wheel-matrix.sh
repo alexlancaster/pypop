@@ -34,15 +34,15 @@ if [[ "${CI_ONLY:-false}" == "true" ]]; then
     if [[ "$MODE" == "modern" ]]; then
         FIXED_CI_MATRIX=$(jq -n -c --arg ver "$CIBW_VERSION" '
           [
-            {"only":"cp313-manylinux_x86_64","os":"ubuntu-22.04","cibw_version": $ver},
-            {"only":"cp313-manylinux_aarch64","os":"ubuntu-22.04-arm","cibw_version": $ver},
-            {"only":"cp313-musllinux_x86_64","os":"ubuntu-22.04","cibw_version": $ver},
-            {"only":"cp313-musllinux_aarch64","os":"ubuntu-22.04-arm","cibw_version": $ver},
-            {"only":"cp313-win_amd64","os":"windows-2022","cibw_version": $ver},
-            {"only":"cp313-win_arm64","os":"windows-2022","cibw_version": $ver},
-            {"only":"cp313-macosx_x86_64","os":"macos-15-intel","cibw_version": $ver},
-            {"only":"cp313-macosx_arm64","os":"macos-14","cibw_version": $ver},
-            {"only":"cp314-manylinux_x86_64","os":"ubuntu-22.04","cibw_version": $ver}
+            {"only":"cp315-manylinux_x86_64","os":"ubuntu-22.04","cibw_version": $ver},
+            {"only":"cp315-manylinux_aarch64","os":"ubuntu-22.04-arm","cibw_version": $ver},
+            {"only":"cp315-musllinux_x86_64","os":"ubuntu-22.04","cibw_version": $ver},
+            {"only":"cp315-musllinux_aarch64","os":"ubuntu-22.04-arm","cibw_version": $ver},
+            {"only":"cp315-win_amd64","os":"windows-2022","cibw_version": $ver},
+            {"only":"cp315-win_arm64","os":"windows-2022","cibw_version": $ver},
+            {"only":"cp315-macosx_x86_64","os":"macos-15-intel","cibw_version": $ver},
+            {"only":"cp315-macosx_arm64","os":"macos-14","cibw_version": $ver},
+            {"only":"pp311-manylinux_x86_64","os":"ubuntu-22.04","cibw_version": $ver}
           ]
         ')
         echo "include=$FIXED_CI_MATRIX" >> "$GITHUB_OUTPUT"
