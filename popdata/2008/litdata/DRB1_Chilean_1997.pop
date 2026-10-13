@@ -1,0 +1,18 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_Chilean_1997.pop	DRB1	86	86	lit	Chilean_1997	Amerindian	10-SAM	inexact	2	The 43 Chilean samples are derived from 5 Laitec, 4 Yaldad, 5 La Mision, 5 Los Galpones, 5 Guinimo, 4 Paraquina, 5 Cocauque, 5 Icalma, and 5 Quelon. The study states,This wide sampling minimizes the risk of sampling error caused by consanguinity of geographically proximal groups.	30S	71W	1	1	PCR-SSCP	{BOF+97}	Blagitko	1997	Polymorphism of the HLA-DRB1 Locus in Colombian, Equadorian, and Chilean Amerinds	Human Immunology	54	74-81	colm.o'huigin@tuebingen.mpg.de		CL	Colm O'hUigin		53	1	Primers given, Kimura et al. 1992, Orita et al. 1989	N		N	Y	N						JGG
+DRB1	count
+0101	1
+0403	10
+0404	2
+0407	14
+0301	4
+1102	1
+1104	2
+1303	4
+1304	1
+1402	18
+1409	1
+1501	1
+1602	11
+08022	9
+09012	7

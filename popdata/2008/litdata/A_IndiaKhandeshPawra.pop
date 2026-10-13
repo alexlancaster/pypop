@@ -1,0 +1,16 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+A_IndiaKhandeshPawra.pop	A	100	100	mid	IndiaKhandeshPawra	Indo-European	04-SWA	INDIA	3	The Pawra tribe resemble the primitive tribe Koli of Western stapur   a hills and are concentrated in Khandesh India.	19N	76E	1	1	SSOP		Dr.U.Shankarkumar	1996	J.Human Ecology 10(3): 173-8 1999.http://www.krepublishers.com				shankarkumar16@hotmail.com		50	Grandparents live at same location	ANTHROPOLOGY STUDY	DM
+A	count
+0101	5
+0106	1
+0203	5
+0211	16
+110101	21
+2402	16
+2408	5
+2424	1
+3001	6
+310102	6
+3201	3
+3303	3
+680101	12

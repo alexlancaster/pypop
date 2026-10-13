@@ -1,0 +1,19 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Thai_2006.pop	DQB1	248	248	lit	Thai_2006	Asian	05-SEA	Thailand	3	One hundred and twenty-four unrelated healthy individuals served as ethnically and geographically matched control	13.75N	100.51E	1	1			Wongsurawat	2006	The association between HLA class II haplotype with Graves' disease in Thai population	Tissue Antigens	67	79-83																			ODS
+DQB1	count
+0201	33
+0301	50
+0302	18
+0303	35
+0401	10
+0402	3
+0501	25
+0502	33
+0503	12
+0601	17
+0602	5
+0603	1
+0604	0
+0605	2
+0609	3
+0610	1

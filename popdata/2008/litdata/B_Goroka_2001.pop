@@ -1,0 +1,12 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+B_Goroka_2001.pop	B	70	70	lit	Goroka_2001	South Pacific Islanders	06-OCE	East Highlands Province	2	Linguistic and historical information in paper	6.08S	145.38E	1	1	PCR-SSO	{MAC+01}	Main	2001	The Peopling of New Guinea: Evidence from Class I Human Leukocyte Antigen	Human Biology	73	365-383			PG	Main		38	1	primer description in paper, Gao et al. 1994	N		N	N	N		LD, Nei's Genetic Distance				JGG
+B	count
+1301	4
+1506	16
+1521	5
+1525	1
+2704	5
+4001	13
+4002	4
+5601	16
+5602	6

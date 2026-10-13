@@ -1,0 +1,11 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Chinese_1991.pop	DQA1	182	182	lit	Chinese_1991	Asian	05-SEA	Guan County in North China approx. 50 miles from Beijing	2	Unrelated healthy Northern Chinese	35.22N	110.75E	1	1	PCR-SSO		Gao	1991	DNA typing for HLA-DR, and -DP alleles in a Chinese population using the polymerase chain reaction (PCR) and oligonucleotide probes	Tissue Antigens	38	24-30	x.gao@cronfield.ac.uk		CN	Gao	1301087	36	1	probes not published	N		N	Y	N		LD				JGG
+DQA1	count
+0101	22
+0102	27
+0103	21
+0201	25
+0301	52
+0401	2
+0501	25
+0601	8

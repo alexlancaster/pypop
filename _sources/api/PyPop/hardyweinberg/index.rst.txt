@@ -1,0 +1,254 @@
+PyPop.hardyweinberg
+===================
+
+.. py:module:: PyPop.hardyweinberg
+
+.. autoapi-nested-parse::
+
+   Computing Hardy-Weinberg statistics on genotype data.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.hardyweinberg.use_scipy
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.hardyweinberg.HardyWeinberg
+   PyPop.hardyweinberg.HardyWeinbergGuoThompson
+   PyPop.hardyweinberg.HardyWeinbergEnumeration
+   PyPop.hardyweinberg.HardyWeinbergGuoThompsonArlequin
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.hardyweinberg.pval
+
+
+Module Contents
+---------------
+
+.. py:data:: use_scipy
+   :value: False
+
+
+   If ``True`` use ``scipy`` to compute pvalue, rather than internal ``pval``
+
+.. py:class:: HardyWeinberg(locusData=None, alleleCount=None, lumpBelow=5, flagChenTest=0)
+
+   Calculate Hardy-Weinberg statistics for a single locus.
+
+   Given the observed genotypes for a locus, calculate the expected
+   genotype counts based on Hardy Weinberg proportions for individual
+   genotype values, and test for fit.
+
+   :param locusData: list of tuples of genotype ``(allele1, allele2)``
+   :type locusData: list
+   :param alleleCount: a tuple consisting of a dictionary of
+                       counts, total count and number of untyped individuals as
+                       returned by :meth:`PyPop.DataTypes.Genotypes.getLocusDataAt`
+   :type alleleCount: tuple
+   :param lumpBelow: lump alleles with frequency less than this
+                     threshold as if they were in same class (Default: 5)
+   :type lumpBelow: int, optional
+   :param flagChenTest: if enabled (``1``) do Chen's
+                        chi-square-based "corrected" p-value (Default: ``0``,
+                        disabled)
+   :type flagChenTest: int, optional
+
+
+   .. py:method:: serializeTo(stream, allelelump=0)
+
+      Serialize output to specified XML stream.
+
+      :param stream: write to specified XML stream (generally a file)
+      :type stream: XMLOutputStream
+      :param allelelump: record the allele lumping value
+      :type allelelump: int
+
+
+
+   .. py:method:: serializeXMLTableTo(stream)
+
+      Serialize the genotype table.
+
+      :param stream: XML stream
+      :type stream: XMLOutputStream
+
+
+
+.. py:class:: HardyWeinbergGuoThompson(locusData=None, alleleCount=None, runMCMCTest=0, runPlainMCTest=0, dememorizationSteps=2000, samplingNum=1000, samplingSize=1000, maxMatrixSize=250, monteCarloSteps=1000000, testing=False, **kw)
+
+   Bases: :py:obj:`HardyWeinberg`
+
+   .. autoapi-inheritance-diagram:: PyPop.hardyweinberg.HardyWeinbergGuoThompson
+      :parts: 1
+
+
+   Use Guo & Thompson (1992) algorithm for calculating statistics.
+
+   This Python class wraps the functionality of the Guo & Thompson
+   program ``gthwe``.  In addition to the arguments for the base
+   class, this class accepts the following additional keywords:
+
+   :param locusData: list of tuples of genotype ``(allele1, allele2)``
+   :type locusData: list
+   :param alleleCount: a tuple consisting of a dictionary of
+                       counts, total count and number of untyped individuals as
+                       returned by :meth:`PyPop.DataTypes.Genotypes.getLocusDataAt`
+   :type alleleCount: tuple
+   :param runMCMCTest: If enabled (``1``) run the Monte Carlo-Markov chain
+                       (MCMC) version of the test (what is normally referred to as
+                       "Guo & Thompson"), default disabled (``0``)
+   :type runMCMCTest: int
+   :param runPlainMCTest: If enabled (``1``) run a plain Monte
+                          Carlo/randomization without the Markov-chain version of the
+                          test (this is also described in the original Guo & Thompson
+                          *Biometrics* paper, but was not in their original program)
+   :type runPlainMCTest: int
+   :param dememorizationSteps: number of "dememorization" initial
+                               steps for random number generator (default ``2000``).
+   :type dememorizationSteps: int
+   :param samplingNum: the number of chunks for random number generator
+                       (default ``1000``).
+   :type samplingNum: int
+   :param samplingSize: size of each chunk (default ``1000``).
+   :type samplingSize: int
+   :param maxMatrixSize: maximum size of `flattened'
+                         lower-triangular matrix of observed alleles (default ``250``).
+   :type maxMatrixSize: int
+   :param monteCarloSteps: number of steps for the plain Monte Carlo
+                           randomization test (without Markov-chain)
+   :type monteCarloSteps: int
+   :param testing: testing mode, default ``False``
+   :type testing: bool
+
+
+   .. py:method:: generateFlattenedMatrix()
+
+      Generated a flattened version of the genotype matrix.
+
+
+
+   .. py:method:: dumpTable(locusName, stream, allelelump=0)
+
+      Output table to stream.
+
+      :param locusName: locus to output table
+      :type locusName: str
+      :param stream: name of XML stream
+      :type stream: XMLOutputStream
+      :param allelelump: record allele lumping level (default ``0``)
+      :type allelelump: int
+
+      :returns: if an empty tag
+      :rtype: None
+
+
+
+.. py:class:: HardyWeinbergEnumeration(locusData=None, alleleCount=None, doOverall=0, **kw)
+
+   Bases: :py:obj:`HardyWeinbergGuoThompson`
+
+   .. autoapi-inheritance-diagram:: PyPop.hardyweinberg.HardyWeinbergEnumeration
+      :parts: 1
+
+
+   HW testing with Maldonado Torres' exact enumeration test.
+
+   .. warning::
+
+      This requires the ``Enumeration`` C code to be compiled
+      as a module using SWIG. By default this is currently disabled.
+
+   :param locusData: list of tuples of genotype ``(allele1, allele2)``
+   :type locusData: list
+   :param alleleCount: a tuple consisting of a dictionary of
+                       counts, total count and number of untyped individuals as
+                       returned by :meth:`PyPop.DataTypes.Genotypes.getLocusDataAt`
+   :type alleleCount: tuple
+   :param doOverall: if set to true (``1``), then do overall *p*-value test
+                     default is false (``0``)
+   :type doOverall: int
+
+
+   .. py:method:: serializeTo(stream, allelelump=0)
+
+      Serialize enumeration test output to stream.
+
+      :param stream: XML stream to use
+      :type stream: XMLOutputStream
+      :param allelelump: record allele lumping level (default ``0``)
+      :type allelelump: int
+
+
+
+.. py:class:: HardyWeinbergGuoThompsonArlequin(matrix=None, locusName=None, arlequinExec='arlecore.exe', markovChainStepsHW=100000, markovChainDememorisationStepsHW=1000, untypedAllele='****')
+
+   Arlequin implementation of the Guo & Thompson algorithm.
+
+   .. deprecated:: 1.0.0
+
+   This class extracts the Hardy-Weinberg (HW) statistics using the
+   Arlequin implementation of the HW exact test, by the following:
+
+   1. creates a subdirectory ``arlequinRuns`` in which all the Arlequin
+      specific files are generated;
+
+   2. then the specified arlequin executable is run, generating the
+      Arlequin output HTML files (``*.htm``);
+
+   3. the Arlequin output is then parsed for the relevant statistics;
+
+   4. lastly, the  ``arlequinRuns`` directory is removed.
+
+   Since the directory name ``arlequinRuns`` is currently hardcoded, this
+   has the consequence that this class cannot be invoked concurrently.
+
+   :param matrix: matrix to extract locus from
+   :type matrix: StringMatrix
+   :param locusName: locus to use
+   :type locusName: str
+   :param arlequinExec: name of Arlequin executable
+   :type arlequinExec: str
+   :param markovChainStepsHW: number of steps to use in Markov chain (default: ``100000``).
+   :type markovChainStepsHW: int
+   :param markovChainDememorisationStepsHW: "Burn-in" time for Markov chain (default: ``1000``).
+   :type markovChainDememorisationStepsHW: int
+   :param untypedAllele: untyped allele identifier
+   :type untypedAllele: str
+
+
+   .. py:method:: serializeTo(stream)
+
+      Serialize output to stream.
+
+      :param stream: stream to serialize to
+      :type stream: XMLOutputStream
+
+
+
+.. py:function:: pval(chisq, dof)
+
+   Calculate p-value.
+
+   :param chisq: Chi-square value
+   :type chisq: float
+   :param dof: degrees of freedom
+   :type dof: int
+
+   :returns: p-value
+   :rtype: float
+
+
