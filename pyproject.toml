@@ -97,7 +97,7 @@ enable = ["pypy"]             # explicitly enable, this will be required for cib
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
      "pp37-*",                # skip certain PyPy configurations
      "pp*_aarch64 ",          # no numpy wheels for aarch64 on PyPy
-     "pp312-*",               # no numpy wheels for PyPy 3.12
+     "pp311-*","pp312-*",     # no numpy wheels for PyPy 3.11 & 3.12
      "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*", # older musllinux missing numpy wheels
      "cp314t*", "cp315t*"     # issues with lxml threaded version throwing warnings
      ]
