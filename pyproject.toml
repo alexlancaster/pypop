@@ -95,12 +95,11 @@ norecursedirs = [
 [tool.cibuildwheel]
 enable = ["pypy"]             # explicitly enable, this will be required for cibuildwheel >= 3
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
-     "pp37-*",             # skip certain PyPy configurations
-     "pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
-     "pp311-*",            # no numpy wheels for PyPy 3.11
+     "pp37-*",                # skip certain PyPy configurations
+     "pp*_aarch64 ",          # no numpy wheels for aarch64 on PyPy
+     "pp311-*","pp312-*",     # no numpy wheels for PyPy 3.11 & 3.12
      "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*", # older musllinux missing numpy wheels
-	 "cp314t*",           # issues with lxml threaded version throwing warnings
-     "cp315*"             # numpy not yet available
+     "cp314t*", "cp315t*"     # issues with lxml threaded version throwing warnings
      ]
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
