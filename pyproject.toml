@@ -107,6 +107,8 @@ test-command = ["sphinx-build -b doctest {package}/website/doctest _doctests",
 	        "pytest -v --pyargs PyPop {package}/tests"]
 
 before-test = [
+    "python -m pip config debug",
+    "sh -c 'env | grep \"^PIP_\" || true'",
     "python -m pip debug --verbose",
     "python -m pip index versions numpy",
 ]
