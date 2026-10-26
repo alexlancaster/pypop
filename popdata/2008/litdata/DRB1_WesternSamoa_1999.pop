@@ -1,0 +1,14 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_WesternSamoa_1999.pop	DRB1	44	44	lit	WesternSamoa_1999	South Pacific Islanders	06-OCE	Western Samoa	2	population from Western Samoa	013.58S	172.33W	1	0.977	PCR-SSO	{ZSK+99}	Zimdahl	1999	Towards understanding the origin and dispersal of Austronesians in the Solomon Sea: HLA class II polymorphism in eight distinct populations of Asia-Oceania	European Journal of Immunogenetics	26	405-416	marion.nagy@charite.de		WS	Nagy		38	1	12th IHW (Kimura and Sasazuki, 1992). Used reverse dot-blot, PCR-SSP, SBT to confirm typing results	N		Y	Y	N		HW, LD, Nei's genetic distance, phylogenetic trees				YT
+DRB1	count
+1501	1
+15021	1
+0401	1
+0403	5
+1101	4
+1201	1
+13	1
+1408	4
+0701	1
+08032	5
+0901	20

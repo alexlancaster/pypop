@@ -1,0 +1,5 @@
+<map id="inheritance1be5c256c2" name="inheritance1be5c256c2">
+<area shape="rect" id="node1" href="#PyPop.hardyweinberg.HardyWeinberg" target="_top" title="Calculate Hardy&#45;Weinberg statistics for a single locus." alt="" coords="5,5,127,33"/>
+<area shape="rect" id="node3" href="#PyPop.hardyweinberg.HardyWeinbergGuoThompson" target="_top" title="Use Guo &amp; Thompson (1992) algorithm for calculating statistics." alt="" coords="145,5,361,33"/>
+<area shape="rect" id="node2" href="#PyPop.hardyweinberg.HardyWeinbergEnumeration" target="_top" title="HW testing with Maldonado Torres&#39; exact enumeration test." alt="" coords="379,5,584,33"/>
+</map>

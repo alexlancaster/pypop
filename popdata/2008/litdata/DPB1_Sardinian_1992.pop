@@ -1,0 +1,12 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Sardinian_1992.pop	DPB1	98	97	lit	Sardinian_1992	Caucasian	03-EUR	Italy	3	unrelated healthy individuals	42.83N	12.83E	0.99	1	PCR-ASO	{CFL+92}	Congia	1992	A high frequency of the A30, B18, DR3, DRw52, DQw2 extended haplotype in Sardinian celiac disease patients: Further evidence that disease susceptibility is conferred by DQ A1*0501, B1*0201	Tissue Antigens	39	78-83			IT	De Virgiliis	1301205	11	1	Bugawan 1989, Sollid 1990, Erlich 1989	N		Y	N	Y	CD					YT
+DPB1	count
+0101	1
+0201	13
+0301	24
+0401	26
+0402	26
+0601	1
+0801	2
+1001	3
+1301	1

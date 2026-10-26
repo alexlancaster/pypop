@@ -1,0 +1,11 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+Cw_Wosera_2001.pop	Cw	112	112	lit	Wosera_2001	South Pacific Islanders	06-OCE	Sapik Basin	2		4.00S	143.75E	1	1	PCR-SSO	{MAC+01}	Main	2001	The Peopling of New Guinea: Evidence from Class I Human Leukocyte Antigen	Human Biology	73	365-383			PG	Main		38	1	primer description in paper, Gao et al. 1994	N		N	N	N		LD, Nei's Genetic Distance				JGG
+C	count
+0102	12
+0303	2
+0304	25
+0401	19
+0403	9
+0702	6
+1202	13
+1502	26

@@ -1,0 +1,13 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Jerba_2006.pop	DQB1	110	107	lit	Jerba_2006	African	02-NAF	Tunisia	2	Jerba an island in south-east Tunisia was probably settled by the descendants of a Mousterian population between the fifth and sixth millennia bc	34N	11E	0.973	1			Abdennaji Guenounou	2006	HLA class II genetic diversity in southern Tunisia and the Mediterranean area	International Journal of Immunogenetics	33	93-103																			ODS
+DQB1	count
+0301	30
+0501	25
+0201	18
+0502	10
+0603	9
+0602	4
+0402	4
+0607	4
+0303	2
+0604	1
