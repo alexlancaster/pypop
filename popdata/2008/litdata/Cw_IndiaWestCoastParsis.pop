@@ -1,0 +1,26 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+Cw_IndiaWestCoastParsis.pop	Cw	100	100	mid	IndiaWestCoastParsis	Indo-European	04-SWA	INDIA	3	The Parsee community in India is an isolated immigrant population.   They migrated from Iran to the West Coast of India in 641 AD, following   the downfall of the Sassamian empire after an attack by Muslim invaders.    They are distinct in their religion.Th	19N	76E	1	1	SSOP		Dr.U.Shankarkumar	1997	MHC Vol 9: 2002				Shankarkumar16@hotmail.com		50	Grandparents live at same location	ANTHROPOLOGY STUDY	DM
+C	count
+0102	3
+0203	1
+0302	7
+0401	11
+040102	4
+0403	1
+0404	1
+0502	9
+0602	24
+070101	7
+0702	3
+0703	4
+0704	3
+0705	1
+0714	2
+0806	3
+120201	2
+120203	2
+140201	2
+150201	3
+1508	3
+1601	3
+1801	1

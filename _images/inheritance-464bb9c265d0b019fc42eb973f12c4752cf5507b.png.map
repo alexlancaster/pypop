@@ -1,0 +1,4 @@
+<map id="inheritance1ce75f728c" name="inheritance1ce75f728c">
+<area shape="rect" id="node1" href="#PyPop.parsers.ParseFile" target="_top" title="Common functionality for reading the two file formats." alt="" coords="5,5,85,33"/>
+<area shape="rect" id="node2" href="#PyPop.parsers.ParseGenotypeFile" target="_top" title="Class to parse standard datafile in genotype form." alt="" coords="103,5,246,33"/>
+</map>

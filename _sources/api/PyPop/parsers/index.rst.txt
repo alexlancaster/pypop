@@ -1,0 +1,322 @@
+PyPop.parsers
+=============
+
+.. py:module:: PyPop.parsers
+
+.. autoapi-nested-parse::
+
+   Parsing input population data files.
+
+   Includes :class:`ParseGenotypeFile` for parsing individuals genotyped
+   at multiple loci and :class:`ParseAlleleCountFile` for parsing
+   literature data which only includes allele counts.
+
+   Both file formats are assumed to have a population header information
+   with, consisting of a line of column headers (population metadata)
+   followed by a line with the actual data, followed by the column
+   headers for the samples (sample metadata) followed by the sample data
+   itself (either individuals in the genotyped case, or alleles in the
+   allele count case).
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.parsers.ParseFile
+   PyPop.parsers.ParseGenotypeFile
+   PyPop.parsers.ParseAlleleCountFile
+
+
+Module Contents
+---------------
+
+.. py:class:: ParseFile(filename, validPopFields=None, validSampleFields=None, separator='\t', fieldPairDesignator='_1:_2', alleleDesignator='*', popNameDesignator='+')
+
+   Common functionality for reading the two file formats.
+
+   Base class.
+
+   :param filename: filename for the file to be parsed.
+   :type filename: str
+   :param validPopFields: valid headers (one per line) for
+                          overall population data (no default)
+   :type validPopFields: str
+   :param validSampleFields: valid headers (one per line) for
+                             lines of sample data.  (no default)
+   :type validSampleFields: str
+   :param separator: separator for adjacent fields (default: a
+                     tab stop, '\\t').
+   :type separator: str, optional
+   :param fieldPairDesignator: consists of additions to the
+                               allele `stem' for fields grouped in pairs (allele fields)
+                               [e.g. for ``HLA-A`', and ``HLA-A(2)``, then we use
+                               ``:(2)``, for ``DQA1_1`` and ``DQA1_2``, then use
+                               ``_1:_2``, the latter case distinguishes both fields from
+                               the stem] (default: ``:(2)``)
+   :type fieldPairDesignator: str, optional
+   :param alleleDesignator: first character of the key which
+                            determines whether this column contains allele data.
+                            Defaults to ``*``
+   :type alleleDesignator: str, optional
+   :param popNameDesignator: first character of the key which
+                             determines whether this column contains the population
+                             name.  Defaults to ``+``
+   :type popNameDesignator: str, optional
+
+
+   .. py:method:: getPopData()
+
+      Returns a dictionary of population data.
+
+      :returns: keyed by types specified in population metadata file
+      :rtype: dict
+
+
+
+   .. py:method:: getSampleMap()
+
+      Returns dictionary of sample data.
+
+      :returns:
+
+                each entry contains either a 2-tuple of column
+                 position or a single column position keyed by field
+                 originally specified in sample metadata file
+      :rtype: dict
+
+
+
+   .. py:method:: getFileData()
+
+      Returns the file data.
+
+      :returns: a 2-tuple "wrapper":
+
+                - str: raw sample lines, *without* header metadata.
+                - str: the field separator.
+      :rtype: tuple
+
+
+
+   .. py:method:: genSampleOutput(fieldList)
+
+      Prints the data specified in ordered field list.
+
+      .. deprecated:: 0.7.0
+
+
+
+   .. py:method:: serializeMetadataTo(stream)
+
+      Write metadata to stream.
+
+      :param stream: output stream
+      :type stream: XMLStreamOutput
+
+
+
+.. py:class:: ParseGenotypeFile(filename, untypedAllele='****', **kw)
+
+   Bases: :py:obj:`ParseFile`
+
+   .. autoapi-inheritance-diagram:: PyPop.parsers.ParseGenotypeFile
+      :parts: 1
+
+
+   Class to parse standard datafile in genotype form.
+
+   Processes files that consist specifically of data with individual
+   genotyped for one or more loci.
+
+   :param filename: filename for the file to be parsed.
+   :type filename: str
+   :param untypedAllele: The designator for an untyped locus.
+                         Defaults to ``****``.
+   :type untypedAllele: str, optional
+
+   Base class.
+
+   :param filename: filename for the file to be parsed.
+   :type filename: str
+   :param validPopFields: valid headers (one per line) for
+                          overall population data (no default)
+   :type validPopFields: str
+   :param validSampleFields: valid headers (one per line) for
+                             lines of sample data.  (no default)
+   :type validSampleFields: str
+   :param separator: separator for adjacent fields (default: a
+                     tab stop, '\\t').
+   :type separator: str, optional
+   :param fieldPairDesignator: consists of additions to the
+                               allele `stem' for fields grouped in pairs (allele fields)
+                               [e.g. for ``HLA-A`', and ``HLA-A(2)``, then we use
+                               ``:(2)``, for ``DQA1_1`` and ``DQA1_2``, then use
+                               ``_1:_2``, the latter case distinguishes both fields from
+                               the stem] (default: ``:(2)``)
+   :type fieldPairDesignator: str, optional
+   :param alleleDesignator: first character of the key which
+                            determines whether this column contains allele data.
+                            Defaults to ``*``
+   :type alleleDesignator: str, optional
+   :param popNameDesignator: first character of the key which
+                             determines whether this column contains the population
+                             name.  Defaults to ``+``
+   :type popNameDesignator: str, optional
+
+
+   .. py:method:: genValidKey(field, fieldList)
+
+      Check and validate key.
+
+      - 'field':  string with field name.
+
+      - 'fieldList':  a dictionary of valid fields.
+
+      Check to see whether 'field' is a valid key, and generate the
+      appropriate 'key'.  Returns a 2-tuple consisting of
+      'isValidKey' boolean and the 'key'.
+
+      *Note: this is explicitly done in the subclass of the abstract
+      'ParseFile' class (i.e. since this subclass should have
+      `knowledge' about the nature of fields, but the abstract
+      class should not have)*
+
+
+
+   .. py:method:: getMatrix()
+
+      Returns the genotype data.
+
+      Returns the genotype data in a 'StringMatrix' NumPy array.
+
+
+
+   .. py:method:: serializeSubclassMetadataTo(stream)
+
+      Serialize subclass-specific metadata.
+
+
+
+.. py:class:: ParseAlleleCountFile(filename, **kw)
+
+   Bases: :py:obj:`ParseFile`
+
+   .. autoapi-inheritance-diagram:: PyPop.parsers.ParseAlleleCountFile
+      :parts: 1
+
+
+   Class to parse datafile in allele count form.
+
+   Input files consist of allele counts across a whole population.
+   Currently only handles one locus per population. Example:
+
+   .. code-block:: text
+
+      <metadata-line1>
+      <metadata-line2>
+      DQA1 count
+      0102 20
+      0103 33
+      ...
+
+
+   Base class.
+
+   :param filename: filename for the file to be parsed.
+   :type filename: str
+   :param validPopFields: valid headers (one per line) for
+                          overall population data (no default)
+   :type validPopFields: str
+   :param validSampleFields: valid headers (one per line) for
+                             lines of sample data.  (no default)
+   :type validSampleFields: str
+   :param separator: separator for adjacent fields (default: a
+                     tab stop, '\\t').
+   :type separator: str, optional
+   :param fieldPairDesignator: consists of additions to the
+                               allele `stem' for fields grouped in pairs (allele fields)
+                               [e.g. for ``HLA-A`', and ``HLA-A(2)``, then we use
+                               ``:(2)``, for ``DQA1_1`` and ``DQA1_2``, then use
+                               ``_1:_2``, the latter case distinguishes both fields from
+                               the stem] (default: ``:(2)``)
+   :type fieldPairDesignator: str, optional
+   :param alleleDesignator: first character of the key which
+                            determines whether this column contains allele data.
+                            Defaults to ``*``
+   :type alleleDesignator: str, optional
+   :param popNameDesignator: first character of the key which
+                             determines whether this column contains the population
+                             name.  Defaults to ``+``
+   :type popNameDesignator: str, optional
+
+
+   .. py:method:: genValidKey(field, fieldList)
+
+      Checks validity of a field.
+
+      :param field: field to check
+      :type field: str
+      :param fieldList: list that ``field`` is checked against
+      :type fieldList: str
+
+      :returns: 2-tuple of:
+
+                - boolean: whether key is valid
+                - str: key
+      :rtype: tuple
+
+      .. note::
+
+         The first element in the ``fieldList`` is a locus name,
+         which may contain many loci (delimited by colons ``:``).  If
+         ``field`` in the input file match *any* of these keys , this
+         method will return the field and a valid match.
+
+      .. rubric:: Example
+
+      If the first element of ``fieldList`` is
+      ``DQA1:DRA:DQB1``, then calling this function with
+      ``field`` set to ``DRA``, this would return ``(True,
+      DRA)``
+
+
+
+   .. py:method:: serializeSubclassMetadataTo(stream)
+
+      Serialize subclass specific metadata.
+
+      :param stream: output stream
+      :type stream: XMLOutputStream
+
+
+
+   .. py:method:: getAlleleTable()
+
+      Get the current allele table.
+
+      :returns: keyed by allele name with value count
+      :rtype: dict
+
+
+
+   .. py:method:: getLocusName()
+
+      Get the locus name.
+
+      :returns: locus name
+      :rtype: str
+
+
+
+   .. py:method:: getMatrix()
+
+      Get the full genotype data.
+
+      :returns: containing all the genotype data
+      :rtype: StringMatrix
+
+
+

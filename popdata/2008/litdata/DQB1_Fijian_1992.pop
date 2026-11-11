@@ -1,0 +1,14 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Fijian_1992.pop	DQB1	114	109	lit	Fijian_1992	South Pacific Islanders	06-OCE	Collected on Viti Levu, the largest Fijian island	2		18S	178E	0.956	1	PCR-SSO		Gao	1992	HLA-DR,DQ nucleotide sequence polymorphisms in five Melanesian populations	Tissue Antigens	40	31-37	x.gao@cronfield.ac.uk	salamon	FJ	Gao	1301070	38	1	Gao et al. 1991	N		Y	N	N			Salamon et al: F-A, Fnd-A			JGG
+DQB1	count
+0501	2
+0502	1
+0503	1
+0601	30
+0602	1
+0603	1
+0201	1
+03032	44
+0302	11
+0303	7
+0402	10

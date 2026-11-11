@@ -1,0 +1,9 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Ket_1998.pop	DQA1	44	44	lit	Ket_1998	Siberian	08-NEA	Sulamai	1	originated in northern part of Sayan-Altai Plateau of southern Siberia	61.60N	90.30E	1	1	PCR-SSCP	{GSO+98}	Grahovac	1998	Polymorphism of the HLA class II loci in Siberian populations	Human Genetics	102	27-43	colm@mpib.tuebingen.mpg.de		RU	O'hUigin		38s	1	primer from 11th IHW. DQAAMP-A (sense) (Kimura and Sasazuki 1992), DQA-31 (antisense) (this paper)	N		Y	Y	N		F, HW, phylogenetic tree				YT
+DQA1	count
+0101	6
+0103	6
+0201	2
+03	10
+0401	7
+0501	13

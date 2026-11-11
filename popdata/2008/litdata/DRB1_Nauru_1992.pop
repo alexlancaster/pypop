@@ -1,0 +1,17 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_Nauru_1992.pop	DRB1	134	134	lit	Nauru_1992	S. Pacific Islanders	06-OCE	Republic of Nauru	2	Micronesians from the Republic of Nauru	14S	166.9W	1	1	PCR-SSO		Gao	1992	HLA-DR,DQ Sequence Polymorphisms in Polynesians, Micronesians, and Javanese	Human Immunology	34	153-161	x.gao@cronfield.ac.uk	salamon	NZ	Gao		38	1	Gao et al. 1990, Gao et al. 1991a, Gao et al. 1991b	N		N	N	N			Salamon et al. 1999: F-A, Fnd-A			JGG
+DRB1	count
+1501	11
+1502	32
+0302	3
+0401	5
+0403	15
+0405	1
+1101	9
+1201	1
+1202	38
+1302	2
+1401	7
+1405	1
+0801	2
+0803	7

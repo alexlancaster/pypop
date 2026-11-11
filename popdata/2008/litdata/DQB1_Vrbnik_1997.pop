@@ -1,0 +1,12 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Vrbnik_1997.pop	DQB1	56	56	lit	Vrbnik_1997	Caucasian	03-EUR	island of Krk, Croatia	2	ethnohistory in paper	45.08N	14.57E	1	1	PCR-SSOP	{MBC+97}	Martinovic	1997	Application of HLA Class II Polymorphism Analysis to the Study of the Population Structure of the Island Krk, Croatia	Human Biology	69	819-829			HR	Rudan	1301054	11	1	Grubic et al 1995, 12th IHW	N		Y	N	N		genetic kinship matrix, genetic distance, allele frequencies compared to Grubic et al 1995				YT
+DQB1	count
+0501	14
+0502	2
+0602	1
+0603	3
+0605	3
+0201	8
+0301	22
+0303	1
+0401	2

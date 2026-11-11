@@ -1,0 +1,11 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Iranian_1998.pop	DQA1	200	200	lit	Iranian_1998	Middle Eastern	04-SWA	Shiraz, Fars, Iran	3	100 healthy blood donors provided by the Fars Blood Transfusion Center	029.62N	052.54E	1	1	PCR-RFLP	{AMY+98}	Amirzargar	1998	HLA class II (DRB1, DQA1 and DQB1) associated genetic susceptibility in Iranian multiple sclerosis (MS) patients	European Journal of Immunogenetics	25	297-301			IR	Ghaderi	1301106	12	1	Bidwell 1988	N		Y	N	Y	multiple sclerosis (MS)		Amirzargar et al. 2001: typing			ghfan
+DQA1	count
+0101	11
+0102	29
+0103	21
+0104	19
+0201	15
+0301	26
+0401	1
+0501	78
