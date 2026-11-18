@@ -1,0 +1,112 @@
+PyPop.xslt
+==========
+
+.. py:module:: PyPop.xslt
+
+.. autoapi-nested-parse::
+
+   Python XSLT extensions for handling things outside the scope of XSLT 1.0.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.xslt.ns
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.xslt.num_zeros
+   PyPop.xslt.exponent_len
+   PyPop.xslt.format_number_fixed_width
+
+
+Package Contents
+----------------
+
+.. py:data:: ns
+
+   Function namespace for custom PyPop XSLT extension functions.
+
+   This namespace allows registering Python functions that can be called
+   directly from XSLT stylesheets.
+
+   .. attribute:: prefix
+
+      The namespace prefix used in XSLT stylesheets.  Here
+      it is set to ``"es"``, so extension functions are invoked as
+      ``es:format_number_fixed_width(...)``. See example in
+      :meth:`format_number_fixed_width`
+
+      :type: str
+
+.. py:function:: num_zeros(decimal)
+
+   Count zeroes.
+
+   :param decimal: number to check
+   :type decimal: float
+
+   :returns: number of zeroes in floating point number, or ``inf`` if number is zero
+   :rtype: int
+
+
+.. py:function:: exponent_len(num)
+
+   Calculate space taken for exponent.
+
+   .. rubric:: Example
+
+   >>> exponent_len(1e-03)
+   2
+   >>> exponent_len(1e-10)
+   3
+
+   :param num: input number
+   :type num: float
+
+   :returns: length of exponent
+   :rtype: int
+
+
+.. py:function:: format_number_fixed_width(_context, *args)
+
+   Format number to fixed width.
+
+   .. rubric:: Example
+
+   >>> ns["format_number_fixed_width"] = format_number_fixed_width
+   >>> root = etree.XML("<a><b>0.0000043</b></a>")
+   >>> doc = etree.ElementTree(root)
+   >>> xslt = etree.XSLT(etree.XML('''
+   ... <stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform" xmlns:es="http://pypop.org/lxml/functions">
+   ...  <output method="text" encoding="ASCII"/>
+   ...  <template match="/">
+   ...   <text>Yep [</text>
+   ...   <value-of select="es:format_number_fixed_width(string(/a/b), 5)"/>
+   ...   <text>]</text>
+   ...  </template>
+   ... </stylesheet>
+   ... '''))
+   >>>
+   >>> print(xslt(doc))
+   Yep [4.3e-6]
+
+   .. note::
+
+      arguments from XSLT file: ``num`` and ``places`` are encoded in
+      ``*args``.
+
+   :param _context: not used
+   :type _context: obj
+
+   :returns: formatted number to fixed width
+   :rtype: str
+
+

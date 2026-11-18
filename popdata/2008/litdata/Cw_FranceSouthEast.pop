@@ -1,0 +1,26 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+Cw_FranceSouthEast.pop	Cw	260	257	mid	FranceSouthEast	Caucasoid	03-EUR	FRANCE	3	some of the typings have been verified in 2000, 2001 or 2002	46N	5E	0.988	1	SSP		Dubois ValerieGebuhrer Lucette	1996	not published				valerie.dubois@efs.sante.fr		130	Parents live at same location	ANTHROPOLOGY STUDY	DM
+C	count
+0102	7
+0202	8
+020202	8
+0302	2
+0303	17
+0304	8
+0401	23
+0501	22
+0602	28
+0701	45
+0702	19
+0704	6
+0706	1
+0802	13
+1202	3
+1203	14
+1205	1
+1402	5
+1502	7
+1601	13
+1602	2
+1604	2
+1701	3

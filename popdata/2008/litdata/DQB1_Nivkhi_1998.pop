@@ -1,0 +1,15 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Nivkhi_1998.pop	DQB1	106	106	lit	Nivkhi_1998	Siberian	08-NEA	Nogliki	2	28 males 25 females ages 19-65 years, born at Nogliki and having lived there from birth	51.83N	143.17E	1	1	ARMS-PCR	{LLK+98}	Lou	1998	HLA class I and class II of the Nivkhi, an indigenous population carrying HTLV-I in Sakhalin, Far Eastern Europe	Tissue Antigens	52	444-451	sonada@med5.kufm.kagoshima-u.ac.jp		RU	Sonada		38s	1	12th IHW primers given	N		Y	N	N		phylogenetic tree				JGG
+DQB1	count
+0301	44
+0303	17
+0503	16
+0201	11
+0402	6
+0401	3
+0602	3
+0601	2
+0302	1
+0501	1
+0502	1
+0604	1

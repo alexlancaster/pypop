@@ -1,0 +1,18 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_French_2001.pop	DPB1	354	354	lit	French_2001	Caucasian	03-EUR	France	2	originating from Rennes in the West of France	46.00N	2.00E	1	1	INNO-LINA	{BCQ+01}	Bera	2001	HLA class I and class II allele and haplotype diversity in Martinicans	Tissue Antigens	57	200-207	gilbert.semana@univ-rennes1.fr		FR	Semana	1301073	11	2	Innogenetics	N		N	N	N		LD				YT
+DPB1	count
+0101	17
+0201	42
+0202	4
+0301	28
+0401	163
+0402	35
+0501	17
+0601	7
+1001	7
+1101	11
+1301	7
+1401	4
+1601	4
+1901	4
+2301	4

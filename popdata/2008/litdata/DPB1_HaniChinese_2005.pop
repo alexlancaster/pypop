@@ -1,0 +1,15 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_HaniChinese_2005.pop	DPB1	94	94	lit	HaniChinese_2005	Asian	05-SEA	China	3	47 healthy unrelated Hani ethnic individuals living in Yunnan province	23.37N	103.15E	1	1			Hu	2005	Polymorphism of the DPB1 locus in Hani ethnic group of south-western China	International Journal of Immunogenetics	32	421-423																			ODS
+DPB1	count
+0501	40
+1301	20
+0402	10
+040101	8
+030101	6
+020102	2
+2701	2
+6301	2
+1401	1
+2801	1
+5901	1
+7001	1

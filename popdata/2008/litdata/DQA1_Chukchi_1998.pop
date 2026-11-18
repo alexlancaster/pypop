@@ -1,0 +1,9 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Chukchi_1998.pop	DQA1	118	118	lit	Chukchi_1998	Siberian	08-NEA	New Chaplino, Sireniki, Provideniya Bay, Anadyr of the Chukotskiy Autonomous Region	2	settle in the Chukotka Peninsula: along the Bering Sea and inland	67.50N	172.00E	1	1	PCR-SSCP	{GSO+98}	Grahovac	1998	Polymorphism of the HLA class II loci in Siberian populations	Human Genetics	102	27-43	colm@mpib.tuebingen.mpg.de		RU	O'hUigin		38s	1	primer from 11th IHW. DQAAMP-A (sense) (Kimura and Sasazuki 1992), DQA-31 (antisense) (this paper)	N		Y	Y	N		F, HW, phylogenetic tree				YT
+DQA1	count
+0101	5
+0103	1
+0201	2
+03	60
+0401	27
+0501	23

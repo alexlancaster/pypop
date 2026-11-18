@@ -1,0 +1,305 @@
+PyPop.haplo
+===========
+
+.. py:module:: PyPop.haplo
+
+.. autoapi-nested-parse::
+
+   Module for estimating haplotypes and linkage disequilibrium measures.
+
+   Currently there are two implementations: :class:`Emhaplofreq` and
+   :class:`Haplostats`.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.haplo.Haplo
+   PyPop.haplo.Emhaplofreq
+   PyPop.haplo.Haplostats
+   PyPop.haplo.HaploArlequin
+
+
+Module Contents
+---------------
+
+.. py:class:: Haplo
+
+   Estimating haplotypes given genotype data.
+
+   This is abstract stub class (currently has no methods).
+
+
+
+.. py:class:: Emhaplofreq(locusData, untypedAllele='****', stream=None, testMode=False)
+
+   Bases: :py:obj:`Haplo`
+
+   .. autoapi-inheritance-diagram:: PyPop.haplo.Emhaplofreq
+      :parts: 1
+
+
+   Haplotype and linkage disequilibrium (LD) estimation via emhaplofreq.
+
+   This is essentially a wrapper to a Python extension built on top
+   of the ``emhaplofreq`` command-line program.  Will refuse to
+   estimate haplotypes longer than that defined by ``emhaplofreq``.
+
+   :param locusData: a StringMatrix
+   :type locusData: StringMatrix
+   :param untypedAllele: defaults to ``****``
+   :type untypedAllele: str
+   :param stream: output file
+   :type stream: TextOutputStream
+   :param testMode: default is ``False``
+   :type testMode: bool
+
+
+   .. py:method:: serializeStart()
+
+      Serialize start of XML output to the currently defined XML stream.
+
+      .. seealso:: must be paired with a subsequent :meth:`Emhaplofreq.serializeEnd`
+
+
+
+   .. py:method:: serializeEnd()
+
+      Serialize end of XML output to the currently defined XML stream.
+
+      .. seealso:: must be paired with a previous :meth:`Emhaplofreq.serializeStart`
+
+
+
+   .. py:method:: estHaplotypes(locusKeys=None, numInitCond=None)
+
+      Estimate haplotypes for listed loci in ``locusKeys``.
+
+      :param locusKeys: format is a string consisting of
+
+                        - comma (``,``) separated haplotypes blocks for which to
+                          estimate haplotypes
+
+                        - within each "block", each locus is separated by colons
+                          ( ``:`` )
+      :type locusKeys: str
+      :param numInitCond: number of initial conditions to use
+      :type numInitCond: int
+
+      .. rubric:: Example
+
+      ``*DQA1:*DPB1,*DRB1:*DQB1``, means to estimate haplotypes for
+      ``DQA1`` and ``DPB1`` loci followed by estimation of haplotypes for
+      ``DRB1`` and ``DQB1`` loci.
+
+
+
+   .. py:method:: estLinkageDisequilibrium(locusKeys=None, permutationPrintFlag=0, numInitCond=None, numPermutations=None, numPermuInitCond=None)
+
+      Estimate linkage disequilibrium (LD) for listed loci.
+
+      :param locusKeys: see :meth:`estHaplotypes`
+      :type locusKeys: str
+      :param permutationPrintFlag: print all permutations (default ``0``)
+      :type permutationPrintFlag: int
+      :param numInitCond: number of initial conditions (default ``None``)
+      :type numInitCond: int
+      :param numPermutations: number of permutations (default ``None``)
+      :type numPermutations: int
+      :param numPermuInitCond: number of initial conditions for
+                               each permutation (default ``None``)
+      :type numPermuInitCond: int
+
+      .. rubric:: Example
+
+      See :meth:`estHaplotypes` for an example that estimates LD
+
+
+
+   .. py:method:: allPairwise(permutationPrintFlag=0, numInitCond=None, numPermutations=None, numPermuInitCond=None, haploSuppressFlag=None, haplosToShow=None, mode=None)
+
+      Estimate pairwise statistics for a given set of loci.
+
+      Depending on the flags passed, this can be used to estimate
+      both LD (linkage disequilibrium) and HF (haplotype
+      frequencies), an optional permutation test on LD can be run.
+
+      :param permutationPrintFlag: sets whether the result from
+                                   permutation output run will be included in the output XML.
+                                   Default: ``0`` (disabled).
+      :type permutationPrintFlag: int
+      :param numInitCond: sets number of initial conditions before
+                          performing the permutation test. Default: ``None``.
+      :type numInitCond: int
+      :param numPermutations: sets number of permutations that will
+                              be performed. Default: ``None``.
+      :type numPermutations: int
+      :param numPermuInitCond: sets number of initial conditions
+                               tried per-permutation. Default: ``None``.
+      :type numPermuInitCond: int
+      :param haploSuppressFlag: sets whether haplotype information
+                                is generated in the output. Default: ``None``
+      :type haploSuppressFlag: int
+      :param haplosToShow: list of haplotypes to show in output
+      :type haplosToShow: list
+      :param mode: mode for haplotype output
+      :type mode: str
+
+
+
+.. py:class:: Haplostats(locusData, untypedAllele='****', stream=None, testMode=False)
+
+   Bases: :py:obj:`Haplo`
+
+   .. autoapi-inheritance-diagram:: PyPop.haplo.Haplostats
+      :parts: 1
+
+
+   Haplotype and LD estimation implemented via ``haplo.stats``.
+
+   This is a wrapper to a portion of the ``haplo.stats`` R package.
+
+   :param locusData: a StringMatrix
+   :type locusData: StringMatrix
+   :param untypedAllele: defaults to ``****``
+   :type untypedAllele: str
+   :param stream: output file
+   :type stream: TextOutputStream
+   :param testMode: default is ``False``
+   :type testMode: bool
+
+
+   .. py:method:: serializeStart()
+
+      Serialize start of XML output to currently defined XML stream.
+
+      .. seealso:: must be paired with a subsequent :meth:`Haplostats.serializeEnd`
+
+
+
+   .. py:method:: serializeEnd()
+
+      Serialize end of XML output to currently defined XML stream.
+
+      .. seealso:: must be paired with a previous :meth:`Haplostats.serializeStart`
+
+
+
+   .. py:method:: estHaplotypes(locusKeys=None, weight=None, control=None, numInitCond=10, testMode=False)
+
+      Estimate haplotypes for listed loci in ``locusKeys``.
+
+      If ``locusKeys`` is ``None``, assume entire matrix.  LD is
+      also estimated if there are ``locusKeys`` consisting of only
+      two loci.
+
+      .. warning:: FIXME: this does *not* yet remove missing data before haplotype estimations
+
+      :param locusKeys: see :meth:`Emhaplofreq.estHaplotypes` for format
+      :type locusKeys: str
+      :param weight: set weights (default ``None``, which sets all weights equal)
+      :type weight: list
+      :param control: a dictionary of control parameters
+      :type control: dict
+      :param numInitCond: number of initial conditions (default ``None``)
+      :type numInitCond: int
+      :param testMode: run in test mode default is ``False``
+      :type testMode: bool
+
+      :returns: multiple statistics
+      :rtype: tuple
+
+
+
+   .. py:method:: allPairwise(weight=None, control=None, numInitCond=10)
+
+      Estimate pairwise statistics for all pairs of loci.
+
+      :param weight: see :meth:`Haplostats.estHaplotypes`
+      :type weight: list
+      :param control: see :meth:`Haplostats.estHaplotypes`
+      :type control: dict
+      :param numInitCond: see :meth:`Haplostats.estHaplotypes`
+      :type numInitCond: int
+
+
+
+.. py:class:: HaploArlequin(arpFilename, idCol, prefixCols, suffixCols, windowSize, mapOrder=None, untypedAllele='0', arlequinPrefix='arl_run')
+
+   Bases: :py:obj:`Haplo`
+
+   .. autoapi-inheritance-diagram:: PyPop.haplo.HaploArlequin
+      :parts: 1
+
+
+   Performs haplotype estimation via Arlequin.
+
+   .. deprecated:: 1.0.0
+
+   Outputs Arlequin format data files and runtime info, also runs and
+   parses the resulting Arlequin data so it can be made available
+   programmatically to rest of Python framework.
+
+   Delegates all calls Arlequin to an internally instantiated
+   ArlequinBatch Python object called 'batch'.
+
+   :param arpFilename: Arlequin filename (must have ``.arp`` file
+                       extension)
+   :type arpFilename: str
+   :param idCol: column in input file that contains the individual ``id``.
+   :type idCol: str
+   :param prefixCols: number of columns to ignore before allele data
+                      starts
+   :type prefixCols: int
+   :param suffixCols: number of columns to ignore after allele data
+                      stops
+   :type suffixCols: int
+   :param windowSize: size of sliding window
+   :type windowSize: int
+   :param mapOrder: list order of columns if different to column order in file
+                    (defaults to order in file)
+   :type mapOrder: list
+   :param untypedAllele: (defaults to ``0``)
+   :type untypedAllele: str
+   :param arlequinPrefix: prefix for all Arlequin run-time files
+                          (defaults to ``arl_run``).
+   :type arlequinPrefix: str
+
+
+   .. py:method:: outputArlequin(data)
+
+      Outputs the specified ``.arp`` sample file.
+
+      :param data: list of strings containing the ``.arp`` sample file
+      :type data: list
+
+
+
+   .. py:method:: runArlequin()
+
+      Run the Arlequin haplotyping program.
+
+      Generates the expected ``.txt`` set-up files for Arlequin, then
+      forks a copy of ``arlecore.exe``, which must be on ``PATH`` to
+      actually generate the haplotype estimates from the generated
+      ``.arp`` file.
+
+
+
+   .. py:method:: genHaplotypes()
+
+      Parses Arlequin output to retrieve estimated haplotypes.
+
+      :returns: a list of the sliding ``windows`` which consists of tuples. Each tuple consists of:
+
+                - freqs (dict): dictionary entry (the haplotype-frequency) key-value pairs.
+                - popName (str): population name (original ``.arp`` file prefix)
+                - sampleCount (int): sample count (number of samples for that window)
+                - lociList (list): ordered list of loci considered
+      :rtype: list
+
+
+

@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DQA1_IndonesiaNusuTenaggarasandMoluccas.pop	DQA1	264	264	mid	IndonesiaNusuTenaggarasandMoluccas	Malay-Polynesian	06-OCE	INDONESIA	2	Some alleles separated by a slash (DQB1*0602/06111, 0603/0614, 0302   /0307 could not be distinguished. In all cases frequency is given for fi   rst allele.	5S	120E	1	1	SSOP		ANN BEGOVICH	2000	Begovich AB, et al. HLA-DQ haplotypes in 15 different populatio   ns. In: The Major Histocompatibility Complex: Evoluion, Structure and Fu   nction. Ed. M.Kasahara. Springer Verlag, pp412-426. Begovich AB. Tissue   Antigens 2001: 57: 424-439.				Ann.Begovich@celeradiagnostics.com		132	Not Known	ANTHROPOLOGY STUDY	DM
+DQA1	count
+0101	57
+0102	130
+0103	6
+0201	6
+03	14
+0501	28
+0601	23

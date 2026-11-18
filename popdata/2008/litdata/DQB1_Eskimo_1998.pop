@@ -1,0 +1,9 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Eskimo_1998.pop	DQB1	160	160	lit	Eskimo_1998	Siberian	09-NAM	New Chaplino, Sireniki, Provideniya Bay, Anadyr of the Chukotskiy Autonomous Region; southeast tip of Chukotka Peninsula and islands; Soremolo	1	Chukotka Peninsula mostly along coast of Bering Sea	66.00N	174.00W	1	1	PCR-SSCP	{GSO+98}	Grahovac	1998	Polymorphism of the HLA class II loci in Siberian populations	Human Genetics	102	27-43	colm@mpib.tuebingen.mpg.de		RU	O'hUigin	1301067	51	1	primer from 11th IHW. DQBAMP-A (sense) (Kimura and Sasazuki 1992), QB1P53 or QB1P23 (antisense) (Mitsunaga et al. 1995)	Y	Siberian/ Caucasian	Y	Y	N		F, HW, phylogenetic tree				YT
+DQB1	count
+0301	107
+0302	1
+03032	16
+0402	25
+0502	1
+05031	10

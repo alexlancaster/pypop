@@ -1,0 +1,26 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+B_Maonan_2007.pop	B	216	216	lit	Maonan_2007	Asian	05-SEA	China	2	108 unrelated healthy Maonan adults at Xianan village of Huangjiang Country in the Guangxi Province	24.98N	107.98E	1	1			Ogata	2007	Polymorphisms of human leucocyte antigen genes in Maonan people in China	Tissue Antigens	69	154-160																			ODS
+B	count
+1301	43
+1502	32
+4001	29
+4601	29
+3802	18
+5502	13
+5801	9
+2704	6
+3901	6
+4002	6
+5101	4
+5401	4
+5601	4
+1501	3
+1525	2
+0801	1
+1505	1
+2706	1
+3501	1
+3915	1
+4801	1
+5102	1
+5501	1

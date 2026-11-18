@@ -1,0 +1,24 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_Oromo_1998.pop	DRB1	166	166	lit	Oromo_1998	Middle Eastern	01-SSA	Samples were collected in the suburbs of Arella, a town in the Arssi province in the central part of Ethiopia	2	Ethiopean children between the ages of 4 and 12 with a mean age of 8.2 years whose parents and grandparents were of the same ethnic group; a multigenerational hybred of caucasian and african.	7.95N	39.13E	1	1	PCR-SSOP	{FdS+98}	Fort	1998	HLA class II allele and haplotype frequencies in Ethiopian Amhara and Oromo populations	Tissue Antigens	51	327-336			ET	Fort	1301172	22	1	12th IHW, Bignon et al. 1995	Y	African, Caucasian, Middle Eastern	Y	N	N	N	HWE, calculate homozygosity				JGG
+DRB1	count
+0102	9
+1501	5
+1503	15
+0301	18
+0401	4
+0403	5
+0404	5
+0405	9
+0406	3
+0408	1
+1101	3
+1102	1
+1201	1
+1301	4
+1302	28
+1303	5
+1401	1
+0701	36
+0804	7
+0808	2
+1001	4

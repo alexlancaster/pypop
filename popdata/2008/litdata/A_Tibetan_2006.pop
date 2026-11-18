@@ -1,0 +1,28 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_Tibetan_2006.pop	A	316	316	lit	Tibetan_2006	Asian	05-SEA	China	3	samples from a University in Beirut from people from all over the country	32N	90E	1	1			Chen	2006	Allelic distribution of HLA class I genes in the Tibetan ethnic population of China	International Journal of Immunogenetics	33	439-445																			ODS
+A	count
+24G1	86
+02G1	69
+110101/1121N	41
+020601	32
+310102	29
+2601/2624	15
+030101G1	8
+010101/0104N	7
+0207/0215N	5
+330301	5
+3201	3
+0308	2
+680102/6811N	2
+0204	1
+0211/0269	1
+0236	1
+0254	1
+0307	1
+2301/2307N	1
+240301/2433	1
+2407	1
+2408	1
+2420	1
+2603	1
+300101/300102	1
